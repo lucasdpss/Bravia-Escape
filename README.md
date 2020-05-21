@@ -1,4 +1,4 @@
-# The-Darkest-Maze
+# Bravia Escape
   Jogo de aventura envolvendo a solução de labirintos, escrito na linguagem java </br>
   Trabalho MC322 <br/>
   Nome do Grupo: Objetos Desorientados
