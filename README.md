@@ -17,3 +17,6 @@ aleatório, e muda para cada baú, e seus efeitos podem ser bons ou ruins.</p>
 
 # Vídeo do Projeto
 [![Vídeo de Apresentação](http://img.youtube.com/vi/I7GSFeWmWMA/0.jpg)](https://youtu.be/I7GSFeWmWMA)
+
+# Visão Geral - sem formalismos
+![Visao Geral](docs/esquematico_geral_bravia_escape.PNG)
