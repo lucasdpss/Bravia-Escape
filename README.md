@@ -20,3 +20,6 @@ aleatório, e muda para cada baú, e seus efeitos podem ser bons ou ruins.</p>
 
 # Visão Geral - sem formalismos
 ![Visao Geral](docs/esquematico_geral_bravia_escape.PNG)
+
+# Diagrama Geral de Componentes
+![Diagrama Geral](docs/DiagramaGeralComponentes.PNG)
