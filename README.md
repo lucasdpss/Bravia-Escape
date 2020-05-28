@@ -19,7 +19,7 @@ aleatório, e muda para cada baú, e seus efeitos podem ser bons ou ruins.</p>
 [![Vídeo de Apresentação](http://img.youtube.com/vi/I7GSFeWmWMA/0.jpg)](https://youtu.be/I7GSFeWmWMA)
 
 # Diagrama Geral de Componentes
-![Diagrama Geral]()
+![Diagrama Geral](docs/Componentes_Geral.PNG)
 
 # Componente `MapGenerator`
 ![MapGenerator Component](docs/map_generator_component.png)
