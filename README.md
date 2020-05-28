@@ -29,7 +29,7 @@ aleatório, e muda para cada baú, e seus efeitos podem ser bons ou ruins.</p>
 ## Interfaces
 Interfaces associadas a esse componente:
 
-![MapGenerator Interfaces](docs/Interfaces_MapGenerator.png)
+![MapGenerator Interfaces](docs/Interfaces_MapGenerator.PNG)
 
 Campo | Valor
 ----- | -----
@@ -82,12 +82,12 @@ Método | Objetivo
 
 
 # Componente `Map`
-![Map Component](docs/MapComponent.png)
+![Map Component](docs/MapComponent.PNG)
 
 ## Interfaces
 Interfaces associadas a esse componente:
 
-![Map Interfaces](docs/Interfaces_Map.png)
+![Map Interfaces](docs/Interfaces_Map.PNG)
 
 Campo | Valor
 ----- | -----
@@ -151,12 +151,12 @@ Método | Objetivo
 `void clearLights()` | Desilumina todas as células que não estão permanentemente iluminadas
 
 # Componente `Bravia`
-![Bravia Component](docs/Bravia_Component.png)
+![Bravia Component](docs/Bravia_Component.PNG)
 
 ## Interfaces
 Interfaces associadas a esse componente:
 
-![Bravia Interfaces](docs/Interfaces_Bravia.png)
+![Bravia Interfaces](docs/Interfaces_Bravia.PNG)
 
 Campo | Valor
 ----- | -----
@@ -216,12 +216,12 @@ Método | Objetivo
 
 
 # Componente `Enemy`
-![Enemy Component](docs/EnemyComponent.png)
+![Enemy Component](docs/EnemyComponent.PNG)
 
 ## Interfaces
 Interfaces associadas a esse componente:
 
-![Enemy Interfaces](docs/Interfaces_Enemy.png)
+![Enemy Interfaces](docs/Interfaces_Enemy.PNG)
 
 Campo | Valor
 ----- | -----
@@ -248,12 +248,12 @@ Método | Objetivo
 
 
 # Componente `Window`
-![Window Component](docs/WindowComponent.png)
+![Window Component](docs/WindowComponent.PNG)
 
 ## Classe
 Classe associada a esse componente:
 
-![Window Class](docs/Classe_Window.png)
+![Window Class](docs/Classe_Window.PNG)
 
 Campo | Valor
 ----- | -----
@@ -265,12 +265,12 @@ Interface | -
 
 
 # Componentes `Cell`
-![Enemy Component](docs/Cell_Component.png)
+![Enemy Component](docs/Cell_Component.PNG)
 
 ## Interfaces
 Interfaces associadas a esse componente:
 
-![Enemy Interfaces](docs/diagrama_interface_celulas.png)
+![Enemy Interfaces](docs/diagrama_interface_celulas.PNG)
 
 Campo | Valor
 ----- | -----
