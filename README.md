@@ -142,7 +142,7 @@ Método | Objetivo
 `int getIBravia()` | Retorna a coordenada i atual de Bravia
 `int getJBravia()` | Retorna a coordenada j atual de Bravia
 
-### Interface `IMapProperties`
+### Interface `ILight`
 Interface que provê acesso às propriedades de iluminação do mapa.
 
 Método | Objetivo
