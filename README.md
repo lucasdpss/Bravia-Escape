@@ -265,12 +265,12 @@ Interface | -
 
 
 # Componentes `Cell`
-![Enemy Component](docs/Cell_Component.PNG)
+![Cell Component](docs/Cell_Component.PNG)
 
 ## Interfaces
 Interfaces associadas a esse componente:
 
-![Enemy Interfaces](docs/diagrama_interface_celulas.PNG)
+![Cell Interfaces](docs/diagrama_interface_celulas.png)
 
 Campo | Valor
 ----- | -----
