@@ -17,6 +17,7 @@ aleatório, e muda para cada baú, e seus efeitos podem ser bons ou ruins.</p>
 
 # Vídeo do Projeto
 [![Vídeo de Apresentação](http://img.youtube.com/vi/I7GSFeWmWMA/0.jpg)](https://youtu.be/I7GSFeWmWMA)
+<p> Link para Apresentação https://docs.google.com/presentation/d/1SCRml4NGaG-R9hetl57H_yJrgA6-L83-OzihDUgYVMk/edit?usp=sharing </p>
 
 # Diagrama Geral de Componentes
 ![Diagrama Geral](docs/Componentes_Geral.PNG)
