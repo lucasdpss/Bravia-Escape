@@ -161,7 +161,7 @@ Interfaces associadas a esse componente:
 
 Campo | Valor
 ----- | -----
-Classe | main.Bravia
+Classe | bravia.Bravia
 Autores | Antonio Gabriel da Silva Fernandes </br> Lucas de Paula Soares
 Objetivo | Representar a personagem principal do jogo, Bravia
 Interface | IBravia
