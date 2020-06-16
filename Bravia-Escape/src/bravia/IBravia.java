@@ -1,5 +1,4 @@
 package bravia;
 
-public interface IBravia {
-
+public interface IBravia extends IController, IPocket, IBraviaProperties {
 }
