@@ -20,12 +20,12 @@ import javax.swing.JPanel;
 
 public class MenuInicial {
 	private JFrame frame;
-	private Image fundo;
+	private Image background;
 	private Clip clip;
 	
 	public MenuInicial() {
 		ImageIcon referencia = new ImageIcon("resources\\menu.png");
-		fundo = referencia.getImage();
+		background = referencia.getImage();
 	}
 	
 	public void show() {
@@ -36,7 +36,7 @@ public class MenuInicial {
         frame.setResizable(false);  
         frame.setLocationRelativeTo(null);
         
-        MeuPainelMenu painel = new MeuPainelMenu();
+        MenuPanel painel = new MenuPanel();
         painel.setLayout(null);
         frame.add(painel);
         
@@ -70,7 +70,7 @@ public class MenuInicial {
 
     }
 	
-	private class MeuPainelMenu extends JPanel{  //criado para sobrecarregar paintComponent() e colocar fundo
+	private class MenuPanel extends JPanel{  //criado para sobrecarregar paintComponent() e colocar fundo
 		private static final long serialVersionUID = 3L;
 
 		public void paintComponent(Graphics g) {
@@ -78,7 +78,7 @@ public class MenuInicial {
 	        setBackground(Color.lightGray); // set its background color
 	        
 	        Graphics2D graficos = (Graphics2D) g;
-			graficos.drawImage(fundo, 0, 0, null);
+			graficos.drawImage(background, 0, 0, null);
 			
 		}
 	}
