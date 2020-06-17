@@ -8,7 +8,6 @@ public class Main {
 		MenuInicial menu = new MenuInicial();
 		menu.show();
 		
-		new MapGenerator("resources//testmap.csv"); //testar a leitura do csv (o construtor printa na tela)
 	}
 
 }

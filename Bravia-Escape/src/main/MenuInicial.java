@@ -24,8 +24,8 @@ public class MenuInicial {
 	private Clip clip;
 	
 	public MenuInicial() {
-		ImageIcon referencia = new ImageIcon("resources\\menu.png");
-		background = referencia.getImage();
+		ImageIcon image = new ImageIcon("resources\\menu.png");
+		background = image.getImage();
 	}
 	
 	public void show() {
@@ -47,8 +47,9 @@ public class MenuInicial {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Inicio da fase 1");
-				//clip.stop(); //parar a musica
-				//frame.dispose(); //fechar o menu
+				clip.stop(); //parar a musica
+				frame.dispose(); //fechar o menu
+				new Window("resources//testmap.csv");
 			}
 		});
         
