@@ -32,17 +32,17 @@ public class MenuInicial {
 
         frame = new JFrame("Menu Bravia Escape");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 500); 
+        frame.setSize(1000, 500);
         frame.setResizable(false);  
         frame.setLocationRelativeTo(null);
         
-        MenuPanel painel = new MenuPanel();
-        painel.setLayout(null);
-        frame.add(painel);
+        MenuPanel panel = new MenuPanel();
+        panel.setLayout(null);
+        frame.add(panel);
         
-        JButton botao1 = new JButton("Jogar");
-        botao1.setBounds(420, 200, 100,70);
-        botao1.addActionListener(new ActionListener() {
+        JButton button1 = new JButton("Jogar");
+        button1.setBounds(420, 200, 100,70);
+        button1.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -53,17 +53,17 @@ public class MenuInicial {
 		});
         
         
-        JButton botao2 = new JButton("Sair");
-        botao2.setBounds(420, 200 + 80, 100,70);
-        botao2.addActionListener(new ActionListener() {
+        JButton button2 = new JButton("Sair");
+        button2.setBounds(420, 200 + 80, 100,70);
+        button2.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-        painel.add(botao1);
-        painel.add(botao2);
+        panel.add(button1);
+        panel.add(button2);
         
         frame.setVisible(true);
         playSound("sounds//MenuMusic.wav");
