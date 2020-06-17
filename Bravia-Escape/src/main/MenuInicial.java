@@ -50,6 +50,7 @@ public class MenuInicial {
 				clip.stop(); //parar a musica
 				frame.dispose(); //fechar o menu
 				new Window("resources//testmap.csv");
+				JOptionPane.showMessageDialog(null, "Use w, a, s, d ou setas para se mover. Use 1 e 2 para itens");
 			}
 		});
         

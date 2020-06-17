@@ -28,17 +28,20 @@ public class Window {
 	private Clip clip;
 	private Map map;
 	private Bravia bravia;
+	private int XOrigem, YOrigem; //usados para centralizar o grid na tela
 
 	public Window(String levelPath) {
 		ImageIcon image = new ImageIcon("resources\\fundo1.png");
 		background = image.getImage();
 
+		/*** Janela da aplicacao tera um tamanho fixo ***/
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1000, 500);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 
+		/*** Todos os elementos serao posicionados de forma absoluta ***/
 		panel = new PanelWindow();
 		panel.setLayout(null);
 		frame.add(panel);
@@ -46,6 +49,11 @@ public class Window {
 		MapGenerator mapGenerator = new MapGenerator(levelPath);
 		map = mapGenerator.generateMap();
 		bravia = new Bravia(map, map.getIBravia(), map.getJBravia());
+		
+		/*** Calcula a origem a partir do tamanho do mapa***/
+		//tratar excecoes aqui
+		YOrigem = (500 - map.getMapHeight()*30)/2 - 30;  //coordenada y um quadrado para cima fica mais confortavel de ver 
+		XOrigem = (1000 - map.getMapWidth()*30)/2;       //cada quadrado tem 30 pixels
 
 		frame.setVisible(true);
 		playSound("sounds//Fase1.wav");
@@ -68,9 +76,9 @@ public class Window {
 
 			g.setColor(Color.DARK_GRAY);
 
-			for(int i=0;i < 9;i++) {
-				for(int j=0;j < 9;j++) {
-					g.drawRect(30 + i*30, 30 + j*30, 30, 30);
+			for(int i=0;i < map.getMapHeight();i++) {
+				for(int j=0;j < map.getMapWidth();j++) {
+					g.drawRect(XOrigem + i*30, YOrigem + j*30, 30, 30);
 				}
 			}
 
