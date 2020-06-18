@@ -6,14 +6,9 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -25,7 +20,7 @@ public class Window {
 	private JFrame frame;
 	private PanelWindow panel;
 	private Image background;
-	private Clip clip;
+	private Sound backgroundSound;
 	private Map map;
 	private Bravia bravia;
 	private int XOrigem, YOrigem; //usados para centralizar o grid na tela
@@ -33,6 +28,7 @@ public class Window {
 	public Window(String levelPath) {
 		ImageIcon image = new ImageIcon("resources\\fundo1.png");
 		background = image.getImage();
+		backgroundSound = new Sound("sounds//Fase1.wav");
 
 		/*** Janela da aplicacao tera um tamanho fixo ***/
 		frame = new JFrame();
@@ -56,7 +52,7 @@ public class Window {
 		XOrigem = (1000 - map.getMapWidth()*30)/2;       //cada quadrado tem 30 pixels
 
 		frame.setVisible(true);
-		playSound("sounds//Fase1.wav");
+		backgroundSound.playContinuouly();
 	}
 
 	/*** Classe da Panel usada em toda a extensao da janela ***/
@@ -112,28 +108,6 @@ public class Window {
 
 			SwingUtilities.updateComponentTreeUI(frame);
 			panel.repaint();
-		}
-	}
- 
-	
-	public void playSound(String musicLocation) {
-
-		try {
-			File musicPath = new File(musicLocation);
-
-			if(musicPath.exists()) {
-
-				AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
-				clip = AudioSystem.getClip();
-				clip.open(audioInput);
-				clip.start();
-				clip.loop(Clip.LOOP_CONTINUOUSLY);
-
-			}else {
-				System.out.println("nao achou arquivo de audio");
-			}
-		}catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "erro no playsound");
 		}
 	}
 }

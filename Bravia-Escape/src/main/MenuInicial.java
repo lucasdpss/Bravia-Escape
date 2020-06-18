@@ -6,11 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,10 +17,11 @@ import javax.swing.JPanel;
 public class MenuInicial {
 	private JFrame frame;
 	private Image background;
-	private Clip clip;
+	private Sound backgroundSound;
 	
 	public MenuInicial() {
 		ImageIcon image = new ImageIcon("resources\\menu.png");
+		backgroundSound = new Sound("sounds//MenuMusic.wav");
 		background = image.getImage();
 	}
 	
@@ -47,7 +44,7 @@ public class MenuInicial {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Inicio da fase 1");
-				clip.stop(); //parar a musica
+				backgroundSound.stop();
 				frame.dispose(); //fechar o menu
 				new Window("resources//testmap.csv");
 				JOptionPane.showMessageDialog(null, "Use w, a, s, d ou setas para se mover. Use 1 e 2 para itens");
@@ -68,7 +65,7 @@ public class MenuInicial {
         panel.add(button2);
         
         frame.setVisible(true);
-        playSound("sounds//MenuMusic.wav");
+        backgroundSound.playContinuouly();
 
     }
 	
@@ -82,27 +79,6 @@ public class MenuInicial {
 	        Graphics2D graficos = (Graphics2D) g;
 			graficos.drawImage(background, 0, 0, null);
 			
-		}
-	}
-	
-	public void playSound(String musicLocation) {
-		
-	    try {
-			File musicPath = new File(musicLocation);
-			
-			if(musicPath.exists()) {
-				
-				AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
-				clip = AudioSystem.getClip();
-				clip.open(audioInput);
-				clip.start();
-				clip.loop(Clip.LOOP_CONTINUOUSLY);
-				
-			}else {
-				System.out.println("nao achou arquivo de audio");
-			}
-	    }catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "erro no playsound");
 		}
 	}
 }
