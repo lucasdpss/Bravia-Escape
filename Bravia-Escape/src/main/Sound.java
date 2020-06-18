@@ -15,7 +15,7 @@ public class Sound {
 		this.musicLocation = musicLocation;
 	}
 	
-	public void playContinuouly() {
+	public void playContinuously() {
 		try {
 			File musicPath = new File(musicLocation);
 
@@ -28,10 +28,10 @@ public class Sound {
 				clip.loop(Clip.LOOP_CONTINUOUSLY);
 
 			}else {
-				System.out.println("nao achou arquivo de audio");
+				System.out.println("Nao encontrou arquivo de audio");
 			}
 		}catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "erro no playsound");
+			JOptionPane.showMessageDialog(null, "Erro no playsound");
 		}
 	}
 	

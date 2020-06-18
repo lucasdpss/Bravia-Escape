@@ -52,7 +52,7 @@ public class Window {
 		XOrigem = (1000 - map.getMapWidth()*30)/2;       //cada quadrado tem 30 pixels
 
 		frame.setVisible(true);
-		backgroundSound.playContinuouly();
+		backgroundSound.playContinuously();
 	}
 
 	/*** Classe da Panel usada em toda a extensao da janela ***/
