@@ -48,7 +48,7 @@ public class Window {
 		
 		MapGenerator mapGenerator = new MapGenerator(levelPath);
 		map = mapGenerator.generateMap();
-		bravia = new Bravia(map, map.getIBravia(), map.getJBravia());
+		bravia = map.getBravia();
 		
 		/*** Calcula a origem a partir do tamanho do mapa***/
 		//tratar excecoes aqui
@@ -57,6 +57,7 @@ public class Window {
 
 		frame.setVisible(true);
 		backgroundSound.playContinuously();
+		
 	}
 
 	/*** Classe da Panel usada em toda a extensao da janela ***/
@@ -76,15 +77,18 @@ public class Window {
 			Graphics2D g2 = (Graphics2D) g;
 			g2.drawImage(backgroundImage, 0, 0, this);
 			
-			Cell[][] mapCell = map.getMapCell();
+			Cell[][] mapCell = map.getMapCells();
 			Enemy[][] mapEnemy = map.getMapEnemy();
+			
+			map.clearLights();
+			map.illuminate(bravia.getRange(), bravia.getIPos(), bravia.getJPos());
 
 			for(int i=0;i < map.getMapHeight();i++) {
 				for(int j=0;j < map.getMapWidth();j++) {
 					Cell cell = mapCell[i][j];
 					Enemy enemy = mapEnemy[i][j];
 					
-					if(!cell.isPermanentlyLit() || !cell.isLit()) {                          //inverter!! usado apenas para teste
+					if(cell.isPermanentlyLit() || cell.isLit()) {                      
 						g2.drawImage(cell.getImage(), XOrigem + j*32, YOrigem + i*32, this);
 					}else {
 						g.fillRect(XOrigem + j*32, YOrigem + i*32,32,32);         //colocar imagem da sombra
@@ -107,16 +111,16 @@ public class Window {
 		@Override
 		public void keyPressed(KeyEvent e) {
 			if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
-				System.out.println("li up");
+				bravia.move('U');
 
 			}else if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
-				System.out.println("li right");
+				bravia.move('R');
 
 			}else if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
-				System.out.println("li left");
+				bravia.move('L');
 
 			}else if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
-				System.out.println("li down");
+				bravia.move('D');
 
 			}else if(e.getKeyCode() == KeyEvent.VK_1) {
 				System.out.println("li 1");

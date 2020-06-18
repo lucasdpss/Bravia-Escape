@@ -2,13 +2,15 @@ package cells;
 
 import java.awt.Toolkit;
 
-import bravia.IPocket;
+import bravia.Bravia;
 
 public class Key extends Cell {
 	private Color color;
 	private boolean withKey; //determina se a chave ainda está lá ou já foi apanhada
 	
-	public Key(Color color){
+	public Key(int iPos, int jPos,Color color){
+		this.iPos = iPos;
+		this.jPos = jPos;
 		lit = false;
 		permanentlyLit = false;
 		walkable = true;
@@ -32,7 +34,7 @@ public class Key extends Cell {
 		}
 	}
 	
-	public void activate(IPocket pocket) {
+	public void activate(Bravia pocket) {
 		if(withKey) {
 			pocket.addKey(color);
 			image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\tiles\\floor_tile.png");

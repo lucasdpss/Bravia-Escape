@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import bravia.Bravia;
 import cells.*;
 import enemy.Enemy;
 
@@ -12,7 +13,7 @@ public class MapGenerator implements IMapGenerator{
 	private int mapHeight, mapWidth;
 	private int IEntrance, JEntrance;
 	private Map mapGenerated;
-	private Cell[][] mapCell;
+	private Cell[][] mapCells;
 	private Enemy[][] mapEnemy;
 	private String level[][];
 
@@ -45,7 +46,7 @@ public class MapGenerator implements IMapGenerator{
 			
 			/*** criar matriz mapa vazia ***/
 			level = new String[this.mapHeight][this.mapWidth];
-			mapCell = new Cell[this.mapHeight][this.mapWidth];
+			mapCells = new Cell[this.mapHeight][this.mapWidth];
 			mapEnemy = new Enemy[this.mapHeight][this.mapWidth];
 			
 			/*** preencher matriz mapa ***/
@@ -57,7 +58,7 @@ public class MapGenerator implements IMapGenerator{
 					if(lineSplit[i] == "En") {
 						mapEnemy[i][j] = new Enemy(mapGenerated,i,j);
 					}else {
-						mapCell[i][j] = cellObject(lineSplit[j]);
+						mapCells[i][j] = cellObject(lineSplit[j], i, j);
 					}
 				}
 			}
@@ -70,12 +71,11 @@ public class MapGenerator implements IMapGenerator{
 	
 	/*** metodo para passar as informacoes coletadas para o mapGenerated ***/
 	private void loadMap() {
-		mapGenerated.setMapCell(mapCell);
+		mapGenerated.setMapCell(mapCells);
 		mapGenerated.setMapEnemy(mapEnemy);
 		mapGenerated.setMapHeight(mapHeight);
 		mapGenerated.setMapWidth(mapWidth);
-		mapGenerated.setIBravia(IEntrance);
-		mapGenerated.setJBravia(JEntrance);
+		mapGenerated.setBravia(new Bravia(mapGenerated, IEntrance, JEntrance));
 	}
 	
 	/*** metodo para devolver o mapa criado ***/
@@ -84,23 +84,23 @@ public class MapGenerator implements IMapGenerator{
 	}
 	
 	/*** metodo para retornar o objeto cell certo de acordo com a identificacao ***/
-	private Cell cellObject(String id) {
+	private Cell cellObject(String id, int iPos, int jPos) {
 		char first = id.charAt(0);
 		switch (first) {
 		case '-':  //piso
-			return new Floor();
+			return new Floor(iPos,jPos);
 		case 'W':  //Wall
-			return new Wall();
+			return new Wall(iPos,jPos);
 		case 'G':  //Gate
-			return new Gate(Color.getColor(id.charAt(1) - '0'));
+			return new Gate(iPos,jPos,Color.getColor(id.charAt(1) - '0'));
 		case 'B':  //Bonfire
-			return new Bonfire();
+			return new Bonfire(iPos,jPos);
 		case 'K':  //Key
-			return new Key(Color.getColor(id.charAt(1) - '0'));
+			return new Key(iPos,jPos,Color.getColor(id.charAt(1) - '0'));
 		case 'C':  //Key
-			return new Chest();
+			return new Chest(iPos, jPos);
 		case 'E':  //Exit
-			return new Exit();
+			return new Exit(iPos, jPos);
 		default:
 			return null;
 		}

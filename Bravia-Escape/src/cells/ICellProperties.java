@@ -2,7 +2,7 @@ package cells;
 
 import java.awt.Image;
 
-import bravia.IPocket;
+import bravia.Bravia;
 
 public interface ICellProperties {
 	boolean isWalkable();
@@ -13,5 +13,7 @@ public interface ICellProperties {
 	void setLit(boolean lit);
 	String getCellType();
 	public Image getImage();
-	void activate(IPocket pocket);
+	void activate(Bravia bravia);
+	int getIPos();
+	int getJPos();
 }

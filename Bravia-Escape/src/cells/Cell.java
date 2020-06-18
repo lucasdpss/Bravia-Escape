@@ -2,7 +2,7 @@ package cells;
 
 import java.awt.Image;
 
-import bravia.IPocket;
+import bravia.Bravia;
 
 public abstract class Cell implements ICellProperties {
 	protected boolean lit;
@@ -10,6 +10,7 @@ public abstract class Cell implements ICellProperties {
 	protected boolean walkable;
 	protected String cellType;
 	protected Image image;
+	protected int iPos, jPos;
 	
 	public boolean isWalkable() {
 		return walkable;
@@ -43,7 +44,15 @@ public abstract class Cell implements ICellProperties {
 		return image;
 	}
 	
-	public void activate(IPocket pocket) {
+	public int getIPos() {
+		return iPos;
+	}
+	
+	public int getJPos() {
+		return jPos;
+	}
+	
+	public void activate(Bravia bravia) {
 		
 	}
 }

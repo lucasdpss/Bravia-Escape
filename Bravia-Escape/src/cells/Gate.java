@@ -2,13 +2,15 @@ package cells;
 
 import java.awt.Toolkit;
 
-import bravia.IPocket;
+import bravia.Bravia;
 
 public class Gate extends Cell {
 	private Color color;
 	private boolean open;
 	
-	public Gate(Color color){
+	public Gate(int iPos, int jPos,Color color){
+		this.iPos = iPos;
+		this.jPos = jPos;
 		lit = false;
 		permanentlyLit = false;
 		walkable = false;
@@ -33,7 +35,7 @@ public class Gate extends Cell {
 		
 	}
 	
-	public void activate(IPocket pocket) {
+	public void activate(Bravia pocket) {
 		if(!open) {
 			if(pocket.hasKey(color)) {
 				open = true;

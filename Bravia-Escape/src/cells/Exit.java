@@ -3,7 +3,9 @@ package cells;
 import java.awt.Toolkit;
 
 public class Exit extends Cell {
-	public Exit(){
+	public Exit(int iPos, int jPos){
+		this.iPos = iPos;
+		this.jPos = jPos;
 		lit = false;
 		permanentlyLit = false;
 		walkable = true;

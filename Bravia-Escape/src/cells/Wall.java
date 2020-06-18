@@ -3,7 +3,9 @@ package cells;
 import java.awt.Toolkit;
 
 public class Wall extends Cell {
-	public Wall(){
+	public Wall(int iPos, int jPos){
+		this.iPos = iPos;
+		this.jPos = jPos;
 		lit = false;
 		permanentlyLit = false;
 		walkable = false;

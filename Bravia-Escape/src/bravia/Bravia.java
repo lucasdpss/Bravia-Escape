@@ -3,9 +3,10 @@ package bravia;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+import cells.Cell;
 import cells.Color;
 import items.Item;
-import map.IMapProperties;
+import map.Map;
 
 public class Bravia implements IBravia {
 	private int iPos, jPos;
@@ -14,10 +15,10 @@ public class Bravia implements IBravia {
 	private int torchRange;
 	Item[] inventory;
 	boolean[] keyInventory;
-	IMapProperties map;
+	private Map map;
 	private Image image;
 	
-	public Bravia(IMapProperties map, int iPos, int jPos) {
+	public Bravia(Map map, int iPos, int jPos) {
 		this.map = map;
 		this.iPos = iPos;
 		this.jPos = jPos;
@@ -29,9 +30,46 @@ public class Bravia implements IBravia {
 		keyInventory = new boolean[Color.getColorAmount()];
 	}
 	
-	//Falta implementar:
+	//Falta implementar o que acontece quando ha monstro
 	public void move(char direction) {
+		Cell[][] mapCells = map.getMapCells();
 		
+		switch (direction) {
+		case 'U':
+			if(iPos - 1 >= 0) {
+				mapCells[iPos-1][jPos].activate(this);
+				if(mapCells[iPos-1][jPos].isWalkable())
+					iPos--;
+			}
+			break;
+			
+		case 'R':
+			if(jPos + 1 < map.getMapWidth()) {
+				mapCells[iPos][jPos+1].activate(this);
+				if(mapCells[iPos][jPos+1].isWalkable())
+					jPos++;
+			}
+			break;
+			
+		case 'D':
+			if(iPos + 1 < map.getMapHeight()) {
+				mapCells[iPos+1][jPos].activate(this);
+				if(mapCells[iPos+1][jPos].isWalkable())
+					iPos++;
+			}
+			break;
+			
+		case 'L':
+			if(jPos - 1 >= 0) {
+				mapCells[iPos][jPos-1].activate(this);
+				if(mapCells[iPos][jPos-1].isWalkable())
+					jPos--;
+			}
+			break;
+
+		default:
+			break;
+		}
 	}
 	
 	//Falta implementar:
@@ -68,7 +106,13 @@ public class Bravia implements IBravia {
 	public int getJPos() {
 		return jPos;
 	}
+	public int getRange() {
+		return torchRange;
+	}
 	public Image getImage() {
 		return image;
+	}
+	public Map getMap() {
+		return map;
 	}
 }
