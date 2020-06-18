@@ -2,6 +2,8 @@ package cells;
 
 import java.awt.Image;
 
+import bravia.IPocket;
+
 public abstract class Cell implements ICellProperties {
 	protected boolean lit;
 	protected boolean permanentlyLit;
@@ -41,7 +43,7 @@ public abstract class Cell implements ICellProperties {
 		return image;
 	}
 	
-	public void activate() {
+	public void activate(IPocket pocket) {
 		
 	}
 }

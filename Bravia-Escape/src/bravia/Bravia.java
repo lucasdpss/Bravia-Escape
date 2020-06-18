@@ -3,6 +3,7 @@ package bravia;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+import cells.Color;
 import items.Item;
 import map.IMapProperties;
 
@@ -25,7 +26,7 @@ public class Bravia implements IBravia {
 		strengthCounter = 0;
 		torchRange = 2;
 		inventory = new Item[2];
-		keyInventory = new boolean[5];
+		keyInventory = new boolean[Color.getColorAmount()];
 	}
 	
 	//Falta implementar:
@@ -46,6 +47,14 @@ public class Bravia implements IBravia {
 	//Falta implementar:
 	public Item getItem(int slot) {
 		return null;
+	}
+	
+	public void addKey(Color color) {
+		keyInventory[color.index] = true;
+	}
+	
+	public boolean hasKey(Color color) {
+		return keyInventory[color.index];
 	}
 	
 	public boolean isInvisible() {

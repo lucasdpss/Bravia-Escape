@@ -92,11 +92,11 @@ public class MapGenerator implements IMapGenerator{
 		case 'W':  //Wall
 			return new Wall();
 		case 'G':  //Gate
-			return new Gate(id.charAt(1) - '0');
+			return new Gate(Color.getColor(id.charAt(1) - '0'));
 		case 'B':  //Bonfire
 			return new Bonfire();
 		case 'K':  //Key
-			return new Key(id.charAt(1) - '0');
+			return new Key(Color.getColor(id.charAt(1) - '0'));
 		case 'C':  //Key
 			return new Chest();
 		case 'E':  //Exit

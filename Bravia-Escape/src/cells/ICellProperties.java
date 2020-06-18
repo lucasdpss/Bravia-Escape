@@ -1,5 +1,9 @@
 package cells;
 
+import java.awt.Image;
+
+import bravia.IPocket;
+
 public interface ICellProperties {
 	boolean isWalkable();
 	boolean isPermanentlyLit();
@@ -8,5 +12,6 @@ public interface ICellProperties {
 	void setPermanentlyLit(boolean permanentlyLit);
 	void setLit(boolean lit);
 	String getCellType();
-	void activate();
+	public Image getImage();
+	void activate(IPocket pocket);
 }
