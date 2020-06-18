@@ -4,30 +4,34 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import bravia.Bravia;
-import map.*;
+import cells.Cell;
+import enemy.Enemy;
+import map.Map;
+import map.MapGenerator;
 
 
 public class Window {
 	private JFrame frame;
 	private PanelWindow panel;
-	private Image background;
+	private Image backgroundImage;
+	private Image shadow;
 	private Sound backgroundSound;
 	private Map map;
 	private Bravia bravia;
 	private int XOrigem, YOrigem; //usados para centralizar o grid na tela
 
 	public Window(String levelPath) {
-		ImageIcon image = new ImageIcon("resources\\graphics\\fundo1.png");
-		background = image.getImage();
+		backgroundImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\fundo1.png");
+		shadow = null; //colocar imagem da sombra
 		backgroundSound = new Sound("resources\\sounds\\Fase1.wav");
 
 		/*** Janela da aplicacao tera um tamanho fixo ***/
@@ -48,8 +52,8 @@ public class Window {
 		
 		/*** Calcula a origem a partir do tamanho do mapa***/
 		//tratar excecoes aqui
-		YOrigem = (500 - map.getMapHeight()*30)/2 - 30;  //coordenada y um quadrado para cima fica mais confortavel de ver 
-		XOrigem = (1000 - map.getMapWidth()*30)/2;       //cada quadrado tem 30 pixels
+		YOrigem = (500 - map.getMapHeight()*32)/2 - 32;  //coordenada y um quadrado para cima fica mais confortavel de ver 
+		XOrigem = (1000 - map.getMapWidth()*32)/2;       //cada quadrado tem 32 pixels
 
 		frame.setVisible(true);
 		backgroundSound.playContinuously();
@@ -64,19 +68,35 @@ public class Window {
 			setDoubleBuffered(true);
 			addKeyListener(new UserAdapter());
 		}
-
+		
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g); 
+			g.setColor(Color.BLACK);
+			
 			Graphics2D g2 = (Graphics2D) g;
-			g2.drawImage(background, 0, 0, this);
-
-			g.setColor(Color.DARK_GRAY);
+			g2.drawImage(backgroundImage, 0, 0, this);
+			
+			Cell[][] mapCell = map.getMapCell();
+			Enemy[][] mapEnemy = map.getMapEnemy();
 
 			for(int i=0;i < map.getMapHeight();i++) {
 				for(int j=0;j < map.getMapWidth();j++) {
-					g.drawRect(XOrigem + i*30, YOrigem + j*30, 30, 30);
+					Cell cell = mapCell[i][j];
+					Enemy enemy = mapEnemy[i][j];
+					
+					if(!cell.isPermanentlyLit() || !cell.isLit()) {                          //inverter!! usado apenas para teste
+						g2.drawImage(cell.getImage(), XOrigem + j*32, YOrigem + i*32, this);
+					}else {
+						g.fillRect(XOrigem + j*32, YOrigem + i*32,32,32);         //colocar imagem da sombra
+					}
+					
+					if(enemy != null && enemy.isLit()) {
+						g2.drawImage(enemy.getImage(), XOrigem + j*32, YOrigem + i*32, this);
+					}
 				}
 			}
+			
+			g2.drawImage(bravia.getImage(),XOrigem+bravia.getJPos()*32,YOrigem+bravia.getIPos()*32,this);
 
 		}
 	}

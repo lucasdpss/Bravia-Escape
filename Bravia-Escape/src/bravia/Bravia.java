@@ -1,5 +1,8 @@
 package bravia;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+
 import items.Item;
 import map.IMapProperties;
 
@@ -11,11 +14,13 @@ public class Bravia implements IBravia {
 	Item[] inventory;
 	boolean[] keyInventory;
 	IMapProperties map;
+	private Image image;
 	
 	public Bravia(IMapProperties map, int iPos, int jPos) {
 		this.map = map;
 		this.iPos = iPos;
 		this.jPos = jPos;
+		this.image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\bravia_front.gif");
 		invisibleCounter = 0;
 		strengthCounter = 0;
 		torchRange = 2;
@@ -53,5 +58,8 @@ public class Bravia implements IBravia {
 	
 	public int getJPos() {
 		return jPos;
+	}
+	public Image getImage() {
+		return image;
 	}
 }

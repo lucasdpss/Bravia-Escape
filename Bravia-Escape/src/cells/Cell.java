@@ -1,10 +1,13 @@
 package cells;
 
+import java.awt.Image;
+
 public abstract class Cell implements ICellProperties {
 	protected boolean lit;
 	protected boolean permanentlyLit;
 	protected boolean walkable;
 	protected String cellType;
+	protected Image image;
 	
 	public boolean isWalkable() {
 		return walkable;
@@ -32,6 +35,10 @@ public abstract class Cell implements ICellProperties {
 	
 	public String getCellType() {
 		return cellType;
+	}
+	
+	public Image getImage() {
+		return image;
 	}
 	
 	public void activate() {

@@ -87,8 +87,8 @@ public class MapGenerator implements IMapGenerator{
 	private Cell cellObject(String id) {
 		char first = id.charAt(0);
 		switch (first) {
-		case '-':  //nada
-			return null;
+		case '-':  //piso
+			return new Floor();
 		case 'W':  //Wall
 			return new Wall();
 		case 'G':  //Gate

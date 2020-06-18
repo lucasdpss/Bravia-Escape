@@ -1,13 +1,12 @@
 package main;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,13 +14,12 @@ import javax.swing.JPanel;
 
 public class MenuInicial {
 	private JFrame frame;
-	private Image background;
+	private Image backgroundImage;
 	private Sound backgroundSound;
 
 	public MenuInicial() {
-		ImageIcon image = new ImageIcon("resources\\graphics\\menu.png");
+		backgroundImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\menu.png");
 		backgroundSound = new Sound("resources\\sounds\\MenuMusic.wav");
-		background = image.getImage();
 	}
 
 	public void show() {
@@ -46,7 +44,7 @@ public class MenuInicial {
 				backgroundSound.stop();
 				frame.dispose(); // fechar o menu
 				new Window("resources//stages//testmap.csv");
-				JOptionPane.showMessageDialog(null, "Use w, a, s, d ou setas para se mover. Use 1 e 2 para itens");
+				//JOptionPane.showMessageDialog(null, "Use w, a, s, d ou setas para se mover. Use 1 e 2 para itens");
 			}
 		});
 
@@ -68,14 +66,13 @@ public class MenuInicial {
 	}
 
 	private class MenuPanel extends JPanel { // criado para sobrecarregar paintComponent() e colocar fundo
-		private static final long serialVersionUID = 3L;
+		private static final long serialVersionUID = 1715984377894766740L;
 
 		public void paintComponent(Graphics g) {
-			super.paintComponent(g); // fill background
-			setBackground(Color.lightGray); // set its background color
+			super.paintComponent(g);
 
 			Graphics2D graficos = (Graphics2D) g;
-			graficos.drawImage(background, 0, 0, null);
+			graficos.drawImage(backgroundImage, 0, 0, this);
 
 		}
 	}
