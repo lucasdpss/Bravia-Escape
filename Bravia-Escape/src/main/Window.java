@@ -26,9 +26,9 @@ public class Window {
 	private int XOrigem, YOrigem; //usados para centralizar o grid na tela
 
 	public Window(String levelPath) {
-		ImageIcon image = new ImageIcon("resources\\fundo1.png");
+		ImageIcon image = new ImageIcon("resources\\graphics\\fundo1.png");
 		background = image.getImage();
-		backgroundSound = new Sound("sounds//Fase1.wav");
+		backgroundSound = new Sound("resources\\sounds\\Fase1.wav");
 
 		/*** Janela da aplicacao tera um tamanho fixo ***/
 		frame = new JFrame();
