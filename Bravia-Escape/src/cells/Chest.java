@@ -8,6 +8,6 @@ public class Chest extends Cell {
 		permanentlyLit = false;
 		walkable = true;
 		cellType = "Ch";
-		image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\tiles\\chest_closed.png");
+		image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\tiles\\chest-closed.png");
 	}
 }

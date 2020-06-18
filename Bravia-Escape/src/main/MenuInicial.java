@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class MenuInicial {
@@ -43,7 +42,7 @@ public class MenuInicial {
 				System.out.println("Inicio da fase 1");
 				backgroundSound.stop();
 				frame.dispose(); // fechar o menu
-				new Window("resources//stages//testmap.csv");
+				new Window("resources//stages//testmap2.csv");
 				//JOptionPane.showMessageDialog(null, "Use w, a, s, d ou setas para se mover. Use 1 e 2 para itens");
 			}
 		});

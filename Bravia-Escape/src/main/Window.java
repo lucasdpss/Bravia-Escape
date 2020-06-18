@@ -52,7 +52,7 @@ public class Window {
 		
 		/*** Calcula a origem a partir do tamanho do mapa***/
 		//tratar excecoes aqui
-		YOrigem = (500 - map.getMapHeight()*32)/2 - 32;  //coordenada y um quadrado para cima fica mais confortavel de ver 
+		YOrigem = (500 - map.getMapHeight()*32)/2 - 10;
 		XOrigem = (1000 - map.getMapWidth()*32)/2;       //cada quadrado tem 32 pixels
 
 		frame.setVisible(true);
