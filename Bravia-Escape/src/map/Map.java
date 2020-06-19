@@ -21,6 +21,7 @@ public class Map implements IMap{
 				for(int i = iSource-(range-1); i <= iSource+(range-1); i++) {
 					if(i >= 0 && i < mapHeight && j >= 0 && j < mapWidth) {
 						mapCell[i][j].setLit(true);
+						
 					}
 				}
 			}else {

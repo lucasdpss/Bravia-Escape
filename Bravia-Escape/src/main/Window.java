@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -23,20 +22,20 @@ public class Window {
 	private JFrame frame;
 	private PanelWindow panel;
 	private Image backgroundImage;
-	private Image shadow;
+	private Image shadowImage;
 	private Sound backgroundSound;
 	private Map map;
 	private Bravia bravia;
 	private int XOrigem, YOrigem; //usados para centralizar o grid na tela
-	private Image inventoryKeys;
-	private Image inventoryItems;
+	private Image inventoryKeysImage;
+	private Image inventoryItemsImage;
 
 	public Window(String levelPath) {
 		backgroundImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\fundo1.png");
-		shadow = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\shadow.gif"); //colocar imagem da sombra
+		shadowImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\shadow.gif"); //colocar imagem da sombra
 		backgroundSound = new Sound("resources\\sounds\\Fase1.wav");
-		inventoryKeys = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\keys_pocket.png");
-		inventoryItems = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\items_pocket.png");
+		inventoryKeysImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\keys_pocket.png");
+		inventoryItemsImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\items_pocket.png");
 
 		/*** Janela da aplicacao tera um tamanho fixo ***/
 		frame = new JFrame();
@@ -76,10 +75,9 @@ public class Window {
 		
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g); 
-			g.setColor(Color.BLACK);
 			
-			Graphics2D g2 = (Graphics2D) g;
-			g2.drawImage(backgroundImage, 0, 0, this);
+			Graphics2D g2d = (Graphics2D) g;
+			g2d.drawImage(backgroundImage, 0, 0, this);
 			
 			Cell[][] mapCell = map.getMapCells();
 			Enemy[][] mapEnemy = map.getMapEnemy();
@@ -93,25 +91,25 @@ public class Window {
 					Enemy enemy = mapEnemy[i][j];
 					
 					if(cell.isPermanentlyLit() || cell.isLit()) {                      
-						g2.drawImage(cell.getImage(), XOrigem + j*32, YOrigem + i*32, this);
+						g2d.drawImage(cell.getImage(), XOrigem + j*32, YOrigem + i*32, this);
 					}else {
-						g2.drawImage(shadow, XOrigem + j*32, YOrigem + i*32, this);
+						g2d.drawImage(shadowImage, XOrigem + j*32, YOrigem + i*32, this);
 						//g.fillRect(XOrigem + j*32, YOrigem + i*32,32,32);       //quadrado escuro
 					}
 					
 					if(enemy != null && enemy.isLit()) {
-						g2.drawImage(enemy.getImage(), XOrigem + j*32, YOrigem + i*32, this);
+						g2d.drawImage(enemy.getImage(), XOrigem + j*32, YOrigem + i*32, this);
 					}
 				}
 			}
 			
-			g2.drawImage(inventoryKeys,XOrigem + map.getMapWidth()*32 + 64,YOrigem,this);
+			g2d.drawImage(inventoryKeysImage,XOrigem + map.getMapWidth()*32 + 64,YOrigem,this);
 			//Falta printar as chaves
 			
-			g2.drawImage(inventoryItems,XOrigem + map.getMapWidth()*32 + 64,YOrigem + 96,this);
+			g2d.drawImage(inventoryItemsImage,XOrigem + map.getMapWidth()*32 + 64,YOrigem + 96,this);
 			//falta printar os itens
 			
-			g2.drawImage(bravia.getImage(),XOrigem+bravia.getJPos()*32,YOrigem+bravia.getIPos()*32,this);
+			g2d.drawImage(bravia.getImage(),XOrigem+bravia.getJPos()*32,YOrigem+bravia.getIPos()*32,this);
 
 		}
 	}

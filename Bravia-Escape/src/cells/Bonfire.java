@@ -3,12 +3,13 @@ package cells;
 import java.awt.Toolkit;
 
 import bravia.Bravia;
+import map.Map;
 
 public class Bonfire extends Cell {
 	private boolean isLighted;
 	private int fireRange;
 	
-	public Bonfire(int iPos, int jPos){
+	public Bonfire(int iPos, int jPos, Map map){
 		this.iPos = iPos;
 		this.jPos = jPos;
 		lit = false;

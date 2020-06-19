@@ -15,14 +15,11 @@ public class MapGenerator implements IMapGenerator{
 	private Map mapGenerated;
 	private Cell[][] mapCells;
 	private Enemy[][] mapEnemy;
-	private String level[][];
+	private String mapText[][];
 
 	public MapGenerator(String levelPath){
 		setMapSource(levelPath);
 		mapGenerated = new Map();
-		buildMap();
-		loadMap();
-		printMapStdout();
 	}
 	
 	/*** metodo para configurar o mapa  ***/
@@ -45,7 +42,7 @@ public class MapGenerator implements IMapGenerator{
 			setIEntrance(Integer.parseInt(lineSplit[1]));
 			
 			/*** criar matriz mapa vazia ***/
-			level = new String[this.mapHeight][this.mapWidth];
+			mapText = new String[this.mapHeight][this.mapWidth];
 			mapCells = new Cell[this.mapHeight][this.mapWidth];
 			mapEnemy = new Enemy[this.mapHeight][this.mapWidth];
 			
@@ -54,7 +51,7 @@ public class MapGenerator implements IMapGenerator{
 				line = file.readLine();
 				lineSplit = line.split(",");
 				for(int j=0; j < this.mapWidth; j++) {
-					level[i][j] = lineSplit[j];
+					mapText[i][j] = lineSplit[j];
 					if(lineSplit[i] == "En") {
 						mapEnemy[i][j] = new Enemy(mapGenerated,i,j);
 					}else {
@@ -80,6 +77,9 @@ public class MapGenerator implements IMapGenerator{
 	
 	/*** metodo para devolver o mapa criado ***/
 	public Map generateMap() {
+		buildMap();
+		loadMap();
+		printMapStdout();
 		return mapGenerated;
 	}
 	
@@ -94,7 +94,7 @@ public class MapGenerator implements IMapGenerator{
 		case 'G':  //Gate
 			return new Gate(iPos,jPos,Color.getColor(id.charAt(1) - '0'));
 		case 'B':  //Bonfire
-			return new Bonfire(iPos,jPos);
+			return new Bonfire(iPos,jPos, mapGenerated);
 		case 'K':  //Key
 			return new Key(iPos,jPos,Color.getColor(id.charAt(1) - '0'));
 		case 'C':  //Key
@@ -116,7 +116,7 @@ public class MapGenerator implements IMapGenerator{
 		System.out.println(JEntrance);
 		for(int i=0; i < this.mapHeight; i++) {
 			for(int j=0; j < this.mapWidth; j++) {
-				System.out.print(level[i][j] + " ");
+				System.out.print(mapText[i][j] + " ");
 			}
 			System.out.println();
 		}
