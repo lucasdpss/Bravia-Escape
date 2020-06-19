@@ -28,11 +28,15 @@ public class Window {
 	private Map map;
 	private Bravia bravia;
 	private int XOrigem, YOrigem; //usados para centralizar o grid na tela
+	private Image inventoryKeys;
+	private Image inventoryItems;
 
 	public Window(String levelPath) {
 		backgroundImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\fundo1.png");
-		shadow = null; //colocar imagem da sombra
+		shadow = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\shadow.gif"); //colocar imagem da sombra
 		backgroundSound = new Sound("resources\\sounds\\Fase1.wav");
+		inventoryKeys = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\keys_pocket.png");
+		inventoryItems = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\items_pocket.png");
 
 		/*** Janela da aplicacao tera um tamanho fixo ***/
 		frame = new JFrame();
@@ -53,7 +57,7 @@ public class Window {
 		/*** Calcula a origem a partir do tamanho do mapa***/
 		//tratar excecoes aqui
 		YOrigem = (500 - map.getMapHeight()*32)/2 - 10;
-		XOrigem = (1000 - map.getMapWidth()*32)/2;       //cada quadrado tem 32 pixels
+		XOrigem = (1000 - map.getMapWidth()*32)/2 - 100;       //cada quadrado tem 32 pixels
 
 		frame.setVisible(true);
 		backgroundSound.playContinuously();
@@ -91,7 +95,8 @@ public class Window {
 					if(cell.isPermanentlyLit() || cell.isLit()) {                      
 						g2.drawImage(cell.getImage(), XOrigem + j*32, YOrigem + i*32, this);
 					}else {
-						g.fillRect(XOrigem + j*32, YOrigem + i*32,32,32);         //colocar imagem da sombra
+						g2.drawImage(shadow, XOrigem + j*32, YOrigem + i*32, this);
+						//g.fillRect(XOrigem + j*32, YOrigem + i*32,32,32);       //quadrado escuro
 					}
 					
 					if(enemy != null && enemy.isLit()) {
@@ -99,6 +104,12 @@ public class Window {
 					}
 				}
 			}
+			
+			g2.drawImage(inventoryKeys,XOrigem + map.getMapWidth()*32 + 64,YOrigem,this);
+			//Falta printar as chaves
+			
+			g2.drawImage(inventoryItems,XOrigem + map.getMapWidth()*32 + 64,YOrigem + 96,this);
+			//falta printar os itens
 			
 			g2.drawImage(bravia.getImage(),XOrigem+bravia.getJPos()*32,YOrigem+bravia.getIPos()*32,this);
 

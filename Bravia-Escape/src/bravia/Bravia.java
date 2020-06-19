@@ -95,6 +95,24 @@ public class Bravia implements IBravia {
 		return keyInventory[color.index];
 	}
 	
+	public int totalItems() {
+		if(inventory == null) return 0;
+		int total = 0;
+		for(int i=0; i < 4;i++) {
+			if(inventory[i] != null) total++;
+		}
+		return total;
+	}
+	
+	public int totalKeys() {
+		if(keyInventory == null) return 0;
+		int total = 0;
+		for(int i=0; i < Color.getColorAmount();i++) {
+			if(keyInventory[i]) total++;
+		}
+		return total;
+	}
+	
 	public boolean isInvisible() {
 		return (invisibleCounter > 0);
 	}

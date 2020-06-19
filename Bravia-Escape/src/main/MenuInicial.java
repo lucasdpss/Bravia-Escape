@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -34,7 +35,7 @@ public class MenuInicial {
 		frame.add(panel);
 
 		JButton button1 = new JButton("Jogar");
-		button1.setBounds(420, 200, 100, 70);
+		button1.setBounds(460, 200, 70, 50);
 		button1.addActionListener(new ActionListener() {
 
 			@Override
@@ -48,7 +49,7 @@ public class MenuInicial {
 		});
 
 		JButton button2 = new JButton("Sair");
-		button2.setBounds(420, 200 + 80, 100, 70);
+		button2.setBounds(460, 200 + 70, 70, 50);
 		button2.addActionListener(new ActionListener() {
 
 			@Override

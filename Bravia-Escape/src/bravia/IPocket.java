@@ -9,4 +9,6 @@ public interface IPocket {
 	  Item getItem(int slot);
 	  void addKey(Color color);
 	  boolean hasKey(Color color);
+	  int totalKeys();
+	  int totalItems();
 }
