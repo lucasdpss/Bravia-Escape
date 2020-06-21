@@ -13,6 +13,7 @@ import javax.swing.SwingUtilities;
 
 import bravia.Bravia;
 import cells.Cell;
+import cells.Color;
 import enemy.Enemy;
 import map.Map;
 import map.MapGenerator;
@@ -104,7 +105,12 @@ public class Window {
 			}
 			
 			g2d.drawImage(inventoryKeysImage,XOrigem + map.getMapWidth()*32 + 64,YOrigem,this);
-			//Falta printar as chaves
+			int offset = 0;
+			for(Color color : Color.values()) {
+				Image keyImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\key_" + color.name().toLowerCase() + ".png");
+				if(bravia.hasKey(color)) g2d.drawImage(keyImage,XOrigem + map.getMapWidth()*32 + 64 + offset,YOrigem + 32,this);
+				offset += 32;
+			}
 			
 			g2d.drawImage(inventoryItemsImage,XOrigem + map.getMapWidth()*32 + 64,YOrigem + 96,this);
 			//falta printar os itens
