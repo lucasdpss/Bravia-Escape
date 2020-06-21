@@ -123,12 +123,32 @@ public class Map implements IMap{
 			return -1; //terminou a queue e nao encontrou caminho para Dest.
 		}
 
-	public void moveEnemies() {
+	public void moveEnemies() {          //falta implementar
 
 	}
 	
-	public Enemy getEnemy(int i, int j) {
+	public Enemy getEnemy(int i, int j) { //falta implementar
 		return null;
+	}
+	
+	private class QElement{ //elementos que vao poder ser enfileirados para a BFS
+		private int iPos,jPos,distance;
+
+		public QElement(int iPos,int jPos,int distance){
+			this.iPos = iPos;
+			this.jPos = jPos;
+			this.distance = distance;
+		}
+
+		public int getIPos() {
+			return iPos;
+		}
+		public int getJPos() {
+			return jPos;
+		}
+		public int getDistance() {
+			return distance;
+		}
 	}
 
 	public void setMapHeight(int mapHeight) {
@@ -173,24 +193,5 @@ public class Map implements IMap{
 	}
 	public Bravia getBravia() {
 		return bravia;
-	}
-}
-class QElement{ //elementos que vao poder ser enfileirados para a BFS
-	private int iPos,jPos,distance;
-
-	public QElement(int iPos,int jPos,int distance){
-		this.iPos = iPos;
-		this.jPos = jPos;
-		this.distance = distance;
-	}
-
-	public int getIPos() {
-		return iPos;
-	}
-	public int getJPos() {
-		return jPos;
-	}
-	public int getDistance() {
-		return distance;
 	}
 }
