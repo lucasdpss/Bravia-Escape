@@ -7,13 +7,14 @@ import java.io.IOException;
 import bravia.Bravia;
 import cells.*;
 import enemy.Enemy;
+import main.Checkpoint;
 
 public class MapGenerator implements IMapGenerator{
 	private String mapSource;
 	private int mapHeight, mapWidth;
 	private int IEntrance, JEntrance;
 	private Map mapGenerated;
-	private Cell[][] mapCells;
+	private Cell[][] mapCell;
 	private Enemy[][] mapEnemy;
 	private String mapText[][];
 
@@ -43,7 +44,7 @@ public class MapGenerator implements IMapGenerator{
 			
 			/*** criar matriz mapa vazia ***/
 			mapText = new String[this.mapHeight][this.mapWidth];
-			mapCells = new Cell[this.mapHeight][this.mapWidth];
+			mapCell = new Cell[this.mapHeight][this.mapWidth];
 			mapEnemy = new Enemy[this.mapHeight][this.mapWidth];
 			
 			/*** preencher matriz mapa ***/
@@ -55,7 +56,7 @@ public class MapGenerator implements IMapGenerator{
 					if(lineSplit[i] == "En") {
 						mapEnemy[i][j] = new Enemy(mapGenerated,i,j);
 					}else {
-						mapCells[i][j] = cellObject(lineSplit[j], i, j);
+						mapCell[i][j] = cellObject(lineSplit[j], i, j);
 					}
 				}
 			}
@@ -68,11 +69,16 @@ public class MapGenerator implements IMapGenerator{
 	
 	/*** metodo para passar as informacoes coletadas para o mapGenerated ***/
 	private void loadMap() {
-		mapGenerated.setMapCell(mapCells);
+		mapGenerated.setMapCell(mapCell);
 		mapGenerated.setMapEnemy(mapEnemy);
 		mapGenerated.setMapHeight(mapHeight);
 		mapGenerated.setMapWidth(mapWidth);
 		mapGenerated.setBravia(new Bravia(mapGenerated, IEntrance, JEntrance));
+		
+		Checkpoint.setStartPos(IEntrance, JEntrance);
+		Checkpoint.setKeyInventory(mapGenerated.getBravia());
+		Checkpoint.setMapCell(mapCell);
+		Checkpoint.setMapEnemy(mapEnemy);
 	}
 	
 	/*** metodo para devolver o mapa criado ***/

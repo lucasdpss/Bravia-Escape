@@ -80,7 +80,7 @@ public class Window {
 			Graphics2D g2d = (Graphics2D) g;
 			g2d.drawImage(backgroundImage, 0, 0, this);
 			
-			Cell[][] mapCell = map.getMapCells();
+			Cell[][] mapCell = map.getMapCell();
 			Enemy[][] mapEnemy = map.getMapEnemy();
 			
 			map.clearLights();

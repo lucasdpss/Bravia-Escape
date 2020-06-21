@@ -27,12 +27,12 @@ public class Bravia implements IBravia {
 		strengthCounter = 0;
 		torchRange = 2;
 		inventory = new Item[2];
-		keyInventory = new boolean[Color.getColorAmount()];
+		keyInventory = new boolean[Color.values().length];
 	}
 	
 	//Falta implementar o que acontece quando ha monstro
 	public void move(char direction) {
-		Cell[][] mapCells = map.getMapCells();
+		Cell[][] mapCells = map.getMapCell();
 		
 		switch (direction) {
 		case 'U':
@@ -107,7 +107,7 @@ public class Bravia implements IBravia {
 	public int totalKeys() {
 		if(keyInventory == null) return 0;
 		int total = 0;
-		for(int i=0; i < Color.getColorAmount();i++) {
+		for(int i=0; i < Color.values().length;i++) {
 			if(keyInventory[i]) total++;
 		}
 		return total;

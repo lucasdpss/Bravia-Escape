@@ -17,7 +17,7 @@ public enum Color {
 		return list[i];
 	}
 	
-	public static int getColorAmount() {
-		return list.length;
+	public int getIndex() {
+		return index;
 	}
 }

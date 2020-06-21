@@ -92,7 +92,7 @@ public class Map implements IMap{
 	public int getMapWidth() {
 		return mapWidth;
 	}
-	public Cell[][] getMapCells() {
+	public Cell[][] getMapCell() {
 		return mapCell;
 	}
 	public Cell getCell(int i, int j){

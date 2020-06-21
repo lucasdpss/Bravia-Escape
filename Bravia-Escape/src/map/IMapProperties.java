@@ -8,7 +8,7 @@ public interface IMapProperties {
 	int getMapWidth();
 	Cell getCell(int i, int j);
 	Enemy getEnemy(int i, int j);
-	Cell[][] getMapCells();
+	Cell[][] getMapCell();
 	int getIBravia();
 	int getJBravia();
 }
