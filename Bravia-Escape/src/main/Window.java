@@ -33,7 +33,7 @@ public class Window {
 
 	public Window(String levelPath) {
 		backgroundImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\fundo1.png");
-		shadowImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\shadow.gif"); //colocar imagem da sombra
+		shadowImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\shadow.gif"); 
 		backgroundSound = new Sound("resources\\sounds\\Fase1.wav");
 		inventoryKeysImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\keys_pocket.png");
 		inventoryItemsImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\items_pocket.png");
