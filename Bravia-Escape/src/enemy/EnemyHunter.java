@@ -21,15 +21,23 @@ public class EnemyHunter extends Enemy{
 			Random rand = new Random();
 			switch (rand.nextInt(4)) {
 			case 0:
-				return 'U';
+				if(iPos - 1 >= 0 && map.getCell(iPos-1,jPos).isWalkableEnemy()) {
+					return 'U';
+				}
 			case 1:
-				return 'L';
+				if(iPos + 1 < map.getMapHeight() && map.getCell(iPos+1,jPos).isWalkableEnemy()) {
+					return 'D';
+				}
 			case 2:
-				return 'D';
+				if(jPos - 1 >= 0 && map.getCell(iPos,jPos-1).isWalkableEnemy()) {
+					return 'L';
+				}
 			case 3:
-				return 'R';
+				if(jPos + 1 < map.getMapWidth() && map.getCell(iPos, jPos + 1).isWalkableEnemy()) {
+					return 'R';
+				}
 			default:
-				return 'E';
+				return 'S';
 			}
 		}
 	}

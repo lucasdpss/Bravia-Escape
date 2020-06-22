@@ -4,8 +4,6 @@ import bravia.IPocket;
 import cells.Cell;
 import cells.Color;
 import enemy.Enemy;
-import enemy.EnemyGuardian;
-import enemy.EnemyHunter;
 import map.Map;
 
 public class Checkpoint {
@@ -47,30 +45,6 @@ public class Checkpoint {
 			}
 		}
 	}
-	
-	// metodo para retornar o objeto cell certo de acordo com a identificacao 
-	/*
-	private static Cell cellObject(String id, int iPos, int jPos) {
-		char first = id.charAt(0);
-		switch (first) {
-		case '-':  //piso
-			return new Floor(iPos,jPos);
-		case 'W':  //Wall
-			return new Wall(iPos,jPos);
-		case 'G':  //Gate
-			return new Gate(iPos,jPos,Color.getColor(id.charAt(1) - '0'));
-		case 'B':  //Bonfire
-			return new Bonfire(iPos,jPos, map);
-		case 'K':  //Key
-			return new Key(iPos,jPos,Color.getColor(id.charAt(1) - '0'));
-		case 'C':  //Chest
-			return new Chest(iPos, jPos);
-		case 'E':  //Exit
-			return new Exit(iPos, jPos);
-		default:
-			return null;
-		}
-	}*/
 	
 	public static Cell[][] getMapCell() throws CloneNotSupportedException{
 		int mapHeight = mapCell.length;

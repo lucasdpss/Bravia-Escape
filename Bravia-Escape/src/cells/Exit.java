@@ -3,9 +3,13 @@ package cells;
 import java.awt.Toolkit;
 
 import bravia.Bravia;
+import main.Window;
 
 public class Exit extends Cell {
-	public Exit(int iPos, int jPos){
+	private Window window;
+	
+	public Exit(int iPos, int jPos, Window window){
+		this.window = window;
 		this.iPos = iPos;
 		this.jPos = jPos;
 		lit = false;
@@ -17,6 +21,6 @@ public class Exit extends Cell {
 	}
 	
 	public void activate(Bravia bravia) {
-		
+		window.nextWindow();
 	}
 }

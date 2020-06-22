@@ -8,6 +8,7 @@ import enemy.*;
 import bravia.Bravia;
 import cells.*;
 import main.Checkpoint;
+import main.Window;
 
 public class MapGenerator implements IMapGenerator{
 	private String mapSource;
@@ -17,8 +18,10 @@ public class MapGenerator implements IMapGenerator{
 	private Cell[][] mapCell;
 	private Enemy[][] mapEnemy;
 	private String mapText[][];
+	private Window window;
 
-	public MapGenerator(String levelPath){
+	public MapGenerator(Window window, String levelPath){
+		setWindow(window);
 		setMapSource(levelPath);
 		mapGenerated = new Map();
 	}
@@ -81,10 +84,10 @@ public class MapGenerator implements IMapGenerator{
 		mapGenerated.setMapWidth(mapWidth);
 		mapGenerated.setBravia(new Bravia(mapGenerated, IEntrance, JEntrance));
 		
-		Checkpoint.setMap(mapGenerated);
-		Checkpoint.setStartPos(IEntrance, JEntrance);
-		Checkpoint.setKeyInventory(mapGenerated.getBravia());
 		try {
+			Checkpoint.setMap(mapGenerated);
+			Checkpoint.setStartPos(IEntrance, JEntrance);
+			Checkpoint.setKeyInventory(mapGenerated.getBravia());
 			Checkpoint.setMapCell(mapCell);
 			Checkpoint.setMapEnemy(mapEnemy);
 		} catch (CloneNotSupportedException e) {
@@ -118,7 +121,7 @@ public class MapGenerator implements IMapGenerator{
 		case 'C':  //chest
 			return new Chest(iPos, jPos);
 		case 'E':  //Exit
-			return new Exit(iPos, jPos);
+			return new Exit(iPos, jPos, window);
 		default:
 			return null;
 		}
@@ -142,6 +145,9 @@ public class MapGenerator implements IMapGenerator{
 
 	public void setMapSource(String mapSource) {
 		this.mapSource = mapSource;
+	}
+	public void setWindow(Window window) {
+		this.window = window;
 	}
 	public void setMapHeight(int mapHeight) {
 		this.mapHeight = mapHeight;

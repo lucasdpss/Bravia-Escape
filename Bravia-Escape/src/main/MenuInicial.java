@@ -43,8 +43,8 @@ public class MenuInicial {
 				System.out.println("Inicio da fase 1");
 				backgroundSound.stop();
 				frame.dispose(); // fechar o menu
-				new Window("resources//stages//testmap3.csv");
-				JOptionPane.showMessageDialog(null, "Use w, a, s, d ou setas para se mover. Use 1 e 2 para itens");
+				new Window("resources//stages//level1.csv");
+				JOptionPane.showMessageDialog(null, "Use w, a, s, d ou setas para se mover.");
 			}
 		});
 

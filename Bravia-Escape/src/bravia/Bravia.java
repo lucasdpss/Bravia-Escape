@@ -30,7 +30,6 @@ public class Bravia implements IBravia {
 		keyInventory = new boolean[Color.values().length];
 	}
 	
-	//Falta implementar o que acontece quando ha monstro
 	public void move(char direction) {
 		Cell[][] mapCells = map.getMapCell();
 		
@@ -116,6 +115,7 @@ public class Bravia implements IBravia {
 	public boolean isInvisible() {
 		return (invisibleCounter > 0);
 	}
+	
 	
 	public void setKeyInventory(boolean[] keyInventory) {
 		this.keyInventory = keyInventory;

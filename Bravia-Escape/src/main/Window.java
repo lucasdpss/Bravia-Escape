@@ -30,8 +30,10 @@ public class Window {
 	private int XOrigem, YOrigem; //usados para centralizar o grid na tela
 	private Image inventoryKeysImage;
 	private Image inventoryItemsImage;
+	private String levelPath;
 
 	public Window(String levelPath) {
+		this.levelPath = levelPath;
 		backgroundImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\fundo1.png");
 		shadowImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\shadow.gif"); 
 		backgroundSound = new Sound("resources\\sounds\\Fase1.wav");
@@ -50,7 +52,7 @@ public class Window {
 		panel.setLayout(null);
 		frame.add(panel);
 		
-		MapGenerator mapGenerator = new MapGenerator(levelPath);
+		MapGenerator mapGenerator = new MapGenerator(this, levelPath);
 		map = mapGenerator.generateMap();
 		bravia = map.getBravia();
 		
@@ -61,6 +63,21 @@ public class Window {
 		frame.setVisible(true);
 		backgroundSound.playContinuously();
 		
+	}
+	
+	public void nextWindow() {  //deve seguir o padrao "resources//stages//levelX.csv"
+		int currentLevel = levelPath.charAt(24) - '0';
+		if(currentLevel == 3) {
+			backgroundSound.stop();
+			frame.dispose(); // fechar a janela atual
+			MenuInicial menu = new MenuInicial();
+			menu.show();
+			return;
+		}
+		String nextLevel = "resources//stages//level" + String.valueOf(currentLevel + 1) + ".csv";
+		backgroundSound.stop();
+		frame.dispose(); // fechar a janela atual
+		new Window(nextLevel);
 	}
 
 	/*** Classe da Panel usada em toda a extensao da janela ***/
@@ -94,7 +111,6 @@ public class Window {
 						g2d.drawImage(cell.getImage(), XOrigem + j*32, YOrigem + i*32, this);
 					}else {
 						g2d.drawImage(shadowImage, XOrigem + j*32, YOrigem + i*32, this);
-						//g.fillRect(XOrigem + j*32, YOrigem + i*32,32,32);       //quadrado escuro
 					}
 					
 					if(enemy != null && enemy.isLit()) {
