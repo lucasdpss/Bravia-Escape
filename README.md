@@ -319,4 +319,4 @@ Bonfire | `Bf`
 Key (color X) | `KX`
 Chest | `Ch`
 Exit | `Ex`
-Enemy | `En`
+Enemy | `MX`
