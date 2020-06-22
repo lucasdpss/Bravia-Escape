@@ -18,21 +18,8 @@ public class Gate extends Cell {
 		cellType = "G" + color;
 		open = false;
 		
-		switch(color) {
-		case BLUE:
-			image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\tiles\\gate_blue_tile.png");
-			break;
-		case GREEN:
-			image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\tiles\\gate_green_tile.png");
-			break;
-		case RED:
-			image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\tiles\\gate_red_tile.png");
-			break;
-		case YELLOW:
-			image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\tiles\\gate_yellow_tile.png");
-			break;
-		}
-		
+		String imagePath = "resources\\graphics\\tiles\\gate_" + color.name().toLowerCase() + "_locked.png";
+		image = Toolkit.getDefaultToolkit().getImage(imagePath);
 	}
 	
 	public void activate(Bravia pocket) {
@@ -40,7 +27,8 @@ public class Gate extends Cell {
 			if(pocket.hasKey(color)) {
 				open = true;
 				walkable = true;
-				image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\tiles\\gate_open_tile.png");
+				String imagePath = "resources\\graphics\\tiles\\gate_" + color.name().toLowerCase() + "_unlocked.png";
+				image = Toolkit.getDefaultToolkit().getImage(imagePath);
 			}
 		}
 	}
