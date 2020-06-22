@@ -4,9 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import enemy.*;
 import bravia.Bravia;
 import cells.*;
-import enemy.Enemy;
 import main.Checkpoint;
 
 public class MapGenerator implements IMapGenerator{
@@ -53,8 +53,14 @@ public class MapGenerator implements IMapGenerator{
 				lineSplit = line.split(",");
 				for(int j=0; j < this.mapWidth; j++) {
 					mapText[i][j] = lineSplit[j];
-					if(lineSplit[i] == "En") {
-						mapEnemy[i][j] = new Enemy(mapGenerated,i,j);
+					if(lineSplit[j].charAt(0) == 'M') {
+						if(lineSplit[j].charAt(1) == '0'){
+							mapEnemy[i][j] = new EnemyGuardian(mapGenerated,i,j);
+						}
+						if(lineSplit[j].charAt(1) == '1'){
+							mapEnemy[i][j] = new EnemyHunter(mapGenerated,i,j);
+						}
+						mapCell[i][j] = new Floor(i,j);
 					}else {
 						mapCell[i][j] = cellObject(lineSplit[j], i, j);
 					}

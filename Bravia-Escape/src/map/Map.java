@@ -1,20 +1,22 @@
 package map;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import enemy.*;
 import bravia.Bravia;
 import cells.Cell;
-import enemy.Enemy;
 
 public class Map implements IMap{
 	private Cell[][] mapCell;
 	private Enemy[][] mapEnemy;
 	private int mapHeight, mapWidth;
 	private Bravia bravia;
+	private ArrayList<Enemy> listEnemy;
 
 	public Map() {
-
+		
 	}
 
 	public void illuminate(int range, int iSource, int jSource) {
@@ -25,14 +27,20 @@ public class Map implements IMap{
 				for(int i = iSource-(range-1); i <= iSource+(range-1); i++) {
 					if(i >= 0 && i < mapHeight && j >= 0 && j < mapWidth) {
 						int distance = distanceToCell(i, j, iSource, jSource);
-						if(distance > 0 && distance <= range+2) mapCell[i][j].setLit(true);
+						if(distance > 0 && distance <= range+2) {
+							mapCell[i][j].setLit(true);
+							if(mapEnemy[i][j] != null) mapEnemy[i][j].setLit(true);
+						}
 					}
 				}
 			}else {
 				for(int i = iSource-(range); i <= iSource+(range); i++) {
 					if(i >= 0 && i < mapHeight && j >= 0 && j < mapWidth) {
 						int distance = distanceToCell(i, j, iSource, jSource);
-						if(distance > 0 && distance <= range+2) mapCell[i][j].setLit(true);
+						if(distance > 0 && distance <= range+2) {
+							mapCell[i][j].setLit(true);
+							if(mapEnemy[i][j] != null) mapEnemy[i][j].setLit(true);
+						}
 					}
 				}
 			}
@@ -66,11 +74,12 @@ public class Map implements IMap{
 		for(int i=0; i < mapHeight; i++) {
 			for(int j=0; j < mapWidth; j++) {
 				mapCell[i][j].setLit(false);
+				if(mapEnemy[i][j] != null) mapEnemy[i][j].setLit(false);
 			}
 		}
 	}
 
-	//retorna a distancia entre dois pontos do mapa, -1 caso nao eh possivel chegar
+	/*** Retorna a distancia entre dois pontos do mapa, -1 caso nao eh possivel chegar ***/
 	public int distanceToCell(int iSource, int jSource, int iDest, int jDest) {
 		/*** preparar ambiente e variaveis para BFS ***/
 		boolean visited[][] = new boolean[mapHeight][mapWidth];
@@ -123,12 +132,81 @@ public class Map implements IMap{
 		return -1; //terminou a queue e nao encontrou caminho para Dest.
 	}
 
-	public void moveEnemies() {          //falta implementar
-
+	/*** Funcao para movimentar os inimgos na matriz de inimigos ***/
+	public void moveEnemies() { 
+		listEnemies();
+		for(int i=0; i < listEnemy.size(); i++) {
+			Enemy enemy = listEnemy.get(i);
+			moveEnemy(enemy, enemy.getMoveDirection());
+		}
+	}
+	
+	/*** Listar todos os inimigos no mapa ***/
+	private void listEnemies() {
+		listEnemy = new ArrayList<Enemy>();
+		for(int i=0;i < mapHeight; i++) {
+			for(int j=0; j < mapWidth; j++) {
+				if(mapEnemy[i][j] != null) {
+					listEnemy.add(mapEnemy[i][j]);
+				}
+			}
+		}
+	}
+	
+	/*** Funcao para mover um inimigo no mapa, assumindo que a direcao dada eh valida ***/
+	public void moveEnemy(Enemy enemy, char direction) {
+		System.out.println(direction);               //DEBUG
+		int newIPos,newJPos;
+		
+		switch (direction) {
+		case 'U':
+			newIPos = enemy.getIPos() - 1;
+			newJPos = enemy.getJPos();
+			mapEnemy[newIPos][newJPos] = mapEnemy[enemy.getIPos()][enemy.getJPos()];
+			mapEnemy[enemy.getIPos()][enemy.getJPos()] = null;
+			enemy.setIPos(newIPos);
+			enemy.setJPos(newJPos);
+			break;
+		case 'D':
+			newIPos = enemy.getIPos() + 1;
+			newJPos = enemy.getJPos();
+			mapEnemy[newIPos][newJPos] = mapEnemy[enemy.getIPos()][enemy.getJPos()];
+			mapEnemy[enemy.getIPos()][enemy.getJPos()] = null;
+			enemy.setIPos(newIPos);
+			enemy.setJPos(newJPos);
+			break;
+		case 'L':
+			newIPos = enemy.getIPos();
+			newJPos = enemy.getJPos() - 1;
+			mapEnemy[newIPos][newJPos] = mapEnemy[enemy.getIPos()][enemy.getJPos()];
+			mapEnemy[enemy.getIPos()][enemy.getJPos()] = null;
+			enemy.setIPos(newIPos);
+			enemy.setJPos(newJPos);
+			break;
+		case 'R':
+			newIPos = enemy.getIPos();
+			newJPos = enemy.getJPos() + 1;
+			mapEnemy[newIPos][newJPos] = mapEnemy[enemy.getIPos()][enemy.getJPos()];
+			mapEnemy[enemy.getIPos()][enemy.getJPos()] = null;
+			enemy.setIPos(newIPos);
+			enemy.setJPos(newJPos);
+			break;
+		default:
+			break;
+		}
+		
+		if(bravia.getIPos() == enemy.getIPos() && bravia.getJPos() == enemy.getJPos()) {  //falta implementar
+			interactBravia();
+		}
+	}
+	
+	public void interactBravia() {   //falta implementar
+		System.out.println("morreu");
+		return;
 	}
 
-	public Enemy getEnemy(int i, int j) { //falta implementar
-		return null;
+	public Enemy getEnemy(int i, int j) {
+		return mapEnemy[i][j];
 	}
 
 	private class QElement{ //elementos que vao poder ser enfileirados para a BFS

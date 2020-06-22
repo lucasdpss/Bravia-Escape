@@ -1,7 +1,7 @@
 package map;
 
+import enemy.*;
 import cells.Cell;
-import enemy.Enemy;
 
 public interface IMapProperties {
 	int getMapHeight();

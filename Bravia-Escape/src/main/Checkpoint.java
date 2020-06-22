@@ -1,9 +1,9 @@
 package main;
 
+import enemy.*;
 import bravia.IPocket;
 import cells.Cell;
 import cells.Color;
-import enemy.Enemy;
 
 public class Checkpoint {
 	private static int startIPos, startJPos;

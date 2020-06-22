@@ -11,10 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import enemy.*;
 import bravia.Bravia;
 import cells.Cell;
 import cells.Color;
-import enemy.Enemy;
 import map.Map;
 import map.MapGenerator;
 
@@ -127,15 +127,27 @@ public class Window {
 		public void keyPressed(KeyEvent e) {
 			if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
 				bravia.move('U');
+				//map.clearLights();
+				//map.illuminate(bravia.getRange(), bravia.getIPos(), bravia.getJPos());
+				map.moveEnemies();
 
 			}else if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
 				bravia.move('R');
+				//map.clearLights();
+				//map.illuminate(bravia.getRange(), bravia.getIPos(), bravia.getJPos());
+				map.moveEnemies();
 
 			}else if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
 				bravia.move('L');
+				//map.clearLights();
+				//map.illuminate(bravia.getRange(), bravia.getIPos(), bravia.getJPos());
+				map.moveEnemies();
 
 			}else if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
 				bravia.move('D');
+				//map.clearLights();
+				//map.illuminate(bravia.getRange(), bravia.getIPos(), bravia.getJPos());
+				map.moveEnemies();
 
 			}else if(e.getKeyCode() == KeyEvent.VK_1) {
 				System.out.println("li 1");
