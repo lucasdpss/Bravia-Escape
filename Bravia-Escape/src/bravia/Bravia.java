@@ -117,6 +117,18 @@ public class Bravia implements IBravia {
 		return (invisibleCounter > 0);
 	}
 	
+	public void setKeyInventory(boolean[] keyInventory) {
+		this.keyInventory = keyInventory;
+	}
+	
+	public void setIPos(int iPos) {
+		this.iPos = iPos;
+	}
+	
+	public void setJPos(int jPos) {
+		this.jPos = jPos;
+	}
+	
 	public int getIPos() {
 		return iPos;
 	}

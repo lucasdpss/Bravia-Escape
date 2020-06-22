@@ -14,7 +14,6 @@ public class EnemyGuardian extends Enemy{
 	
 	/*** Retorna o movimento feito pelo inimigo em char, retorna 'S' caso ele nao se mova ***/
 	public char getMoveDirection() {
-		if(discovered) return this.getBestDirection();
 		if(lit) return this.getBestDirection();
 		return 'S';
 	}

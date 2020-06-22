@@ -8,20 +8,22 @@ import java.util.Queue;
 
 import map.IMapProperties;
 
-public abstract class Enemy implements IMovement{
+public abstract class Enemy implements IMovement, Cloneable{
 	protected int iPos, jPos;
 	protected IMapProperties map;
 	protected boolean lit;
 	protected Image image;
 	protected int enemyType;
-	protected boolean discovered;
 
 	public Enemy(IMapProperties map, int iPos, int jPos) {
 		this.map = map;
 		this.iPos = iPos;
 		this.jPos = jPos;
 		this.lit = false;
-		this.discovered = false;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 
 	/*** Retorna melhor decisao de caminho, retorna 'S' caso nao tenha movimentos possiveis ***/

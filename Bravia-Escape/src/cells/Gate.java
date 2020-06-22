@@ -16,7 +16,7 @@ public class Gate extends Cell {
 		walkableBravia = false;
 		walkableEnemy = false;
 		this.color = color;
-		cellType = "G" + color;
+		cellType = "G" + color.getIndex();
 		open = false;
 		
 		String imagePath = "resources\\graphics\\tiles\\gate_" + color.name().toLowerCase() + "_locked.png";

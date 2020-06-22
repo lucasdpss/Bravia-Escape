@@ -16,7 +16,7 @@ public class Key extends Cell {
 		walkableBravia = true;
 		walkableEnemy = true;
 		this.color = color;
-		cellType = "K" + color;
+		cellType = "K" + color.getIndex();
 		withKey = true;
 		
 		switch(color) {

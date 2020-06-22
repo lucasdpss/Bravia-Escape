@@ -27,7 +27,7 @@ public class EnemyHunter extends Enemy{
 			case 2:
 				return 'D';
 			case 3:
-				return 'L';
+				return 'R';
 			default:
 				return 'E';
 			}

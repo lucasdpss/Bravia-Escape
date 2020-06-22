@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import enemy.*;
+import main.Checkpoint;
 import bravia.Bravia;
 import cells.Cell;
 
@@ -134,10 +135,21 @@ public class Map implements IMap{
 
 	/*** Funcao para movimentar os inimgos na matriz de inimigos ***/
 	public void moveEnemies() { 
+		boolean collision = false;
 		listEnemies();
+		if(listEnemy.isEmpty()) return;
 		for(Enemy enemy : listEnemy) {
-			moveEnemy(enemy, enemy.getMoveDirection());
+			if(moveEnemy(enemy, enemy.getMoveDirection()) == 1) {
+				collision = true;
+				break;
+			}
 		}
+		if(collision)
+			try {
+				interactBravia();
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace();
+			}
 	}
 	
 	/*** Listar todos os inimigos no mapa ***/
@@ -153,7 +165,8 @@ public class Map implements IMap{
 	}
 	
 	/*** Funcao para mover um inimigo no mapa, assumindo que a direcao dada eh valida ***/
-	public void moveEnemy(Enemy enemy, char direction) {
+	//retorna 1 caso tenha colidido com a bravia, retorna 0 caso contrario
+	public int moveEnemy(Enemy enemy, char direction) {
 		System.out.println(direction);               //DEBUG
 		int newIPos,newJPos;
 		
@@ -165,6 +178,9 @@ public class Map implements IMap{
 			mapEnemy[enemy.getIPos()][enemy.getJPos()] = null;
 			enemy.setIPos(newIPos);
 			enemy.setJPos(newJPos);
+			System.out.print(newIPos);         //DEBUG	
+			System.out.print(" ");
+			System.out.println(newJPos);
 			break;
 		case 'D':
 			newIPos = enemy.getIPos() + 1;
@@ -173,6 +189,9 @@ public class Map implements IMap{
 			mapEnemy[enemy.getIPos()][enemy.getJPos()] = null;
 			enemy.setIPos(newIPos);
 			enemy.setJPos(newJPos);
+			System.out.print(newIPos);         //DEBUG	
+			System.out.print(" ");
+			System.out.println(newJPos);
 			break;
 		case 'L':
 			newIPos = enemy.getIPos();
@@ -181,6 +200,9 @@ public class Map implements IMap{
 			mapEnemy[enemy.getIPos()][enemy.getJPos()] = null;
 			enemy.setIPos(newIPos);
 			enemy.setJPos(newJPos);
+			System.out.print(newIPos);         //DEBUG	
+			System.out.print(" ");
+			System.out.println(newJPos);
 			break;
 		case 'R':
 			newIPos = enemy.getIPos();
@@ -189,18 +211,27 @@ public class Map implements IMap{
 			mapEnemy[enemy.getIPos()][enemy.getJPos()] = null;
 			enemy.setIPos(newIPos);
 			enemy.setJPos(newJPos);
+			System.out.print(newIPos);         //DEBUG	
+			System.out.print(" ");
+			System.out.println(newJPos);
 			break;
 		default:
 			break;
 		}
 		
-		if(bravia.getIPos() == enemy.getIPos() && bravia.getJPos() == enemy.getJPos()) {  //falta implementar
-			interactBravia();
+		if(bravia.getIPos() == enemy.getIPos() && bravia.getJPos() == enemy.getJPos()) { 
+			return 1;
 		}
+		return 0;
 	}
 	
-	public void interactBravia() {   //falta implementar
+	public void interactBravia() throws CloneNotSupportedException { 
 		System.out.println("morreu");
+		mapCell = Checkpoint.getMapCell();
+		mapEnemy = Checkpoint.getMapEnemy();
+		bravia.setIPos(Checkpoint.getStartIPos());
+		bravia.setJPos(Checkpoint.getStartJPos());
+		bravia.setKeyInventory(Checkpoint.getKeyInventory());
 		return;
 	}
 

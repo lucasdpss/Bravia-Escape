@@ -33,10 +33,14 @@ public class Bonfire extends Cell {
 			image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\tiles\\bonfire_lit_tile.gif");
 			map.illuminatePermanently(fireRange, iPos, jPos);
 			
-			Checkpoint.setStartPos(iPos+1, jPos);
+			Checkpoint.setStartPos(iPos, jPos);
 			Checkpoint.setKeyInventory(bravia);
-			Checkpoint.setMapCell(map.getMapCell());
-			Checkpoint.setMapEnemy(map.getMapEnemy());
+			try {
+				Checkpoint.setMapCell(map.getMapCell());
+				Checkpoint.setMapEnemy(map.getMapEnemy());
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace();
+			}
 			
 			hasFire = true;
 		}

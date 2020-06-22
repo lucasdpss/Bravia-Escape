@@ -81,10 +81,16 @@ public class MapGenerator implements IMapGenerator{
 		mapGenerated.setMapWidth(mapWidth);
 		mapGenerated.setBravia(new Bravia(mapGenerated, IEntrance, JEntrance));
 		
+		Checkpoint.setMap(mapGenerated);
 		Checkpoint.setStartPos(IEntrance, JEntrance);
 		Checkpoint.setKeyInventory(mapGenerated.getBravia());
-		Checkpoint.setMapCell(mapCell);
-		Checkpoint.setMapEnemy(mapEnemy);
+		try {
+			Checkpoint.setMapCell(mapCell);
+			Checkpoint.setMapEnemy(mapEnemy);
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	/*** metodo para devolver o mapa criado ***/
@@ -109,7 +115,7 @@ public class MapGenerator implements IMapGenerator{
 			return new Bonfire(iPos,jPos, mapGenerated);
 		case 'K':  //Key
 			return new Key(iPos,jPos,Color.getColor(id.charAt(1) - '0'));
-		case 'C':  //Key
+		case 'C':  //chest
 			return new Chest(iPos, jPos);
 		case 'E':  //Exit
 			return new Exit(iPos, jPos);

@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import bravia.Bravia;
 
-public abstract class Cell implements ICellProperties {
+public abstract class Cell implements ICellProperties, Cloneable {
 	protected boolean lit;
 	protected boolean permanentlyLit;
 	protected boolean walkableBravia;
@@ -12,6 +12,10 @@ public abstract class Cell implements ICellProperties {
 	protected String cellType;
 	protected Image image;
 	protected int iPos, jPos;
+	
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
 	
 	public boolean isWalkableBravia() {
 		return walkableBravia;
