@@ -38,7 +38,7 @@ public class Bravia implements IBravia {
 		case 'U':
 			if(iPos - 1 >= 0) {
 				mapCells[iPos-1][jPos].activate(this);
-				if(mapCells[iPos-1][jPos].isWalkable())
+				if(mapCells[iPos-1][jPos].isWalkableBravia())
 					iPos--;
 			}
 			break;
@@ -46,7 +46,7 @@ public class Bravia implements IBravia {
 		case 'R':
 			if(jPos + 1 < map.getMapWidth()) {
 				mapCells[iPos][jPos+1].activate(this);
-				if(mapCells[iPos][jPos+1].isWalkable())
+				if(mapCells[iPos][jPos+1].isWalkableBravia())
 					jPos++;
 			}
 			break;
@@ -54,7 +54,7 @@ public class Bravia implements IBravia {
 		case 'D':
 			if(iPos + 1 < map.getMapHeight()) {
 				mapCells[iPos+1][jPos].activate(this);
-				if(mapCells[iPos+1][jPos].isWalkable())
+				if(mapCells[iPos+1][jPos].isWalkableBravia())
 					iPos++;
 			}
 			break;
@@ -62,7 +62,7 @@ public class Bravia implements IBravia {
 		case 'L':
 			if(jPos - 1 >= 0) {
 				mapCells[iPos][jPos-1].activate(this);
-				if(mapCells[iPos][jPos-1].isWalkable())
+				if(mapCells[iPos][jPos-1].isWalkableBravia())
 					jPos--;
 			}
 			break;

@@ -7,13 +7,18 @@ import bravia.Bravia;
 public abstract class Cell implements ICellProperties {
 	protected boolean lit;
 	protected boolean permanentlyLit;
-	protected boolean walkable;
+	protected boolean walkableBravia;
+	protected boolean walkableEnemy;
 	protected String cellType;
 	protected Image image;
 	protected int iPos, jPos;
 	
-	public boolean isWalkable() {
-		return walkable;
+	public boolean isWalkableBravia() {
+		return walkableBravia;
+	}
+	
+	public boolean isWalkableEnemy() {
+		return walkableEnemy;
 	}
 	
 	public boolean isPermanentlyLit() {
@@ -24,8 +29,12 @@ public abstract class Cell implements ICellProperties {
 		return lit;
 	}
 	
-	public void setWalkable(boolean walkable) {
-		this.walkable = walkable;
+	public void setWalkableBravia(boolean walkableBravia) {
+		this.walkableBravia = walkableBravia;
+	}
+	
+	public void setWalkableEnemy(boolean walkableEnemy) {
+		this.walkableEnemy = walkableEnemy;
 	}
 	
 	public void setPermanentlyLit(boolean permanentlyLit) {

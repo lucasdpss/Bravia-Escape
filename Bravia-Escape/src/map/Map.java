@@ -86,7 +86,7 @@ public class Map implements IMap{
 
 		for(int i=0;i < mapHeight; i++) {
 			for(int j=0; j < mapWidth; j++) {
-				if(mapCell[i][j].isWalkable()) {
+				if(mapCell[i][j].isWalkableBravia()) {
 					visited[i][j] = false;
 				}else {
 					visited[i][j] = true;
@@ -135,8 +135,7 @@ public class Map implements IMap{
 	/*** Funcao para movimentar os inimgos na matriz de inimigos ***/
 	public void moveEnemies() { 
 		listEnemies();
-		for(int i=0; i < listEnemy.size(); i++) {
-			Enemy enemy = listEnemy.get(i);
+		for(Enemy enemy : listEnemy) {
 			moveEnemy(enemy, enemy.getMoveDirection());
 		}
 	}

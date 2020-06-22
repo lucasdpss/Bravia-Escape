@@ -8,7 +8,8 @@ public class Wall extends Cell {
 		this.jPos = jPos;
 		lit = false;
 		permanentlyLit = false;
-		walkable = false;
+		walkableEnemy = false;
+		walkableBravia = false;
 		cellType = "Wa";
 		image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\tiles\\wall_tile.png");
 	}

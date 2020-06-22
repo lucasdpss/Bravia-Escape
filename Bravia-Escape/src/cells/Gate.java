@@ -13,7 +13,8 @@ public class Gate extends Cell {
 		this.jPos = jPos;
 		lit = false;
 		permanentlyLit = false;
-		walkable = false;
+		walkableBravia = false;
+		walkableEnemy = false;
 		this.color = color;
 		cellType = "G" + color;
 		open = false;
@@ -26,7 +27,7 @@ public class Gate extends Cell {
 		if(!open) {
 			if(pocket.hasKey(color)) {
 				open = true;
-				walkable = true;
+				walkableBravia = true;
 				String imagePath = "resources\\graphics\\tiles\\gate_" + color.name().toLowerCase() + "_unlocked.png";
 				image = Toolkit.getDefaultToolkit().getImage(imagePath);
 			}

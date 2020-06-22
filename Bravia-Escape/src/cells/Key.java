@@ -13,7 +13,8 @@ public class Key extends Cell {
 		this.jPos = jPos;
 		lit = false;
 		permanentlyLit = false;
-		walkable = true;
+		walkableBravia = true;
+		walkableEnemy = true;
 		this.color = color;
 		cellType = "K" + color;
 		withKey = true;

@@ -17,7 +17,8 @@ public class Bonfire extends Cell {
 		this.map = map;
 		lit = false;
 		permanentlyLit = false;
-		walkable = true;
+		walkableBravia = true;
+		walkableEnemy = false;
 		cellType = "Bf";
 		hasFire = false;
 		fireRange = 2;
@@ -27,7 +28,7 @@ public class Bonfire extends Cell {
 	                          //colocar para salvar o checkpoint
 	public void activate(Bravia bravia) { 
 		if(!hasFire) {
-			walkable = false;
+			walkableBravia = false;
 			permanentlyLit = true;
 			image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\tiles\\bonfire_lit_tile.gif");
 			map.illuminatePermanently(fireRange, iPos, jPos);

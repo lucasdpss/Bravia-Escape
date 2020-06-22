@@ -8,7 +8,8 @@ public class Floor extends Cell{
 		this.jPos = jPos;
 		lit = false;
 		permanentlyLit = false;
-		walkable = true;
+		walkableBravia = true;
+		walkableEnemy = true;
 		cellType = "--";
 		image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\tiles\\floor_tile.png");
 	}

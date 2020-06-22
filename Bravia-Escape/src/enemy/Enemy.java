@@ -28,7 +28,7 @@ public abstract class Enemy implements IMovement{
 	public char getBestDirection() { 
 		ArrayList<Direction> list = new ArrayList<Direction>(4);
 
-		if(iPos - 1 >= 0 && map.getCell(iPos-1,jPos).isWalkable()) {
+		if(iPos - 1 >= 0 && map.getCell(iPos-1,jPos).isWalkableEnemy()) {
 			int upDistance = minDistanceToBravia(iPos-1, jPos);
 			System.out.print("upDistance: ");  //DEBUG
 			System.out.println(upDistance);
@@ -37,7 +37,7 @@ public abstract class Enemy implements IMovement{
 				list.add(up);
 			}
 		}
-		if(iPos + 1 < map.getMapHeight() && map.getCell(iPos+1,jPos).isWalkable() ) {
+		if(iPos + 1 < map.getMapHeight() && map.getCell(iPos+1,jPos).isWalkableEnemy() ) {
 			int downDistance = minDistanceToBravia(iPos+1, jPos);
 			System.out.print("downDistance: "); //DEBUG
 			System.out.println(downDistance);
@@ -46,7 +46,7 @@ public abstract class Enemy implements IMovement{
 				list.add(down);
 			}
 		}
-		if(jPos - 1 >= 0 && map.getCell(iPos,jPos-1).isWalkable()) {
+		if(jPos - 1 >= 0 && map.getCell(iPos,jPos-1).isWalkableEnemy()) {
 			int leftDistance = minDistanceToBravia(iPos, jPos-1);
 			System.out.print("leftDistance: "); //DEBUG
 			System.out.println(leftDistance);
@@ -55,7 +55,7 @@ public abstract class Enemy implements IMovement{
 				list.add(left);
 			}
 		}
-		if(jPos + 1 < map.getMapWidth() && map.getCell(iPos, jPos + 1).isWalkable() ) {
+		if(jPos + 1 < map.getMapWidth() && map.getCell(iPos, jPos + 1).isWalkableEnemy() ) {
 			int rightDistance = minDistanceToBravia(iPos, jPos+1);
 			System.out.print("rightDistance: "); //DEBUG
 			System.out.println(rightDistance);
@@ -84,7 +84,7 @@ public abstract class Enemy implements IMovement{
 
 		for(int i=0;i < height; i++) {
 			for(int j=0; j < width; j++) {
-				if(map.getCell(i, j).isWalkable() && map.getEnemy(i, j) == null) {
+				if(map.getCell(i, j).isWalkableEnemy() && map.getEnemy(i, j) == null) {
 					visited[i][j] = false;
 				}else {
 					visited[i][j] = true;
