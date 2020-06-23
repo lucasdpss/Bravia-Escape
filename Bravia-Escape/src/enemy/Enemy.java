@@ -30,7 +30,7 @@ public abstract class Enemy implements IMovement, Cloneable{
 	public char getBestDirection() { 
 		ArrayList<Direction> list = new ArrayList<Direction>(4);
 
-		if(iPos - 1 >= 0 && map.getCell(iPos-1,jPos).isWalkableEnemy()) {
+		if(iPos - 1 >= 0 && map.getCell(iPos-1,jPos).isWalkableEnemy() && map.getEnemy(iPos - 1, jPos) == null) {
 			int upDistance = minDistanceToBravia(iPos-1, jPos);
 			System.out.print("upDistance: ");  //DEBUG
 			System.out.println(upDistance);
@@ -39,7 +39,7 @@ public abstract class Enemy implements IMovement, Cloneable{
 				list.add(up);
 			}
 		}
-		if(iPos + 1 < map.getMapHeight() && map.getCell(iPos+1,jPos).isWalkableEnemy() ) {
+		if(iPos + 1 < map.getMapHeight() && map.getCell(iPos+1,jPos).isWalkableEnemy() && map.getEnemy(iPos + 1, jPos) == null) {
 			int downDistance = minDistanceToBravia(iPos+1, jPos);
 			System.out.print("downDistance: "); //DEBUG
 			System.out.println(downDistance);
@@ -48,7 +48,7 @@ public abstract class Enemy implements IMovement, Cloneable{
 				list.add(down);
 			}
 		}
-		if(jPos - 1 >= 0 && map.getCell(iPos,jPos-1).isWalkableEnemy()) {
+		if(jPos - 1 >= 0 && map.getCell(iPos,jPos-1).isWalkableEnemy() && map.getEnemy(iPos, jPos - 1) == null) {
 			int leftDistance = minDistanceToBravia(iPos, jPos-1);
 			System.out.print("leftDistance: "); //DEBUG
 			System.out.println(leftDistance);
@@ -57,7 +57,7 @@ public abstract class Enemy implements IMovement, Cloneable{
 				list.add(left);
 			}
 		}
-		if(jPos + 1 < map.getMapWidth() && map.getCell(iPos, jPos + 1).isWalkableEnemy() ) {
+		if(jPos + 1 < map.getMapWidth() && map.getCell(iPos, jPos + 1).isWalkableEnemy() && map.getEnemy(iPos, jPos + 1) == null) {
 			int rightDistance = minDistanceToBravia(iPos, jPos+1);
 			System.out.print("rightDistance: "); //DEBUG
 			System.out.println(rightDistance);
