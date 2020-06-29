@@ -34,7 +34,7 @@ public class Window {
 
 	public Window(String levelPath) {
 		this.levelPath = levelPath;
-		backgroundImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\fundo1.png");
+		backgroundImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\fundo.png");
 		shadowImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\shadow.gif"); 
 		backgroundSound = new Sound("assets\\sounds\\Fase1.wav");
 		inventoryKeysImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\keys_pocket.png");
@@ -43,7 +43,7 @@ public class Window {
 		/*** Janela da aplicacao tera um tamanho fixo ***/
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1000, 500);
+		frame.setSize(1320, 660);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 
@@ -57,24 +57,24 @@ public class Window {
 		bravia = map.getBravia();
 		
 		/*** Calcula a origem a partir do tamanho do mapa***/
-		YOrigem = (500 - map.getMapHeight()*32)/2 - 10;
-		XOrigem = (1000 - map.getMapWidth()*32)/2 - 100;       //cada quadrado tem 32 pixels
+		YOrigem = (660 - map.getMapHeight()*32)/2;
+		XOrigem = (1320 - map.getMapWidth()*32)/2;       //cada quadrado tem 32 pixels
 
 		frame.setVisible(true);
 		backgroundSound.playContinuously();
 		
 	}
 	
-	public void nextWindow() {  //deve seguir o padrao "resources//stages//levelX.csv"
-		int currentLevel = levelPath.charAt(24) - '0';
+	public void nextWindow() {  //deve seguir o padrao "stages//levelX.csv"
+		int currentLevel = levelPath.charAt(13) - '0';
 		if(currentLevel == 3) {
 			backgroundSound.stop();
 			frame.dispose(); // fechar a janela atual
-			MenuInicial menu = new MenuInicial();
+			Menu menu = new Menu();
 			menu.show();
 			return;
 		}
-		String nextLevel = "assets//stages//level" + String.valueOf(currentLevel + 1) + ".csv";
+		String nextLevel = "stages//level" + String.valueOf(currentLevel + 1) + ".csv";
 		backgroundSound.stop();
 		frame.dispose(); // fechar a janela atual
 		new Window(nextLevel);
@@ -127,8 +127,7 @@ public class Window {
 				offset += 32;
 			}
 			
-			g2d.drawImage(inventoryItemsImage,XOrigem + map.getMapWidth()*32 + 64,YOrigem + 96,this);
-			//falta printar os itens
+			//g2d.drawImage(inventoryItemsImage,XOrigem + map.getMapWidth()*32 + 64,YOrigem + 96,this);
 			
 			g2d.drawImage(bravia.getImage(),XOrigem+bravia.getJPos()*32,YOrigem+bravia.getIPos()*32,this);
 
