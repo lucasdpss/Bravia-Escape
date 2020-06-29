@@ -10,11 +10,13 @@ public class EnemyHunter extends Enemy{
 	public EnemyHunter(IMapProperties map, int iPos, int jPos) {
 		super(map, iPos, jPos);
 		this.image = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\enemy.gif");
+		this.lightRange = 1;
 	}
 	
 	/*** Retorna o movimento feito pelo inimigo, em char ***/
 	public char getMoveDirection() {
-		if(this.lit == true) {
+		int distBravia = this.minDistanceToBravia(this.iPos, this.jPos);
+		if(distBravia > 0 && distBravia <= 4) {
 			return this.getBestDirection();
 		}else {
 			Random rand = new Random();

@@ -9,7 +9,7 @@ import java.util.Queue;
 import map.IMapProperties;
 
 public abstract class Enemy implements IMovement, IEnemyProperties, Cloneable{
-	protected int iPos, jPos;
+	protected int iPos, jPos, lightRange;
 	protected IMapProperties map;
 	protected boolean lit;
 	protected Image image;
@@ -75,7 +75,7 @@ public abstract class Enemy implements IMovement, IEnemyProperties, Cloneable{
 	}
 
 	/*** Retorna a minima distancia da celula Source para Bravia, -1 caso seja impossivel ***/
-	private int minDistanceToBravia(int iSource, int jSource) {  
+	protected int minDistanceToBravia(int iSource, int jSource) {  
 		int iDest = map.getIBravia();
 		int jDest = map.getJBravia();
 		int height = map.getMapHeight();
@@ -159,6 +159,9 @@ public abstract class Enemy implements IMovement, IEnemyProperties, Cloneable{
 
 	public Image getImage() {
 		return image;
+	}
+	public int getLightRange() {
+		return lightRange;
 	}
 
 	private class QElement{ //elementos que vao poder ser enfileirados para a BFS

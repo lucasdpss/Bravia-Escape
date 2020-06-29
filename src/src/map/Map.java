@@ -21,7 +21,9 @@ public class Map implements IMap{
 	}
 
 	public void illuminate(int range, int iSource, int jSource) {
+		if(range == 0) return;
 		mapCell[iSource][jSource].setLit(true);
+		if(mapEnemy[iSource][jSource] != null) mapEnemy[iSource][jSource].setLit(true);
 		for(int j = jSource-range; j <= jSource+range; j++) {
 
 			if(j == jSource-range || j == jSource+range) {
@@ -50,7 +52,9 @@ public class Map implements IMap{
 	}
 
 	public void illuminatePermanently(int range, int iSource, int jSource) {
+		if(range == 0) return;
 		mapCell[iSource][jSource].setPermanentlyLit(true);
+		if(mapEnemy[iSource][jSource] != null) mapEnemy[iSource][jSource].setLit(true);
 		for(int j = jSource-range; j <= jSource+range; j++) {
 			if(j == jSource-range || j == jSource+range) {
 				for(int i = iSource-(range-1); i <= iSource+(range-1); i++) {
@@ -153,7 +157,7 @@ public class Map implements IMap{
 	}
 	
 	/*** Listar todos os inimigos no mapa ***/
-	private void listEnemies() {
+	public void listEnemies() {
 		listEnemy = new ArrayList<Enemy>();
 		for(int i=0;i < mapHeight; i++) {
 			for(int j=0; j < mapWidth; j++) {
@@ -301,5 +305,8 @@ public class Map implements IMap{
 	}
 	public Bravia getBravia() {
 		return bravia;
+	}
+	public ArrayList<Enemy> getListEnemy(){
+		return listEnemy;
 	}
 }

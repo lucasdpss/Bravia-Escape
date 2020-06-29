@@ -29,7 +29,6 @@ public class Window {
 	private Bravia bravia;
 	private int XOrigem, YOrigem; //usados para centralizar o grid na tela
 	private Image inventoryKeysImage;
-	private Image inventoryItemsImage;
 	private String levelPath;
 
 	public Window(String levelPath) {
@@ -38,7 +37,6 @@ public class Window {
 		shadowImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\shadow.gif"); 
 		backgroundSound = new Sound("assets\\sounds\\Fase1.wav");
 		inventoryKeysImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\keys_pocket.png");
-		inventoryItemsImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\items_pocket.png");
 
 		/*** Janela da aplicacao tera um tamanho fixo ***/
 		frame = new JFrame();
@@ -101,6 +99,10 @@ public class Window {
 			
 			map.clearLights();
 			map.illuminate(bravia.getRange(), bravia.getIPos(), bravia.getJPos());
+			map.listEnemies();
+			for(Enemy enemy : map.getListEnemy()) {
+				map.illuminate(enemy.getLightRange(), enemy.getIPos(), enemy.getJPos());
+			}
 
 			for(int i=0;i < map.getMapHeight();i++) {
 				for(int j=0;j < map.getMapWidth();j++) {
