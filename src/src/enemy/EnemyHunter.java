@@ -9,8 +9,7 @@ public class EnemyHunter extends Enemy{
 	
 	public EnemyHunter(IMapProperties map, int iPos, int jPos) {
 		super(map, iPos, jPos);
-		this.enemyType = 1;
-		this.image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\enemy.gif");
+		this.image = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\enemy.gif");
 	}
 	
 	/*** Retorna o movimento feito pelo inimigo, em char ***/

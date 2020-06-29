@@ -8,12 +8,11 @@ import java.util.Queue;
 
 import map.IMapProperties;
 
-public abstract class Enemy implements IMovement, Cloneable{
+public abstract class Enemy implements IMovement, IEnemyProperties, Cloneable{
 	protected int iPos, jPos;
 	protected IMapProperties map;
 	protected boolean lit;
 	protected Image image;
-	protected int enemyType;
 
 	public Enemy(IMapProperties map, int iPos, int jPos) {
 		this.map = map;
@@ -27,7 +26,7 @@ public abstract class Enemy implements IMovement, Cloneable{
 	}
 
 	/*** Retorna melhor decisao de caminho, retorna 'S' caso nao tenha movimentos possiveis ***/
-	public char getBestDirection() { 
+	protected char getBestDirection() { 
 		ArrayList<Direction> list = new ArrayList<Direction>(4);
 
 		if(iPos - 1 >= 0 && map.getCell(iPos-1,jPos).isWalkableEnemy() && map.getEnemy(iPos - 1, jPos) == null) {
@@ -130,10 +129,6 @@ public abstract class Enemy implements IMovement, Cloneable{
 		return -1;
 	}
 
-	public char getMoveDirection() {
-		return 'S';  
-	}
-
 	public boolean isLit() {
 		return lit;
 	}
@@ -164,13 +159,6 @@ public abstract class Enemy implements IMovement, Cloneable{
 
 	public Image getImage() {
 		return image;
-	}
-
-	public IMapProperties getIMapProperties() {
-		return map;
-	}
-	public int getEnemyType() {
-		return enemyType;
 	}
 
 	private class QElement{ //elementos que vao poder ser enfileirados para a BFS

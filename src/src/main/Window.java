@@ -34,11 +34,11 @@ public class Window {
 
 	public Window(String levelPath) {
 		this.levelPath = levelPath;
-		backgroundImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\fundo1.png");
-		shadowImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\shadow.gif"); 
-		backgroundSound = new Sound("resources\\sounds\\Fase1.wav");
-		inventoryKeysImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\keys_pocket.png");
-		inventoryItemsImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\items_pocket.png");
+		backgroundImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\fundo1.png");
+		shadowImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\shadow.gif"); 
+		backgroundSound = new Sound("assets\\sounds\\Fase1.wav");
+		inventoryKeysImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\keys_pocket.png");
+		inventoryItemsImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\items_pocket.png");
 
 		/*** Janela da aplicacao tera um tamanho fixo ***/
 		frame = new JFrame();
@@ -74,7 +74,7 @@ public class Window {
 			menu.show();
 			return;
 		}
-		String nextLevel = "resources//stages//level" + String.valueOf(currentLevel + 1) + ".csv";
+		String nextLevel = "assets//stages//level" + String.valueOf(currentLevel + 1) + ".csv";
 		backgroundSound.stop();
 		frame.dispose(); // fechar a janela atual
 		new Window(nextLevel);
@@ -122,7 +122,7 @@ public class Window {
 			g2d.drawImage(inventoryKeysImage,XOrigem + map.getMapWidth()*32 + 64,YOrigem,this);
 			int offset = 0;
 			for(Color color : Color.values()) {
-				Image keyImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\key_" + color.name().toLowerCase() + ".png");
+				Image keyImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\key_" + color.name().toLowerCase() + ".png");
 				if(bravia.hasKey(color)) g2d.drawImage(keyImage,XOrigem + map.getMapWidth()*32 + 64 + offset,YOrigem + 32,this);
 				offset += 32;
 			}

@@ -18,8 +18,8 @@ public class MenuInicial {
 	private Sound backgroundSound;
 
 	public MenuInicial() {
-		backgroundImage = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\menu.png");
-		backgroundSound = new Sound("resources\\sounds\\MenuMusic.wav");
+		backgroundImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\menu.png");
+		backgroundSound = new Sound("assets\\sounds\\MenuMusic.wav");
 	}
 
 	public void show() {
@@ -43,7 +43,7 @@ public class MenuInicial {
 				System.out.println("Inicio da fase 1");
 				backgroundSound.stop();
 				frame.dispose(); // fechar o menu
-				new Window("resources//stages//level1.csv");
+				new Window("stages//level1.csv");
 				JOptionPane.showMessageDialog(null, "Use w, a, s, d ou setas para se mover.");
 			}
 		});

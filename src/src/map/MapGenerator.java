@@ -118,8 +118,6 @@ public class MapGenerator implements IMapGenerator{
 			return new Bonfire(iPos,jPos, mapGenerated);
 		case 'K':  //Key
 			return new Key(iPos,jPos,Color.getColor(id.charAt(1) - '0'));
-		case 'C':  //chest
-			return new Chest(iPos, jPos);
 		case 'E':  //Exit
 			return new Exit(iPos, jPos, window);
 		default:
