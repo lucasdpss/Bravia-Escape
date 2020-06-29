@@ -10,7 +10,6 @@ public class Wall extends Cell {
 		permanentlyLit = false;
 		walkableEnemy = false;
 		walkableBravia = false;
-		cellType = "Wa";
-		image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\tiles\\wall_tile.png");
+		image = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\wall_tile.png");
 	}
 }

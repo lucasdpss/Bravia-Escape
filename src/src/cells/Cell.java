@@ -9,7 +9,6 @@ public abstract class Cell implements ICellProperties, Cloneable {
 	protected boolean permanentlyLit;
 	protected boolean walkableBravia;
 	protected boolean walkableEnemy;
-	protected String cellType;
 	protected Image image;
 	protected int iPos, jPos;
 	
@@ -47,10 +46,6 @@ public abstract class Cell implements ICellProperties, Cloneable {
 	
 	public void setLit(boolean lit) {
 		this.lit = lit;
-	}
-	
-	public String getCellType() {
-		return cellType;
 	}
 	
 	public Image getImage() {

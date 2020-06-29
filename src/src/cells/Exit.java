@@ -16,8 +16,7 @@ public class Exit extends Cell {
 		permanentlyLit = false;
 		walkableBravia = true;
 		walkableEnemy = false;
-		cellType = "Ex";
-		image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\tiles\\exit_tile.png");
+		image = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\exit_tile.png");
 	}
 	
 	public void activate(Bravia bravia) {

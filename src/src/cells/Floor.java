@@ -10,7 +10,6 @@ public class Floor extends Cell{
 		permanentlyLit = false;
 		walkableBravia = true;
 		walkableEnemy = true;
-		cellType = "--";
-		image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\tiles\\floor_tile.png");
+		image = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\floor_tile.png");
 	}
 }

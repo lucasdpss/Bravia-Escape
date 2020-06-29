@@ -16,10 +16,9 @@ public class Gate extends Cell {
 		walkableBravia = false;
 		walkableEnemy = false;
 		this.color = color;
-		cellType = "G" + color.getIndex();
 		open = false;
 		
-		String imagePath = "resources\\graphics\\tiles\\gate_" + color.name().toLowerCase() + "_locked.png";
+		String imagePath = "assets\\graphics\\tiles\\gate_" + color.name().toLowerCase() + "_locked.png";
 		image = Toolkit.getDefaultToolkit().getImage(imagePath);
 	}
 	
@@ -28,7 +27,7 @@ public class Gate extends Cell {
 			if(pocket.hasKey(color)) {
 				open = true;
 				walkableBravia = true;
-				String imagePath = "resources\\graphics\\tiles\\gate_" + color.name().toLowerCase() + "_unlocked.png";
+				String imagePath = "assets\\graphics\\tiles\\gate_" + color.name().toLowerCase() + "_unlocked.png";
 				image = Toolkit.getDefaultToolkit().getImage(imagePath);
 			}
 		}

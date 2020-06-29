@@ -19,10 +19,9 @@ public class Bonfire extends Cell {
 		permanentlyLit = false;
 		walkableBravia = true;
 		walkableEnemy = false;
-		cellType = "Bf";
 		hasFire = false;
 		fireRange = 2;
-		image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\tiles\\bonfire_unlit_tile.png");
+		image = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\bonfire_unlit_tile.png");
 	}
 	
 	                          //colocar para salvar o checkpoint
@@ -30,7 +29,7 @@ public class Bonfire extends Cell {
 		if(!hasFire) {
 			walkableBravia = false;
 			permanentlyLit = true;
-			image = Toolkit.getDefaultToolkit().getImage("resources\\graphics\\tiles\\bonfire_lit_tile.gif");
+			image = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\bonfire_lit_tile.gif");
 			map.illuminatePermanently(fireRange, iPos, jPos);
 			
 			Checkpoint.setStartPos(iPos, jPos);
