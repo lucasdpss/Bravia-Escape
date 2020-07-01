@@ -1,5 +1,8 @@
 package main;
 
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.sound.sampled.AudioInputStream;
@@ -7,6 +10,9 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.BooleanControl;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 
@@ -14,7 +20,7 @@ public class Sound {
 	private Clip clip;
 	private FloatControl gainControl;
 	private BooleanControl muteControl;
-	private final float DEFAULT_VOLUME = 0.6f;
+	private final float DEFAULT_VOLUME = 0.8f;
 	private static boolean mutedGame = false;
 	
 	public Sound(String musicLocation) {
@@ -71,6 +77,34 @@ public class Sound {
 	
 	public static boolean getMutedGame() {
 		return mutedGame;
+	}
+	
+	public static JButton getSoundButton(Sound backgroundSound) {
+		ImageIcon speakerIcon;
+		if(Sound.getMutedGame()) speakerIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\mute.png"));
+		else speakerIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\speaker.png"));
+		JButton buttonSound = new JButton(speakerIcon);
+		buttonSound.setBounds(0, 580, 70, 50);
+		buttonSound.setBorder(BorderFactory.createEmptyBorder());
+		buttonSound.setContentAreaFilled(false);
+		buttonSound.setFocusable(false);
+		buttonSound.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(Sound.getMutedGame()) {
+					backgroundSound.unmute();
+					Sound.setMutedGame(false);
+					buttonSound.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\speaker.png")));
+				}else {
+					backgroundSound.mute();
+					Sound.setMutedGame(true);
+					buttonSound.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\mute.png")));
+				}
+			}
+		});
+		
+		return buttonSound;
 	}
 	
 	public void setVolume(float volume) {

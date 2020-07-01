@@ -7,8 +7,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -29,7 +27,7 @@ public class Menu {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		
-		instructionsPanel= new InstructionsPanel();
+		instructionsPanel = new InstructionsPanel();
 		menuPanel = new MenuPanel();
 		frame.add(menuPanel);
 
@@ -48,18 +46,21 @@ public class Menu {
 			
 			JButton buttonPlay = new JButton("Jogar");
 			buttonPlay.setBounds(620, 300, 70, 50);
+			buttonPlay.setFocusable(false);
 			buttonPlay.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					frame.remove(menuPanel);
 					frame.add(instructionsPanel);
+					instructionsPanel.add(Sound.getSoundButton(backgroundSound));
 					SwingUtilities.updateComponentTreeUI(frame);
 				}
 			});
 
 			JButton buttonExit = new JButton("Sair");
 			buttonExit.setBounds(620, 300 + 70, 70, 50);
+			buttonExit.setFocusable(false);
 			buttonExit.addActionListener(new ActionListener() {
 
 				@Override
@@ -68,32 +69,9 @@ public class Menu {
 				}
 			});
 			
-			ImageIcon speakerIcon;
-			if(Sound.getMutedGame()) speakerIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\mute.png"));
-			else speakerIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\speaker.png"));
-			JButton buttonSound = new JButton(speakerIcon);
-			buttonSound.setBounds(0, 580, 70, 50);
-			buttonSound.setBorder(BorderFactory.createEmptyBorder());
-			buttonSound.setContentAreaFilled(false);
-			buttonSound.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if(Sound.getMutedGame()) {
-						backgroundSound.unmute();
-						Sound.setMutedGame(false);
-						buttonSound.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\speaker.png")));
-					}else {
-						backgroundSound.mute();
-						Sound.setMutedGame(true);
-						buttonSound.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\mute.png")));
-					}
-				}
-			});
-			
+			add(Sound.getSoundButton(backgroundSound));
 			add(buttonPlay);
 			add(buttonExit);
-			add(buttonSound);
 		}
 
 		public void paintComponent(Graphics g) {

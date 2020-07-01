@@ -17,10 +17,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import enemy.*;
 import bravia.Bravia;
 import cells.Cell;
 import cells.Color;
+import enemy.Enemy;
 import map.GameBuilder;
 import map.IGameCreator;
 import map.Map;
@@ -92,31 +92,7 @@ public class Window {
 
 		public PanelWindow() {
 			this.setLayout(null);
-			
-			ImageIcon speakerIcon;
-			if(Sound.getMutedGame()) speakerIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\mute.png"));
-			else speakerIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\speaker.png"));
-			JButton buttonSound = new JButton(speakerIcon);
-			buttonSound.setBounds(0, 580, 70, 50);
-			buttonSound.setBorder(BorderFactory.createEmptyBorder());
-			buttonSound.setContentAreaFilled(false);
-			buttonSound.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if(Sound.getMutedGame()) {
-						backgroundSound.unmute();
-						Sound.setMutedGame(false);
-						buttonSound.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\speaker.png")));
-					}else {
-						backgroundSound.mute();
-						Sound.setMutedGame(true);
-						buttonSound.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\mute.png")));
-					}
-				}
-			});
-			
-			this.add(buttonSound);
+			this.add(Sound.getSoundButton(backgroundSound));
 			this.setFocusable(true);
 			this.setDoubleBuffered(true);
 			this.addKeyListener(new UserAdapter());
@@ -179,22 +155,18 @@ public class Window {
 			if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
 				bravia.move('U');
 				map.moveEnemies();
-				System.out.println("U");
 
 			}else if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
 				bravia.move('R');
 				map.moveEnemies();
-				System.out.println("R");
 
 			}else if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
 				bravia.move('L');
 				map.moveEnemies();
-				System.out.println("l");
 
 			}else if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
 				bravia.move('D');
 				map.moveEnemies();
-				System.out.println("D");
 
 			}
 
