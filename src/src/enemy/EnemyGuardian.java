@@ -16,6 +16,12 @@ public class EnemyGuardian extends Enemy{
 	
 	/*** Retorna o movimento feito pelo inimigo em char, retorna 'S' caso ele nao se mova ***/
 	public char getMoveDirection() {
+		int distBravia = this.minDistanceToBravia(this.iPos, this.jPos);
+		if(distBravia > 4 || distBravia == -1) {
+			discovered = false;
+			lightRange = 0;
+			lit = false;
+		}
 		if(lit) {
 			discovered = true;
 			lightRange = 1;
