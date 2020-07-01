@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.BooleanControl;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.swing.JOptionPane;
@@ -11,6 +12,8 @@ import javax.swing.JOptionPane;
 
 public class Sound {
 	private Clip clip;
+	private FloatControl gainControl;
+	private BooleanControl muteControl;
 	
 	public Sound(String musicLocation) {
 		File musicPath = new File(musicLocation);
@@ -22,10 +25,12 @@ public class Sound {
 				clip.open(audioInput);
 				
 				/*** Configuracao de volume ***/
-				FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 				float range = gainControl.getMaximum() - gainControl.getMinimum();
-				float gain = (range * 0.7f) + gainControl.getMinimum();
+				float gain = (range * 0.6f) + gainControl.getMinimum();
 				gainControl.setValue(gain);
+				
+				muteControl = (BooleanControl) clip.getControl(BooleanControl.Type.MUTE);
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, "Erro no playsound");
 			}
@@ -46,5 +51,13 @@ public class Sound {
 	
 	public void stop() {
 		clip.stop();
+	}
+	
+	public void mute() {
+		muteControl.setValue(true);
+	}
+	
+	public void unmute() {
+		muteControl.setValue(false);
 	}
 }
