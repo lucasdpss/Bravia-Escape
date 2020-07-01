@@ -15,8 +15,9 @@ import enemy.*;
 import bravia.Bravia;
 import cells.Cell;
 import cells.Color;
+import map.GameFactory;
+import map.IGameCreator;
 import map.Map;
-import map.MapGenerator;
 
 
 public class Window {
@@ -50,9 +51,10 @@ public class Window {
 		panel.setLayout(null);
 		frame.add(panel);
 		
-		MapGenerator mapGenerator = new MapGenerator(this, levelPath);
-		map = mapGenerator.generateMap();
-		bravia = map.getBravia();
+		/*** Cria os elementos do jogo ***/
+		IGameCreator gameCreator = new GameFactory(this,levelPath);
+		map = gameCreator.getMap();
+		bravia = gameCreator.getBravia();
 		
 		/*** Calcula a origem a partir do tamanho do mapa***/
 		YOrigem = (660 - map.getMapHeight()*32)/2;
@@ -156,12 +158,6 @@ public class Window {
 			}else if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
 				bravia.move('D');
 				map.moveEnemies();
-
-			}else if(e.getKeyCode() == KeyEvent.VK_1) {
-				System.out.println("li 1");
-
-			}else if(e.getKeyCode() == KeyEvent.VK_2) {
-				System.out.println("li 2");
 
 			}
 
