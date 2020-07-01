@@ -14,76 +14,61 @@ import javax.swing.SwingUtilities;
 
 public class Menu {
 	private JFrame frame;
-	private Image backgroundImage;
 	private Sound backgroundSound;
+	private MenuPanel menuPanel;
+	private InstructionsPanel instructionsPanel;
 
 	public Menu() {
-		backgroundImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\menu.png");
 		backgroundSound = new Sound("assets\\sounds\\MenuMusic.wav");
-	}
-
-	public void show() {
-
+		
 		frame = new JFrame("Menu Bravia Escape");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1320, 660);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
-
-		MenuPanel menuPanel = new MenuPanel();
-		menuPanel.setLayout(null);
+		
+		instructionsPanel= new InstructionsPanel();
+		menuPanel = new MenuPanel();
 		frame.add(menuPanel);
-		
-		/*** Construção do instructionsPanel ***/
-		InstructionsPanel instructionsPanel= new InstructionsPanel();
-		instructionsPanel.setLayout(null);
-		
-		JButton buttonContinue = new JButton("Continuar");
-		buttonContinue.setBounds(620, 540, 110, 50);
-		buttonContinue.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				backgroundSound.stop();
-				frame.dispose();
-				new Window("stages//level1.csv");
-			}
-		});
-		instructionsPanel.add(buttonContinue);
-
-		/*** Construção do menuPanel ***/
-		JButton buttonPlay = new JButton("Jogar");
-		buttonPlay.setBounds(620, 300, 70, 50);
-		buttonPlay.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				backgroundImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\instructions.png");
-				frame.remove(menuPanel);
-				frame.add(instructionsPanel);
-				SwingUtilities.updateComponentTreeUI(frame);
-			}
-		});
-
-		JButton buttonExit = new JButton("Sair");
-		buttonExit.setBounds(620, 300 + 70, 70, 50);
-		buttonExit.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		menuPanel.add(buttonPlay);
-		menuPanel.add(buttonExit);
 
 		frame.setVisible(true);
 		backgroundSound.playContinuously();
-
 	}
 
 	private class MenuPanel extends JPanel { // criado para sobrecarregar paintComponent() e colocar fundo
 		private static final long serialVersionUID = 1715984377894766740L;
+		private Image backgroundImage;
+		
+		public MenuPanel() {
+			super();
+			setLayout(null);
+			backgroundImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\menu.png");
+			
+			JButton buttonPlay = new JButton("Jogar");
+			buttonPlay.setBounds(620, 300, 70, 50);
+			buttonPlay.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					frame.remove(menuPanel);
+					frame.add(instructionsPanel);
+					SwingUtilities.updateComponentTreeUI(frame);
+				}
+			});
+
+			JButton buttonExit = new JButton("Sair");
+			buttonExit.setBounds(620, 300 + 70, 70, 50);
+			buttonExit.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.exit(0);
+				}
+			});
+			
+			add(buttonPlay);
+			add(buttonExit);
+		}
 
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
@@ -96,6 +81,7 @@ public class Menu {
 	
 	private class InstructionsPanel extends JPanel { // criado para sobrecarregar paintComponent() e colocar fundo
 		private static final long serialVersionUID = 1715984377894766740L;
+		private Image backgroundImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\instructions.png");
 		private Image wasdImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\wasd.png");
 		private Image arrowsImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\arrows.png");
 		private Image gateLockedImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\gate_blue_locked.png");
@@ -105,6 +91,24 @@ public class Menu {
 		private Image bonfireUnlitImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\bonfire_unlit_tile.png");
 		private Image bonfireLitImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\bonfire_lit_tile.gif");
 		private Image exitImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\exit_tile.png");
+		
+		public InstructionsPanel() {
+			super();
+			setLayout(null);
+			
+			JButton buttonContinue = new JButton("Continuar");
+			buttonContinue.setBounds(620, 540, 110, 50);
+			buttonContinue.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					backgroundSound.stop();
+					frame.dispose();
+					new Window("stages//level1.csv");
+				}
+			});
+			add(buttonContinue);
+		}
 
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);

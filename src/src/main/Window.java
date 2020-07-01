@@ -16,7 +16,7 @@ import enemy.*;
 import bravia.Bravia;
 import cells.Cell;
 import cells.Color;
-import map.GameFactory;
+import map.GameBuilder;
 import map.IGameCreator;
 import map.Map;
 
@@ -53,7 +53,7 @@ public class Window {
 		frame.add(panel);
 		
 		/*** Cria os elementos do jogo ***/
-		IGameCreator gameCreator = new GameFactory(this,levelPath);
+		IGameCreator gameCreator = new GameBuilder(this,levelPath);
 		map = gameCreator.getMap();
 		bravia = gameCreator.getBravia();
 		

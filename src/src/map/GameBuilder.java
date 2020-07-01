@@ -10,7 +10,7 @@ import enemy.Enemy;
 import main.Checkpoint;
 import main.Window;
 
-public class GameFactory implements IGameCreator{
+public class GameBuilder implements IGameCreator{
 	private String mapSource;
 	private int mapHeight, mapWidth;
 	private int IEntrance, JEntrance;
@@ -21,7 +21,7 @@ public class GameFactory implements IGameCreator{
 	private Bravia braviaGenerated;
 	private Window window;
 	
-	public GameFactory(Window window, String levelPath) {
+	public GameBuilder(Window window, String levelPath) {
 		this.mapSource = levelPath;
 		this.window = window;
 		this.mapGenerated = new Map();
