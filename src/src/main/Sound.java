@@ -15,6 +15,7 @@ public class Sound {
 	private FloatControl gainControl;
 	private BooleanControl muteControl;
 	private final float DEFAULT_VOLUME = 0.6f;
+	private static boolean mutedGame = false;
 	
 	public Sound(String musicLocation) {
 		File musicPath = new File(musicLocation);
@@ -41,11 +42,13 @@ public class Sound {
 	}
 	
 	public void playContinuously() {
+		if(mutedGame) mute();
 		clip.start();
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 	
 	public void playOnce() {
+		if(mutedGame) mute();
 		clip.start();
 		clip.loop(1);
 	}
@@ -60,6 +63,14 @@ public class Sound {
 	
 	public void unmute() {
 		muteControl.setValue(false);
+	}
+	
+	public static void setMutedGame(boolean muted) {
+		mutedGame = muted;
+	}
+	
+	public static boolean getMutedGame() {
+		return mutedGame;
 	}
 	
 	public void setVolume(float volume) {

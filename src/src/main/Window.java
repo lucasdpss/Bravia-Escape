@@ -4,10 +4,15 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -49,7 +54,6 @@ public class Window {
 
 		/*** Todos os elementos serao posicionados de forma absoluta ***/
 		panel = new PanelWindow();
-		panel.setLayout(null);
 		frame.add(panel);
 		
 		/*** Cria os elementos do jogo ***/
@@ -73,8 +77,7 @@ public class Window {
 		if(currentLevel >= numberOfStages) {
 			backgroundSound.stop();
 			frame.dispose(); // fechar a janela atual
-			Menu menu = new Menu();
-			menu.show();
+			new Menu();
 			return;
 		}
 		String nextLevel = "stages//level" + String.valueOf(currentLevel + 1) + ".csv";
@@ -88,9 +91,35 @@ public class Window {
 		private static final long serialVersionUID = 280911429679355275L;
 
 		public PanelWindow() {
-			setFocusable(true);
-			setDoubleBuffered(true);
-			addKeyListener(new UserAdapter());
+			this.setLayout(null);
+			
+			ImageIcon speakerIcon;
+			if(Sound.getMutedGame()) speakerIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\mute.png"));
+			else speakerIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\speaker.png"));
+			JButton buttonSound = new JButton(speakerIcon);
+			buttonSound.setBounds(0, 580, 70, 50);
+			buttonSound.setBorder(BorderFactory.createEmptyBorder());
+			buttonSound.setContentAreaFilled(false);
+			buttonSound.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(Sound.getMutedGame()) {
+						backgroundSound.unmute();
+						Sound.setMutedGame(false);
+						buttonSound.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\speaker.png")));
+					}else {
+						backgroundSound.mute();
+						Sound.setMutedGame(true);
+						buttonSound.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\mute.png")));
+					}
+				}
+			});
+			
+			this.add(buttonSound);
+			this.setFocusable(true);
+			this.setDoubleBuffered(true);
+			this.addKeyListener(new UserAdapter());
 		}
 		
 		public void paintComponent(Graphics g) {
@@ -144,24 +173,28 @@ public class Window {
 
 	/*** Classe para ler a entrada do usuario ***/
 	private class UserAdapter extends KeyAdapter {
-
+		
 		@Override
 		public void keyPressed(KeyEvent e) {
 			if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
 				bravia.move('U');
 				map.moveEnemies();
+				System.out.println("U");
 
 			}else if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
 				bravia.move('R');
 				map.moveEnemies();
+				System.out.println("R");
 
 			}else if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
 				bravia.move('L');
 				map.moveEnemies();
+				System.out.println("l");
 
 			}else if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
 				bravia.move('D');
 				map.moveEnemies();
+				System.out.println("D");
 
 			}
 

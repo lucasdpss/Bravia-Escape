@@ -7,6 +7,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -35,7 +37,7 @@ public class Menu {
 		backgroundSound.playContinuously();
 	}
 
-	private class MenuPanel extends JPanel { // criado para sobrecarregar paintComponent() e colocar fundo
+	private class MenuPanel extends JPanel { 
 		private static final long serialVersionUID = 1715984377894766740L;
 		private Image backgroundImage;
 		
@@ -66,8 +68,32 @@ public class Menu {
 				}
 			});
 			
+			ImageIcon speakerIcon;
+			if(Sound.getMutedGame()) speakerIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\mute.png"));
+			else speakerIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\speaker.png"));
+			JButton buttonSound = new JButton(speakerIcon);
+			buttonSound.setBounds(0, 580, 70, 50);
+			buttonSound.setBorder(BorderFactory.createEmptyBorder());
+			buttonSound.setContentAreaFilled(false);
+			buttonSound.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(Sound.getMutedGame()) {
+						backgroundSound.unmute();
+						Sound.setMutedGame(false);
+						buttonSound.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\speaker.png")));
+					}else {
+						backgroundSound.mute();
+						Sound.setMutedGame(true);
+						buttonSound.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\mute.png")));
+					}
+				}
+			});
+			
 			add(buttonPlay);
 			add(buttonExit);
+			add(buttonSound);
 		}
 
 		public void paintComponent(Graphics g) {
@@ -79,8 +105,9 @@ public class Menu {
 		}
 	}
 	
-	private class InstructionsPanel extends JPanel { // criado para sobrecarregar paintComponent() e colocar fundo
+	private class InstructionsPanel extends JPanel {
 		private static final long serialVersionUID = 1715984377894766740L;
+		
 		private Image backgroundImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\instructions.png");
 		private Image wasdImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\wasd.png");
 		private Image arrowsImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\arrows.png");

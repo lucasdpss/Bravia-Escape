@@ -16,7 +16,7 @@ public class EnemyHunter extends Enemy{
 	/*** Retorna o movimento feito pelo inimigo, em char ***/
 	public char getMoveDirection() {
 		int distBravia = this.minDistanceToBravia(this.iPos, this.jPos);
-		if(distBravia > 0 && distBravia <= 4) {
+		if(distBravia >= 0 && distBravia <= 4) {
 			return this.getBestDirection();
 		}else {
 			Random rand = new Random();
