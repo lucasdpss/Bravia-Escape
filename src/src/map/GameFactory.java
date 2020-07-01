@@ -67,10 +67,10 @@ public class GameFactory implements IGameCreator{
 				line = file.readLine();
 				lineSplit = line.split(",");
 				for(int j=0; j < this.mapWidth; j++) {
-					String idObject = lineSplit[j];
-					mapText[i][j] = idObject;
-					mapEnemy[i][j] = EnemyFactory.getEnemy(idObject, mapGenerated, i, j);
-					mapCell[i][j] = CellFactory.getCell(idObject, window, mapGenerated, i, j);
+					String objectID = lineSplit[j];
+					mapText[i][j] = objectID;
+					mapEnemy[i][j] = EnemyFactory.getEnemy(objectID, mapGenerated, i, j);
+					mapCell[i][j] = CellFactory.getCell(objectID, window, mapGenerated, i, j);
 				}
 			}
 			
@@ -91,7 +91,6 @@ public class GameFactory implements IGameCreator{
 		
 		//rotina para gerar checkpoint ao iniciar a fase
 		try {
-			Checkpoint.setMap(mapGenerated);
 			Checkpoint.setStartPos(IEntrance, JEntrance);
 			Checkpoint.setKeyInventory(braviaGenerated);
 			Checkpoint.setMapCell(mapCell);

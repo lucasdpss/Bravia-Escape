@@ -34,6 +34,7 @@ public class Menu {
 		menuPanel.setLayout(null);
 		frame.add(menuPanel);
 		
+		/*** Construção do instructionsPanel ***/
 		InstructionsPanel instructionsPanel= new InstructionsPanel();
 		instructionsPanel.setLayout(null);
 		
@@ -50,9 +51,10 @@ public class Menu {
 		});
 		instructionsPanel.add(buttonContinue);
 
-		JButton button1 = new JButton("Jogar");
-		button1.setBounds(620, 300, 70, 50);
-		button1.addActionListener(new ActionListener() {
+		/*** Construção do menuPanel ***/
+		JButton buttonPlay = new JButton("Jogar");
+		buttonPlay.setBounds(620, 300, 70, 50);
+		buttonPlay.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -63,17 +65,17 @@ public class Menu {
 			}
 		});
 
-		JButton button2 = new JButton("Sair");
-		button2.setBounds(620, 300 + 70, 70, 50);
-		button2.addActionListener(new ActionListener() {
+		JButton buttonExit = new JButton("Sair");
+		buttonExit.setBounds(620, 300 + 70, 70, 50);
+		buttonExit.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		menuPanel.add(button1);
-		menuPanel.add(button2);
+		menuPanel.add(buttonPlay);
+		menuPanel.add(buttonExit);
 
 		frame.setVisible(true);
 		backgroundSound.playContinuously();

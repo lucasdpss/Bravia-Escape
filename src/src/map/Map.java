@@ -16,14 +16,11 @@ public class Map implements IMap{
 	private Bravia bravia;
 	private ArrayList<Enemy> listEnemy;
 
-	public Map() {
-		
-	}
-
 	public void illuminate(int range, int iSource, int jSource) {
 		if(range == 0) return;
 		mapCell[iSource][jSource].setLit(true);
 		if(mapEnemy[iSource][jSource] != null) mapEnemy[iSource][jSource].setLit(true);
+		
 		for(int j = jSource-range; j <= jSource+range; j++) {
 
 			if(j == jSource-range || j == jSource+range) {
@@ -55,7 +52,9 @@ public class Map implements IMap{
 		if(range == 0) return;
 		mapCell[iSource][jSource].setPermanentlyLit(true);
 		if(mapEnemy[iSource][jSource] != null) mapEnemy[iSource][jSource].setLit(true);
+		
 		for(int j = jSource-range; j <= jSource+range; j++) {
+			
 			if(j == jSource-range || j == jSource+range) {
 				for(int i = iSource-(range-1); i <= iSource+(range-1); i++) {
 					if(i >= 0 && i < mapHeight && j >= 0 && j < mapWidth) {
@@ -85,7 +84,7 @@ public class Map implements IMap{
 	}
 
 	/*** Retorna a distancia entre dois pontos do mapa, -1 caso nao eh possivel chegar ***/
-	public int distanceToCell(int iSource, int jSource, int iDest, int jDest) {
+	private int distanceToCell(int iSource, int jSource, int iDest, int jDest) {
 		/*** preparar ambiente e variaveis para BFS ***/
 		boolean visited[][] = new boolean[mapHeight][mapWidth];
 
@@ -143,21 +142,21 @@ public class Map implements IMap{
 		listEnemies();
 		if(listEnemy.isEmpty()) return;
 		for(Enemy enemy : listEnemy) {
-			if(moveEnemy(enemy, enemy.getMoveDirection()) == 1) {
+			if(moveEnemy(enemy, enemy.getMoveDirection())) {
 				collision = true;
 				break;
 			}
 		}
 		if(collision)
 			try {
-				interactBravia();
+				killBravia();
 			} catch (CloneNotSupportedException e) {
 				e.printStackTrace();
 			}
 	}
 	
-	/*** Listar todos os inimigos no mapa ***/
-	public void listEnemies() {
+	/*** Lista todos os inimigos no mapa e retorna a lista ***/
+	public ArrayList<Enemy> listEnemies() {
 		listEnemy = new ArrayList<Enemy>();
 		for(int i=0;i < mapHeight; i++) {
 			for(int j=0; j < mapWidth; j++) {
@@ -166,11 +165,12 @@ public class Map implements IMap{
 				}
 			}
 		}
+		return listEnemy;
 	}
 	
 	/*** Funcao para mover um inimigo no mapa, assumindo que a direcao dada eh valida ***/
-	//retorna 1 caso tenha colidido com a bravia, retorna 0 caso contrario
-	public int moveEnemy(Enemy enemy, char direction) {
+	//retorna true caso tenha colidido com a bravia, retorna false caso contrario
+	private boolean moveEnemy(Enemy enemy, char direction) {
 		System.out.println(direction);               //DEBUG
 		int newIPos,newJPos;
 		
@@ -224,12 +224,12 @@ public class Map implements IMap{
 		}
 		
 		if(bravia.getIPos() == enemy.getIPos() && bravia.getJPos() == enemy.getJPos()) { 
-			return 1;
+			return true;
 		}
-		return 0;
+		return false;
 	}
 	
-	public void interactBravia() throws CloneNotSupportedException { 
+	public void killBravia() throws CloneNotSupportedException { 
 		System.out.println("morreu");
 		mapCell = Checkpoint.getMapCell();
 		mapEnemy = Checkpoint.getMapEnemy();
@@ -237,10 +237,6 @@ public class Map implements IMap{
 		bravia.setJPos(Checkpoint.getStartJPos());
 		bravia.setKeyInventory(Checkpoint.getKeyInventory());
 		return;
-	}
-
-	public Enemy getEnemy(int i, int j) {
-		return mapEnemy[i][j];
 	}
 
 	private class QElement{ //elementos que vao poder ser enfileirados para a BFS
@@ -262,19 +258,27 @@ public class Map implements IMap{
 			return distance;
 		}
 	}
+	
+	public Enemy getEnemy(int i, int j) {
+		return mapEnemy[i][j];
+	}
 
 	public void setMapHeight(int mapHeight) {
 		this.mapHeight = mapHeight;
 	}
+	
 	public void setMapWidth(int mapWidth) {
 		this.mapWidth = mapWidth;
 	}
+	
 	public void setMapCell(Cell[][] mapCell) {
 		this.mapCell = mapCell;
 	}
+	
 	public void setMapEnemy(Enemy[][] mapEnemy) {
 		this.mapEnemy = mapEnemy;
 	}
+	
 	public void setBravia(Bravia bravia) {
 		this.bravia = bravia;
 	}
@@ -282,31 +286,35 @@ public class Map implements IMap{
 	public int getMapHeight() {
 		return mapHeight;
 	}
+	
 	public int getMapWidth() {
 		return mapWidth;
 	}
+	
 	public Cell[][] getMapCell() {
 		return mapCell;
 	}
+	
 	public Cell getCell(int i, int j){
 		if(i >= 0 && i <= mapHeight && j >= 0 && j <= mapWidth) {
 			return mapCell[i][j];
 		}
 		return null;
 	}
+	
 	public Enemy[][] getMapEnemy() {
 		return mapEnemy;
 	}
+	
 	public int getIBravia() {
 		return bravia.getIPos();
 	}
+	
 	public int getJBravia() {
 		return bravia.getJPos();
 	}
+	
 	public Bravia getBravia() {
 		return bravia;
-	}
-	public ArrayList<Enemy> getListEnemy(){
-		return listEnemy;
 	}
 }

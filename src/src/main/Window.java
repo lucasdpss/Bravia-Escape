@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -67,7 +68,9 @@ public class Window {
 	
 	public void nextWindow() {  //deve seguir o padrao "stages//levelX.csv"
 		int currentLevel = levelPath.charAt(13) - '0';
-		if(currentLevel == 3) {
+		File f = new File("stages");
+		int numberOfStages = f.list().length;
+		if(currentLevel >= numberOfStages) {
 			backgroundSound.stop();
 			frame.dispose(); // fechar a janela atual
 			Menu menu = new Menu();
@@ -99,13 +102,14 @@ public class Window {
 			Cell[][] mapCell = map.getMapCell();
 			Enemy[][] mapEnemy = map.getMapEnemy();
 			
+			/*** Iluminacao ***/
 			map.clearLights();
 			map.illuminate(bravia.getRange(), bravia.getIPos(), bravia.getJPos());
-			map.listEnemies();
-			for(Enemy enemy : map.getListEnemy()) {
+			for(Enemy enemy : map.listEnemies()) {
 				map.illuminate(enemy.getLightRange(), enemy.getIPos(), enemy.getJPos());
 			}
 
+			/*** Desenhar cells e enemies iluminados ***/
 			for(int i=0;i < map.getMapHeight();i++) {
 				for(int j=0;j < map.getMapWidth();j++) {
 					Cell cell = mapCell[i][j];
@@ -123,6 +127,7 @@ public class Window {
 				}
 			}
 			
+			/*** Desenhar inventario ***/
 			g2d.drawImage(inventoryKeysImage,XOrigem + map.getMapWidth()*32 + 64,YOrigem,this);
 			int offset = 0;
 			for(Color color : Color.values()) {
@@ -131,8 +136,7 @@ public class Window {
 				offset += 32;
 			}
 			
-			//g2d.drawImage(inventoryItemsImage,XOrigem + map.getMapWidth()*32 + 64,YOrigem + 96,this);
-			
+			/*** Desenhar Bravia ***/
 			g2d.drawImage(bravia.getImage(),XOrigem+bravia.getJPos()*32,YOrigem+bravia.getIPos()*32,this);
 
 		}

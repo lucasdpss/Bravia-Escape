@@ -4,26 +4,16 @@ import bravia.IPocket;
 import cells.Cell;
 import cells.Color;
 import enemy.Enemy;
-import map.Map;
 
 public class Checkpoint {
 	private static int startIPos, startJPos;
 	private static Cell[][] mapCell;
 	private static Enemy[][] mapEnemy;
 	private static boolean[] keyInventory;
-	private static Map map;
 	
 	public static void setStartPos(int iPos, int jPos) {
 		startIPos = iPos;
 		startJPos = jPos;
-	}
-	
-	public static void setMap(Map mapGenerated) { //so recebe na construcao do mapa, nao eh usado nas fogueiras
-		map = mapGenerated;
-	}
-	
-	public static Map getMap() {
-		return map;
 	}
 	
 	public static int getStartIPos() {
