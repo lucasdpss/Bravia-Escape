@@ -4,15 +4,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -62,8 +57,8 @@ public class Window {
 		bravia = gameCreator.getBravia();
 		
 		/*** Calcula a origem a partir do tamanho do mapa***/
-		YOrigem = (660 - map.getMapHeight()*32)/2;
-		XOrigem = (1320 - map.getMapWidth()*32)/2;       //cada quadrado tem 32 pixels
+		YOrigem = (660 - map.getMapHeight()*32)/2 - 14;
+		XOrigem = (1320 - map.getMapWidth()*32)/2 - 120;       //cada quadrado tem 32 pixels
 
 		frame.setVisible(true);
 		backgroundSound.playContinuously();
