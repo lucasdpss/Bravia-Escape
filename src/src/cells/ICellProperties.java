@@ -15,6 +15,4 @@ public interface ICellProperties {
 	void setLit(boolean lit);
 	public Image getImage();
 	void activate(Bravia bravia);
-	int getIPos();
-	int getJPos();
 }

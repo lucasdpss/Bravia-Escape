@@ -51,15 +51,7 @@ public abstract class Cell implements ICellProperties, Cloneable {
 	public Image getImage() {
 		return image;
 	}
-	
-	public int getIPos() {
-		return iPos;
-	}
-	
-	public int getJPos() {
-		return jPos;
-	}
-	
+
 	public void activate(Bravia bravia) {
 		
 	}
