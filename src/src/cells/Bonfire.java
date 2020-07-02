@@ -1,6 +1,7 @@
 package cells;
 
 import java.awt.Toolkit;
+import java.io.File;
 
 import bravia.Bravia;
 import main.Checkpoint;
@@ -21,7 +22,7 @@ public class Bonfire extends Cell {
 		walkableEnemy = false;
 		hasFire = false;
 		fireRange = 2;
-		image = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\bonfire_unlit_tile.png");
+		image = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"tiles"+File.separatorChar+"bonfire_unlit_tile.png");
 	}
 	
 	                          //colocar para salvar o checkpoint
@@ -29,7 +30,7 @@ public class Bonfire extends Cell {
 		if(!hasFire) {
 			walkableBravia = false;
 			permanentlyLit = true;
-			image = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\bonfire_lit_tile.gif");
+			image = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"tiles"+File.separatorChar+"bonfire_lit_tile.gif");
 			map.illuminatePermanently(fireRange, iPos, jPos);
 			
 			Checkpoint.setStartPos(iPos, jPos);

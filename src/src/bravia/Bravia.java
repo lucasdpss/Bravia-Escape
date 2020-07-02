@@ -2,6 +2,7 @@ package bravia;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
 
 import cells.Cell;
 import cells.Color;
@@ -18,7 +19,7 @@ public class Bravia implements IBravia {
 		this.map = map;
 		this.iPos = iPos;
 		this.jPos = jPos;
-		this.image = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\bravia_front.gif");
+		this.image = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"bravia_front.gif");
 		torchRange = 2;
 		keyInventory = new boolean[Color.values().length];
 	}

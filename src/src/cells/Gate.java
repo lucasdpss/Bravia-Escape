@@ -1,6 +1,7 @@
 package cells;
 
 import java.awt.Toolkit;
+import java.io.File;
 
 import bravia.Bravia;
 
@@ -18,7 +19,7 @@ public class Gate extends Cell {
 		this.color = color;
 		open = false;
 		
-		String imagePath = "assets\\graphics\\tiles\\gate_" + color.name().toLowerCase() + "_locked.png";
+		String imagePath = "assets"+File.separatorChar+"graphics"+File.separatorChar+"tiles"+File.separatorChar+"gate_" + color.name().toLowerCase() + "_locked.png";
 		image = Toolkit.getDefaultToolkit().getImage(imagePath);
 	}
 	
@@ -27,7 +28,7 @@ public class Gate extends Cell {
 			if(pocket.hasKey(color)) {
 				open = true;
 				walkableBravia = true;
-				String imagePath = "assets\\graphics\\tiles\\gate_" + color.name().toLowerCase() + "_unlocked.png";
+				String imagePath = "assets"+File.separatorChar+"graphics"+File.separatorChar+"tiles"+File.separatorChar+"gate_" + color.name().toLowerCase() + "_unlocked.png";
 				image = Toolkit.getDefaultToolkit().getImage(imagePath);
 			}
 		}

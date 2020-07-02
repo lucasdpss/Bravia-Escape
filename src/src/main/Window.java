@@ -35,10 +35,10 @@ public class Window {
 
 	public Window(String levelPath) {
 		this.levelPath = levelPath;
-		backgroundImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\fundo.png");
-		shadowImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\shadow.gif"); 
-		backgroundSound = new Sound("assets\\sounds\\Fase1.wav");
-		inventoryKeysImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\keys_pocket.png");
+		backgroundImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"fundo.png");
+		shadowImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"shadow.gif"); 
+		backgroundSound = new Sound("assets"+File.separatorChar+"sounds"+File.separatorChar+"Fase1.wav");
+		inventoryKeysImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"keys_pocket.png");
 
 		/*** Janela da aplicacao tera um tamanho fixo ***/
 		frame = new JFrame();
@@ -131,7 +131,7 @@ public class Window {
 			g2d.drawImage(inventoryKeysImage,XOrigem + map.getMapWidth()*32 + 64,YOrigem,this);
 			int offset = 0;
 			for(Color color : Color.values()) {
-				Image keyImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\key_" + color.name().toLowerCase() + ".png");
+				Image keyImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"key_" + color.name().toLowerCase() + ".png");
 				if(bravia.hasKey(color)) g2d.drawImage(keyImage,XOrigem + map.getMapWidth()*32 + 64 + offset,YOrigem + 32,this);
 				offset += 32;
 			}

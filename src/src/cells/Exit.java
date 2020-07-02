@@ -1,6 +1,7 @@
 package cells;
 
 import java.awt.Toolkit;
+import java.io.File;
 
 import bravia.Bravia;
 import main.Window;
@@ -16,7 +17,7 @@ public class Exit extends Cell {
 		permanentlyLit = false;
 		walkableBravia = true;
 		walkableEnemy = false;
-		image = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\exit_tile.png");
+		image = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"tiles"+File.separatorChar+"exit_tile.png");
 	}
 	
 	public void activate(Bravia bravia) {

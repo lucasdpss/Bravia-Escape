@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,7 +20,7 @@ public class Menu {
 	private InstructionsPanel instructionsPanel;
 
 	public Menu() {
-		backgroundSound = new Sound("assets\\sounds\\MenuMusic.wav");
+		backgroundSound = new Sound("assets" + File.separatorChar + "sounds" + File.separatorChar + "MenuMusic.wav");
 		
 		frame = new JFrame("Menu Bravia Escape");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,7 +43,7 @@ public class Menu {
 		public MenuPanel() {
 			super();
 			setLayout(null);
-			backgroundImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\menu.png");
+			backgroundImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"menu.png");
 			
 			JButton buttonPlay = new JButton("Jogar");
 			buttonPlay.setBounds(620, 300, 70, 50);
@@ -86,16 +87,16 @@ public class Menu {
 	private class InstructionsPanel extends JPanel {
 		private static final long serialVersionUID = 1715984377894766740L;
 		
-		private Image backgroundImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\instructions.png");
-		private Image wasdImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\wasd.png");
-		private Image arrowsImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\arrows.png");
-		private Image gateLockedImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\gate_blue_locked.png");
-		private Image gateUnlockedImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\gate_blue_unlocked.png");
-		private Image keyImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\key_blue.png");
-		private Image enemyImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\enemy.gif");
-		private Image bonfireUnlitImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\bonfire_unlit_tile.png");
-		private Image bonfireLitImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\bonfire_lit_tile.gif");
-		private Image exitImage = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\exit_tile.png");
+		private Image backgroundImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"instructions.png");
+		private Image wasdImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"wasd.png");
+		private Image arrowsImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"arrows.png");
+		private Image gateLockedImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"tiles"+File.separatorChar+"gate_blue_locked.png");
+		private Image gateUnlockedImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"tiles"+File.separatorChar+"gate_blue_unlocked.png");
+		private Image keyImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"key_blue.png");
+		private Image enemyImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"enemy.gif");
+		private Image bonfireUnlitImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"tiles"+File.separatorChar+"bonfire_unlit_tile.png");
+		private Image bonfireLitImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"tiles"+File.separatorChar+"bonfire_lit_tile.gif");
+		private Image exitImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"tiles"+File.separatorChar+"exit_tile.png");
 		
 		public InstructionsPanel() {
 			super();

@@ -81,8 +81,8 @@ public class Sound {
 	
 	public static JButton getSoundButton(Sound backgroundSound) {
 		ImageIcon speakerIcon;
-		if(Sound.getMutedGame()) speakerIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\mute.png"));
-		else speakerIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\speaker.png"));
+		if(Sound.getMutedGame()) speakerIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"mute.png"));
+		else speakerIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"speaker.png"));
 		JButton buttonSound = new JButton(speakerIcon);
 		buttonSound.setBounds(0, 580, 70, 50);
 		buttonSound.setBorder(BorderFactory.createEmptyBorder());
@@ -95,11 +95,11 @@ public class Sound {
 				if(Sound.getMutedGame()) {
 					backgroundSound.unmute();
 					Sound.setMutedGame(false);
-					buttonSound.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\speaker.png")));
+					buttonSound.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"speaker.png")));
 				}else {
 					backgroundSound.mute();
 					Sound.setMutedGame(true);
-					buttonSound.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets\\graphics\\mute.png")));
+					buttonSound.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"mute.png")));
 				}
 			}
 		});

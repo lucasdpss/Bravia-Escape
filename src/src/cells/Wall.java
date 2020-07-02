@@ -1,6 +1,7 @@
 package cells;
 
 import java.awt.Toolkit;
+import java.io.File;
 
 public class Wall extends Cell {
 	public Wall(int iPos, int jPos){
@@ -10,6 +11,6 @@ public class Wall extends Cell {
 		permanentlyLit = false;
 		walkableEnemy = false;
 		walkableBravia = false;
-		image = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\wall_tile.png");
+		image = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"tiles"+File.separatorChar+"wall_tile.png");
 	}
 }

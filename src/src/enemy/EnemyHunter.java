@@ -1,6 +1,7 @@
 package enemy;
 
 import java.awt.Toolkit;
+import java.io.File;
 import java.util.Random;
 
 import map.IMapProperties;
@@ -9,7 +10,7 @@ public class EnemyHunter extends Enemy{
 	
 	public EnemyHunter(IMapProperties map, int iPos, int jPos) {
 		super(map, iPos, jPos);
-		this.image = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\enemy.gif");
+		this.image = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"enemy.gif");
 		this.lightRange = 1;
 	}
 	

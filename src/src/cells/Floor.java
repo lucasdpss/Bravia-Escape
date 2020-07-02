@@ -1,6 +1,7 @@
 package cells;
 
 import java.awt.Toolkit;
+import java.io.File;
 
 public class Floor extends Cell{	
 	public Floor(int iPos, int jPos){
@@ -10,6 +11,6 @@ public class Floor extends Cell{
 		permanentlyLit = false;
 		walkableBravia = true;
 		walkableEnemy = true;
-		image = Toolkit.getDefaultToolkit().getImage("assets\\graphics\\tiles\\floor_tile.png");
+		image = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"tiles"+File.separatorChar+"floor_tile.png");
 	}
 }
