@@ -19,20 +19,8 @@ public class Key extends Cell {
 		this.color = color;
 		withKey = true;
 		
-		switch(color) {
-		case BLUE:
-			image = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"tiles"+File.separatorChar+"key_blue_tile.png");
-			break;
-		case GREEN:
-			image = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"tiles"+File.separatorChar+"key_green_tile.png");
-			break;
-		case RED:
-			image = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"tiles"+File.separatorChar+"key_red_tile.png");
-			break;
-		case YELLOW:
-			image = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"tiles"+File.separatorChar+"key_yellow_tile.png");
-			break;
-		}
+		String imagePath = "assets"+File.separatorChar+"graphics"+File.separatorChar+"tiles"+File.separatorChar+"key_" + color.name().toLowerCase() + "_tile.png";
+		image = Toolkit.getDefaultToolkit().getImage(imagePath);
 	}
 	
 	public void activate(Bravia pocket) {
