@@ -7,6 +7,9 @@ import java.io.IOException;
 import bravia.Bravia;
 import cells.Cell;
 import enemy.Enemy;
+import exceptions.InvalidEntrance;
+import exceptions.InvalidMapGen;
+import exceptions.InvalidMapSize;
 import main.Checkpoint;
 import main.Window;
 
@@ -21,13 +24,14 @@ public class GameBuilder implements IGameCreator{
 	private Bravia braviaGenerated;
 	private Window window;
 	
-	public GameBuilder(Window window, String levelPath) {
+	public GameBuilder(Window window, String levelPath) throws InvalidMapGen {
 		this.mapSource = levelPath;
 		this.window = window;
 		this.mapGenerated = new Map();
 		loadGame();
 		buildGame();
 		printMapStdout();
+		System.out.println("Level gerado com sucesso");
 	}
 	
 	public Map getMap() {
@@ -39,7 +43,7 @@ public class GameBuilder implements IGameCreator{
 	}
 	
 	/*** metodo para carregar informacoes dos objetos a serem criados ***/
-	private void loadGame() {
+	private void loadGame() throws InvalidMapGen {
 		try {
 			BufferedReader file = new BufferedReader(new FileReader(this.mapSource));
 			String line;
@@ -47,12 +51,20 @@ public class GameBuilder implements IGameCreator{
 			
 			/*** ler a primeira linha ***/
 			line = file.readLine();
+			if(line == null) {
+				file.close();
+				throw new InvalidMapSize("Tamanho do mapa nao fornecido");
+			}
 			lineSplit = line.split(",");
 			setMapHeight(Integer.parseInt(lineSplit[0]));
 			setMapWidth(Integer.parseInt(lineSplit[1]));
 			
 			/*** ler a segunda linha ***/
 			line = file.readLine();
+			if(line == null) {
+				file.close();
+				throw new InvalidEntrance("Coordenadas de entrada nao fornecidas");
+			}
 			lineSplit = line.split(",");
 			setIEntrance(Integer.parseInt(lineSplit[0]));
 			setJEntrance(Integer.parseInt(lineSplit[1]));
@@ -65,7 +77,15 @@ public class GameBuilder implements IGameCreator{
 			/*** preencher matriz mapa ***/
 			for(int i=0; i < this.mapHeight; i++) {
 				line = file.readLine();
+				if(line == null) {
+					file.close();
+					throw new InvalidMapSize("Altura do mapa invalida");
+				}
 				lineSplit = line.split(",");
+				if(lineSplit.length != this.mapWidth) {
+					file.close();
+					throw new InvalidMapSize("Largura do mapa invalida");
+				}
 				for(int j=0; j < this.mapWidth; j++) {
 					String objectID = lineSplit[j];
 					mapText[i][j] = objectID;
@@ -73,10 +93,23 @@ public class GameBuilder implements IGameCreator{
 					mapCell[i][j] = CellFactory.getCell(objectID, window, mapGenerated, i, j);
 				}
 			}
+			line = file.readLine();
+			if(line != null && !line.isEmpty()) {
+				file.close();
+				throw new InvalidMapSize("Altura do mapa invalida");
+			}
+			if(IEntrance < 0 || IEntrance >= mapWidth || JEntrance < 0 || JEntrance >= mapWidth) {
+				file.close();
+				throw new InvalidEntrance("Entrada fora do mapa");
+			}
+			if(!mapCell[IEntrance][JEntrance].isWalkableBravia()) {
+				file.close();
+				throw new InvalidEntrance("Entrada nao andavel");
+			}
 			
 			file.close();
-		} catch (IOException erro) {
-			erro.printStackTrace();
+		} catch (IOException error) {
+			error.printStackTrace();
 		}
 	}
 	

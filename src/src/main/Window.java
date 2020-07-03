@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -16,6 +17,7 @@ import bravia.Bravia;
 import cells.Cell;
 import cells.Color;
 import enemy.Enemy;
+import exceptions.InvalidMapGen;
 import map.GameBuilder;
 import map.IGameCreator;
 import map.Map;
@@ -52,17 +54,24 @@ public class Window {
 		frame.add(panel);
 		
 		/*** Cria os elementos do jogo ***/
-		IGameCreator gameCreator = new GameBuilder(this,levelPath);
-		map = gameCreator.getMap();
-		bravia = gameCreator.getBravia();
-		
-		/*** Calcula a origem a partir do tamanho do mapa***/
-		YOrigem = (660 - map.getMapHeight()*32)/2 - 14;
-		XOrigem = (1320 - map.getMapWidth()*32)/2 - 120;       //cada quadrado tem 32 pixels
+		IGameCreator gameCreator;
+		try {
+			gameCreator = new GameBuilder(this,levelPath);
+			map = gameCreator.getMap();
+			bravia = gameCreator.getBravia();
+			
+			/*** Calcula a origem do sistema ***/
+			YOrigem = (660 - map.getMapHeight()*32)/2 - 14;
+			XOrigem = (1320 - map.getMapWidth()*32)/2 - 120;       //cada quadrado tem 32 pixels
 
-		frame.setVisible(true);
-		backgroundSound.playContinuously();
-		
+			frame.setVisible(true);
+			backgroundSound.playContinuously();
+		} catch (InvalidMapGen error) {
+			error.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro no " + levelPath);
+			frame.dispose();
+			new Menu();
+		}
 	}
 	
 	public void nextWindow() {  //deve seguir o padrao "stages//levelX.csv"
