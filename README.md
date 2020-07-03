@@ -4,27 +4,81 @@
 * `Lucas de Paula Soares` - `RA:201867`
 * `Antonio Gabriel da Silva Fernandes` - `RA:231551`
 
+# Estrutura de Arquivos e Pastas
+~~~
+├── README.md          <- apresentação do projeto
+│
+├── data               <- arquivos .csv das fases
+│
+├── src                <- projeto em Java no Eclipse
+│   │
+│   ├── src            <- arquivos-fonte do projeto (.java)
+│   │
+│   ├── assets         <- cópia das mídias usadas no projeto
+│   │
+│   ├── stages         <- cópia dos arquivos .csv das fases
+│   │
+│   ├── bin            <- arquivos em bytecode (.class)
+│   │
+│   └── README.md      <- instruções básicas de instalação/execução
+│
+└── assets             <- mídias usadas no projeto
+~~~
+
 # Descrição Resumida do Projeto
-<p>Bravia é uma jovem que foi capturada por monstros e precisa fugir da caverna usando apenas uma tocha para se guiar na escuridão.</p>
-<p>O jogo se passa em um grid celular onde estão marcadas a entrada e a saída daquela fase. Para alcançar a saída, será necessário encontrar chaves certas que abrem portas que liberam o caminho. O jogador pode se mover nas quatro direções, em células que não contêm obstáculos.</p>
-<p>Na caverna, podemos encontrar também monstros que perseguem nossa heroína. Eles seguem a mesma trajetória feita por Bravia, portanto é necessário pensar bem nos movimentos, para não acabar se encurralando. Os monstros começam a perseguir o jogador assim que entra no raio de sua tocha. Os monstros se movem uma vez para cada movimento feito pelo jogador</p>
-<p>Em fases mais longas, haverá uma fogueira que pode ser acesa por Bravia, que
+Bravia é uma jovem que foi capturada por monstros e precisa fugir da masmorra usando apenas uma tocha para se guiar na escuridão.
+
+O jogo se passa em um grid celular onde estão marcadas a entrada e a saída daquela fase. Para alcançar a saída, será necessário encontrar chaves certas que abrem portas que liberam o caminho. O jogador pode se mover nas quatro direções, em células que não contêm obstáculos.
+
+Na caverna, podemos encontrar também monstros que perseguem nossa heroína. Alguns deles rondam os corredores procurando por ela enquanto outros ficam de guarda escondidos até serem encontrados. Assim que entram no raio da tocha de Bravia, eles começam a persegui-la, até serem despistados. Os monstros se movem uma vez para cada movimento feito pelo jogador, e não conseguem passar por portões (mesmo destrancados).
+
+Em fases mais longas, haverá uma fogueira que pode ser acesa por Bravia, que
 funcionará como checkpoint. Essas fogueiras iluminam uma área a seu redor depois de
-acesas, e estarão dentro de uma área cercada por paredes e acessível apenas por portões,
-o que as torna espaços seguros de monstros.</p>
-<p>Bravia pode encontrar na caverna baús que contêm itens. Esse item é
-aleatório, e muda para cada baú, e seus efeitos podem ser bons ou ruins.</p>
+acesas, e estarão dentro de uma área cercada por paredes e acessível apenas por portões, o que as torna espaços seguros de monstros.
 
-# Vídeo do Projeto
-[![Vídeo de Apresentação](http://img.youtube.com/vi/I7GSFeWmWMA/0.jpg)](https://youtu.be/I7GSFeWmWMA)
-<p> Link para Apresentação https://docs.google.com/presentation/d/1SCRml4NGaG-R9hetl57H_yJrgA6-L83-OzihDUgYVMk/edit?usp=sharing </p>
 
-# Diagrama Geral de Componentes
+# Vídeos do Projeto
+## Vídeo da Prévia
+[![Vídeo da prévia](http://img.youtube.com/vi/I7GSFeWmWMA/0.jpg)](https://youtu.be/I7GSFeWmWMA)
+
+## Vídeo do Jogo
+
+# Slides do Projeto
+## Slides da prévia
+[Link para slides](https://docs.google.com/presentation/d/1SCRml4NGaG-R9hetl57H_yJrgA6-L83-OzihDUgYVMk/edit?usp=sharing)
+
+## Slides da Apresentação Final
+
+# Relatório de Evolução
+Ao longo do desenvolvimento do projeto, diversas mudanças foram feitas à medida que percebemos formas melhores de implementar certas mecânicas, ou simplesmente que certas mecânicas não eram estritamente necessárias para o jogo, simplesmente adicionando tempo de desenvolvimento sem necessariamente agregar valor.
+
+O componente `MapGenerator` foi totalmente repensado, agora com o nome de `GameBuilder` (por implementar o design pattern Builder). Ele também agora interage com duas outras classes, `EnemyFactory` e `CellFactory` (que implementam o design pattern Factory). A ideia geral de gerar um objeto `Map` através de um arquivo .csv foi mantida, mas foi implementada de forma muito mais elegante usando esses design patterns. Ele também é responsável por instanciar um objeto `Bravia`, por isso se chama `GameBuilder`, não `MapBuilder`.
+
+Foram criados dois tipos diferentes de `Enemy`, o `EnemyHunter`, que patrulha o mapa em busca do jogador, e o `EnemyGuardian`, que aguarda escondido até ser descoberto, e a classe `Enemy` agora é abstrata. Isso permite melhor expansibilidade e variedade de tipos de inimigos.
+
+Foi criada a classe e componente `Checkpoint`, que lida com as informações de respawn de Bravia, ou seja, guarda o estado do jogo assim que o jogador aciona um checkpoint (fogueira ou nova fase) e fornece essas informações para que possam ser restauradas quando Bravia morre. Seus métodos são todos estáticos, o que facilita o acesso por diferentes classes.
+
+Foi abandonada a ideia de ter baús com itens nas fases. Embora seja uma ideia interessante, tomaria muito tempo de desenvolvimento e acreditamos que o jogo já esteja perfeitamente funcional e divertido sem eles. Seria um bom ponto para começar caso o desenvolvimento seja retomado. Assim, todas as classes, métodos e atributos relacionados a essa mecânica foram excluídos.
+
+A principal dificuldade durante o desenvolvimento foi decidir detalhes sobre o funcionamento dos Enemies, com relação a como se movimentam, se são iluminados ou não, entre outros, além da própria implementação da lógica por trás disso. Também foi difícil utilizar o polimorfismo nas células de forma efetiva, usando o método `activate()`, principalmente devido a diferentes células precisarem de acesso a diferentes objetos e informações para seus próprios métodos `activate()`, principalmente `Bonfire` e `Exit`.
+
+
+# Destaques de Código
+
+# Destaques de Pattern
+
+# Conclusões e Trabalhos Futuros
+
+# Diagramas
+
+## Diagrama Geral do Projeto
+
+## Diagrama Geral de Componentes
 ![Diagrama Geral](docs/Componentes_Geral.PNG)
 
 
 
-# Componente `MapGenerator`
+## Componente `MapGenerator`
 ![MapGenerator Component](docs/map_generator_component.png)
 
 ## Interfaces
@@ -320,3 +374,8 @@ Key (color X) | `KX`
 Chest | `Ch`
 Exit | `Ex`
 Enemy | `MX`
+
+
+# Plano de Exceções
+## Diagrama da hierarquia de exceções
+## Descrição das classes de exceção
