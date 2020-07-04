@@ -86,11 +86,14 @@ public class GameBuilder implements IGameCreator{
 					file.close();
 					throw new InvalidMapSize("Largura do mapa invalida");
 				}
+				ICellFactory cellFactory = new CellFactory();
+				IEnemyFactory enemyFactory = new EnemyFactory();
+
 				for(int j=0; j < this.mapWidth; j++) {
 					String objectID = lineSplit[j];
 					mapText[i][j] = objectID;
-					mapEnemy[i][j] = EnemyFactory.getEnemy(objectID, mapGenerated, i, j);
-					mapCell[i][j] = CellFactory.getCell(objectID, window, mapGenerated, i, j);
+					mapEnemy[i][j] = enemyFactory.getEnemy(objectID, mapGenerated, i, j);
+					mapCell[i][j] = cellFactory.getCell(objectID, window, mapGenerated, i, j);
 				}
 			}
 			line = file.readLine();

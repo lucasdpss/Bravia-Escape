@@ -3,8 +3,8 @@ package map;
 
 import enemy.*;
 
-public class EnemyFactory {
-	public static Enemy getEnemy(String objectID, Map mapGenerated, int iPos, int jPos) {
+public class EnemyFactory implements IEnemyFactory{
+	public Enemy getEnemy(String objectID, Map mapGenerated, int iPos, int jPos) {
 		if(objectID.charAt(0) == 'M') {
 			switch (objectID.charAt(1)) {
 			case '0':

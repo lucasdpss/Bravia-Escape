@@ -1,4 +1,4 @@
-package map;
+ package map;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -229,7 +229,7 @@ public class Map implements IMap{
 		return false;
 	}
 	
-	public void killBravia() throws CloneNotSupportedException { 
+	private void killBravia() throws CloneNotSupportedException { 
 		System.out.println("morreu");
 		mapCell = Checkpoint.getMapCell();
 		mapEnemy = Checkpoint.getMapEnemy();

@@ -42,12 +42,14 @@ acesas, e estarão dentro de uma área cercada por paredes e acessível apenas p
 [![Vídeo da prévia](http://img.youtube.com/vi/I7GSFeWmWMA/0.jpg)](https://youtu.be/I7GSFeWmWMA)
 
 ## Vídeo do Jogo
+[![Vídeo do jogo]()]()
 
 # Slides do Projeto
 ## Slides da prévia
-[Link para slides](https://docs.google.com/presentation/d/1SCRml4NGaG-R9hetl57H_yJrgA6-L83-OzihDUgYVMk/edit?usp=sharing)
+[Link para slides da prévia](https://docs.google.com/presentation/d/1SCRml4NGaG-R9hetl57H_yJrgA6-L83-OzihDUgYVMk/edit?usp=sharing)
 
 ## Slides da Apresentação Final
+[Link para slides da apresentação final]()
 
 # Relatório de Evolução
 Ao longo do desenvolvimento do projeto, diversas mudanças foram feitas à medida que percebemos formas melhores de implementar certas mecânicas, ou simplesmente que certas mecânicas não eram estritamente necessárias para o jogo, simplesmente adicionando tempo de desenvolvimento sem necessariamente agregar valor.
@@ -72,105 +74,126 @@ A principal dificuldade durante o desenvolvimento foi decidir detalhes sobre o f
 # Diagramas
 
 ## Diagrama Geral do Projeto
+![Diagrama Geral do Projeto]()
 
 ## Diagrama Geral de Componentes
-![Diagrama Geral](docs/Componentes_Geral.PNG)
+![Diagrama Geral de Componentes]()
 
 
 
-## Componente `MapGenerator`
-![MapGenerator Component](docs/map_generator_component.png)
+## Componente `GameBuilder`
+Componente responsável por, para cada fase, gerar um objeto Map e Bravia a partir de um arquivo .csv descrevendo a fase.
 
-## Interfaces
-Interfaces associadas a esse componente:
+![GameBuilder Component]()
 
-![MapGenerator Interfaces](docs/Interfaces_MapGenerator.PNG)
-
+### Ficha Técnica
 Campo | Valor
 ----- | -----
-Classe | map.MapGenerator
+Classe | map.GameBuilder
 Autores | Antonio Gabriel da Silva Fernandes </br> Lucas de Paula Soares
-Objetivo | Gerar um mapa no jogo a partir de um arquivo .csv
 Interface | IMapGenerator
-
-~~~
-public interface IMapGeneratorProperties {
-  String getMapSource();
-  void setMapSource(String mapSource);
-}
-
-public interface IMapProducer {
-  Cell[][] getMapCells();
-  Enemy[][] getMapEnemies();
-  int getMapHeight();
-  int getMapWidth();
-  int getIEntrance();
-  int getJEntrance();
-}
-
-public interface IMapGenerator extends IMapGeneratorProperties, IMapProducer {
-}
-~~~
-
-## Detalhamento das Interfaces
-### Interface `IMapGeneratorProperties`
-
-Interface que provê acesso às propriedades internas do componente `MapGenerator`.
-
-Método | Objetivo
--------| --------
-` String getMapSource()`  |  Retorna uma string com o caminho para o arquivo .csv do qual o mapa está sendo lido
-`void setMapSource(String mapSource)` | Define o caminho para o arquivo .csv do qual o mapa será lido
-
-### Interface `IMapProducer`
-Interface que provê acesso ao mapa produzido pelo `MapGenerator`
-
-Método | Objetivo
--------| --------
-`Cell[][] getMapCells()` | Retorna uma matriz de objetos do tipo Cell, representando a camada estática do mapa
-`Enemy[][] getMapEnemies()` | Retorna uma matriz de objetos do tipo Enemy, representando as posições iniciais dos inimigos no mapa
-`int getMapHeight()`  | Retorna a altura do mapa (quantidade de linhas)
-`int getMapWidth()` | Retorna a largura do mapa (quantidade de colunas)
-`int getIEntrance()` | Retorna a coordenada i da entrada do mapa (posição inicial de Bravia)
-`int getJEntrance()` | Retorna a coordenada j da entrada do mapa (posição inicial de Bravia)
-
-
-
-# Componente `Map`
-![Map Component](docs/MapComponent.PNG)
 
 ## Interfaces
 Interfaces associadas a esse componente:
 
-![Map Interfaces](docs/Interfaces_Map.PNG)
+![GameBuilder Interfaces]()
 
+## Detalhamento das Interfaces
+### Interface `IGameCreator`
+Interface que provê acesso aos serviços da Factory.
+~~~
+public interface IGameCreator {
+	public Map getMap();
+	public Bravia getBravia();
+}
+~~~
+
+Método | Objetivo
+-------| --------
+`Map getMap()`  |  Retorna o objeto tipo Map associado ao jogo criado
+`Bravia getBravia()` | Retorna o objeto tipo Bravia associado ao jogo criado
+
+## Componente `CellFactory`
+Componente responsável por criar objetos Cell da classe apropriada dependendo dos argumentos passados a ele.
+
+![CellFactory Component]()
+
+### Ficha Técnica
+Campo | Valor
+----- | -----
+Classe | map.CellFactory
+Autores | Antonio Gabriel da Silva Fernandes </br> Lucas de Paula Soares
+Interface | ICellFactory
+
+## Interfaces
+Interfaces associadas a esse componente:
+
+![CellFactory Interfaces]()
+
+## Detalhamento das Interfaces
+### Interface `ICellFactory`
+
+Interface que provê acesso ao método da Factory.
+~~~
+public interface ICellFactory {
+	public Cell getCell(String objectID, Window window, Map mapGenerated, int iPos, int jPos);
+}
+~~~
+
+Método | Objetivo
+-------| --------
+`Cell getCell(String objectID, Window window, Map mapGenerated, int iPos, int jPos)`  |  Retorna um objeto Cell cuja classe depende do parâmetro objectID
+
+## Componente `EnemyFactory`
+Componente responsável por criar objetos Enemy da classe apropriada dependendo dos argumentos passados a ele.
+
+![EnemyFactory Component]()
+
+### Ficha Técnica
+Campo | Valor
+----- | -----
+Classe | map.EnemyFactory
+Autores | Antonio Gabriel da Silva Fernandes </br> Lucas de Paula Soares
+Interface | IEnemyFactory
+
+## Interfaces
+Interfaces associadas a esse componente:
+
+![EnemyFactory Interfaces]()
+
+## Detalhamento das Interfaces
+### Interface `IEnemyFactory`
+
+Interface que provê acesso ao método da Factory.
+~~~
+public interface IEnemyFactory {
+	public Enemy getEnemy(String objectID, Map mapGenerated, int iPos, int jPos);
+}
+~~~
+
+Método | Objetivo
+-------| --------
+`public Enemy getEnemy(String objectID, Map mapGenerated, int iPos, int jPos)`  |  Retorna um objeto Enemy cuja classe depende do parâmetro objectID
+
+## Componente `Map`
+Componente responsável por representar o mapa do jogo.
+
+![Map Component]()
+
+### Ficha Técnica
 Campo | Valor
 ----- | -----
 Classe | map.Map
 Autores | Antonio Gabriel da Silva Fernandes </br> Lucas de Paula Soares
-Objetivo | Representar o mapa do jogo
-Interface | IMap
+Interfaces | IMapProperties </br> IEnemyController </br> ILight
 
+## Interfaces
+Interfaces associadas a esse componente:
+
+![Map Interfaces]()
+
+Interface agregadora do componente em Java:
 ~~~
-public interface IEnemyController {
-  void moveEnemies();
-}
-
-public interface IMapProperties {
-  int getMapHeight();
-  int getMapWidth();
-  Cell getCell(int i, int j);
-  Enemy getEnemy(int i, int j);
-  Cell[][] getMapCells();
-  int getIBravia();
-  int getJBravia();
-}
-
-public interface ILight {
-  void illuminate(int range, int i, int j);
-  void clearLights();
-}
-
 public interface IMap extends IEnemyController, IMapProperties, ILight {
 }
 ~~~
@@ -179,64 +202,90 @@ public interface IMap extends IEnemyController, IMapProperties, ILight {
 
 ### Interface `IEnemyController`
 Interface responsável por controlar o movimento dos Enemies.
-
+~~~
+public interface IEnemyController {
+  void moveEnemies();
+}
+~~~
 Método | Objetivo
 -------| --------
 `void moveEnemies()` | Comunica ao Map para para os inimigos se moverem
 
 ### Interface `IMapProperties`
 Interface que provê acesso às propriedades do mapa.
+~~~
+public interface IMapProperties {
+	int getMapHeight();
+	int getMapWidth();
+	void setMapHeight(int mapHeight);
+	void setMapWidth(int mapWidth);
+	Cell getCell(int i, int j);
+	Enemy getEnemy(int i, int j);
+	Cell[][] getMapCell();
+	Enemy[][] getMapEnemy();
+	void setMapCell(Cell[][] mapCell);
+	void setMapEnemy(Enemy[][] mapEnemy);
+	Bravia getBravia();
+	void setBravia(Bravia bravia);
+	int getIBravia();
+	int getJBravia();
+	ArrayList<Enemy> listEnemies();
+}
+~~~
 
 Método | Objetivo
 -------| --------
 `int getMapHeight()` | Retorna a altura do mapa (quantidade de linhas)
 `int getMapWidth()` | Retorna a largura do mapa (quantidade de colunas)
+`void setMapHeight(int mapHeight)` | Define a altura do mapa (quantidade de linhas)
+`void setMapWidth(int mapWidth)` | Define a largura do mapa (quantidade de colunas)
 `Cell getCell(int i, int j)` | Retorna a célula na posição de coordenadas (i, j)
 `Enemy getEnemy(int i, int j)` | Retorna o inimigo que estiver nas coordenadas (i, j), null caso não tenha
-`Cell[][] getMapCells()` | Retorna uma matriz de objetos do tipo Cell, representando a camada estática do mapa
+`Cell[][] getMapCell()` | Retorna uma matriz de objetos do tipo Cell, representando a camada estática do mapa
+`Enemy[][] getMapEnemy()` | Retorna uma matriz de objetos do tipo Enemy, representando a camada dinâmica do mapa
+`void setMapCell(Cell[][] mapCell)` | Define a matriz de objetos tipo Cell associada a esse mapa
+`void setMapEnemy(Enemy[][] mapEnemy)` | Define a matriz de objetos tipo Enemy associada a esse mapa
+`Bravia getBravia()` | Retorna o objeto Bravia associado a esse mapa
+`void setBravia(Bravia bravia)` | Define o objeto Bravia associado a esse mapa esse mapa
 `int getIBravia()` | Retorna a coordenada i atual de Bravia
 `int getJBravia()` | Retorna a coordenada j atual de Bravia
+`ArrayList<Enemy> listEnemies())` | Retorna um ArrayList com todos os Enemies atualmente no mapa
 
 ### Interface `ILight`
 Interface que provê acesso às propriedades de iluminação do mapa.
+~~~
+public interface ILight {
+	void illuminate(int range, int iSource, int jSource);
+	void illuminatePermanently(int range, int iSource, int jSource);
+	void clearLights();
+}
+~~~
 
 Método | Objetivo
 -------| --------
-`void illuminate(int range, int i, int j)` | Ilumina as células em um raio "range" ao redor da posição (i, j)
+`void illuminate(int range, int iSource, int jSource)` | Ilumina as células e Enemies em um raio "range" ao redor da posição (iSource, jSource)
+`void illuminatePermanently(int range, int iSource, int jSource)` | Ilumina permanentemente as células em um raio "range" ao redor da posição (iSource, jSource)
 `void clearLights()` | Desilumina todas as células que não estão permanentemente iluminadas
 
-# Componente `Bravia`
-![Bravia Component](docs/Bravia_Component.PNG)
+## Componente `Bravia`
+Componente responsável por representar a personagem principal do jogo, Bravia.
 
-## Interfaces
-Interfaces associadas a esse componente:
+![Bravia Component]()
 
-![Bravia Interfaces](docs/Interfaces_Bravia.PNG)
-
+### Ficha Técnica
 Campo | Valor
 ----- | -----
 Classe | bravia.Bravia
 Autores | Antonio Gabriel da Silva Fernandes </br> Lucas de Paula Soares
-Objetivo | Representar a personagem principal do jogo, Bravia
-Interface | IBravia
+Interfaces | IBraviaProperties </br> IController </br> IPocket
 
+## Interfaces
+Interfaces associadas a esse componente:
+
+![Bravia Interfaces]()
+
+Interface agregadora do componente em Java:
 ~~~
-public interface IController {
-  void move(char direction);
-}
-
-public interface IPocket {
-  void useItem(int slot);
-  void addItem(Item item);
-  Item getItem(int slot);
-}
-
-public interface IBraviaProperties {
-  boolean isInvisible();
-  int getIpos();
-  int getJpos();
-}
-
 public interface IBravia extends IController, IPocket, IBraviaProperties {
 }
 ~~~
@@ -245,6 +294,11 @@ public interface IBravia extends IController, IPocket, IBraviaProperties {
 
 ### Interface `IController`
 Interface responsável por controlar o movimento de Bravia.
+~~~
+public interface IController {
+  void move(char direction);
+}
+~~~
 
 Método | Objetivo
 -------| --------
@@ -252,42 +306,63 @@ Método | Objetivo
 
 ### Interface `IPocket`
 Interface que provê acesso ao inventário de Bravia.
+~~~
+public interface IPocket {
+	  void addKey(Color color);
+	  boolean hasKey(Color color);
+	  void setKeyInventory(boolean[] keyInventory);
+}
+~~~
 
 Método | Objetivo
 -------| --------
-`void useItem(int slot)` | Retira o item que está no slot especificado do inventário e aplica seu efeito
-`void addItem(Item item)` | Adiciona o item ao inventário, se houver espaço
-`Item getItem(int slot)` | Retorna o item no slot do inventário, null caso não tenha
+`void addKey(Color color)` | Adiciona a chave da cor especificada ao inventário de Bravia
+`boolean hasKey(Color color)` | Retorna `true` caso Bravia possua a chave da cor especificada, `false` caso contrário
+`void setKeyInventory(boolean[] keyInventory)` | Redefine o inventário de Bravia de acordo com o vetor passado como argumento
 
 ### Interface `IBraviaProperties`
 Interface que provê acesso a propriedades gerais de Bravia.
+~~~
+public interface IBraviaProperties {
+	  int getIPos();
+	  int getJPos();
+	  void setIPos(int iPos);
+	  void setJPos(int jPos);
+	  int getRange();
+	  Image getImage();
+}
+~~~
 
 Método | Objetivo
 -------| --------
-`boolean isInvisible()` | Retorna true caso Bravia esteja invisível (por efeito de uma poção), false caso contrário
 `int getIpos()` | Retorna a coordenada i atual de Bravia
 `int getJpos()` | Retorna a coordenada j atual de Bravia
+`void setIPos(int iPos)` | Define a coordenada i de Bravia
+`void setJPos(int jPos)` | Define a coordenada j de Bravia
+`int getRange()` | Retorna o raio da tocha de Bravia
+`Image getImage()` | Retorna o objeto Image associado a Bravia (para a interface gráfica)
 
 
 
-# Componente `Enemy`
-![Enemy Component](docs/EnemyComponent.PNG)
+## Componente `Enemy`
+Componente responsável por representar os inimigos no jogo.
+![Enemy Component]()
+
+### Ficha Técnica
+Campo | Valor
+----- | -----
+Classes | enemy.Enemy </br> enemy.EnemyGuardian </br> enemy.EnemyHunter
+Autores | Antonio Gabriel da Silva Fernandes </br> Lucas de Paula Soares
+Interfaces | IMovement </br> IEnemyProperties </br> Cloneable
 
 ## Interfaces
 Interfaces associadas a esse componente:
+![Enemy Interfaces]()
 
-![Enemy Interfaces](docs/Interfaces_Enemy.PNG)
 
-Campo | Valor
------ | -----
-Classe | enemy.Enemy
-Autores | Antonio Gabriel da Silva Fernandes </br> Lucas de Paula Soares
-Objetivo | Representar os inimigos no jogo
-Interface | IMovement
-
+Interface agregadora do componente em Java:
 ~~~
-public interface IMovement {
-  char getMoveDirection();
+public interface IBravia extends IController, IPocket, IBraviaProperties {
 }
 ~~~
 
@@ -295,12 +370,41 @@ public interface IMovement {
 
 ### Interface `IMovement`
 Interface responsável por controlar o movimento do Enemy.
+~~~
+public interface IMovement {
+	char getMoveDirection();
+}
+~~~
 
 Método | Objetivo
 -------| --------
 `char getMoveDirection()` | Retona um char que depende da direção na qual o Enemy irá fazer seu próximo movimento: Up ''U'', Down "D", Right "R" ou Left "L".
 
+### Interface `IEnemyProperties`
+Interface que provê acesso a propriedades gerais do Enemy.
+~~~
+public interface IEnemyProperties {
+	boolean isLit();
+	void setLit(boolean lit);
+	void setIPos(int iPos);
+	void setJPos(int jPos);
+	void setImage(Image image);
+	int getIPos();
+	int getJPos();
+	Image getImage();
+}
+~~~
 
+Método | Objetivo
+-------| --------
+`boolean isLit()` | Retorna se o Enemy está ou não iluminado
+`void setLit(boolean lit)` | Define o estado do Enemy como iluminado, se o parâmetro for true, ou como não iluminado caso contrário
+`void setIPos(int iPos)` | Define a coordenada i do Enemy
+`void setJPos(int jPos)` | Define a coordenada j do Enemy
+`void setImage(Image image)` | Define o objeto Image associado ao Enemy
+`int getIpos()` | Retorna a coordenada i atual do Enemy
+`int getJpos()` | Retorna a coordenada j atual do Enemy
+`Image getImage()` | Retorna o objeto Image associado ao Enemy (para a interface gráfica)
 
 # Componente `Window`
 ![Window Component](docs/WindowComponent.PNG)

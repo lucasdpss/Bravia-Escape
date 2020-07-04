@@ -8,7 +8,7 @@ import java.util.Queue;
 
 import map.IMapProperties;
 
-public abstract class Enemy implements IMovement, IEnemyProperties, Cloneable{
+public abstract class Enemy implements IEnemy{
 	protected int iPos, jPos, lightRange;
 	protected IMapProperties map;
 	protected boolean lit;

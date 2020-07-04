@@ -3,8 +3,8 @@ package map;
 import cells.*;
 import main.Window;
 
-public class CellFactory {
-	public static Cell getCell(String objectID, Window window, Map mapGenerated, int iPos, int jPos) {
+public class CellFactory implements ICellFactory {
+	public Cell getCell(String objectID, Window window, Map mapGenerated, int iPos, int jPos) {
 		char first = objectID.charAt(0);
 		switch (first) {
 		case '-':  //piso
