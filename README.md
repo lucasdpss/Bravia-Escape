@@ -30,7 +30,7 @@ Bravia é uma jovem que foi capturada por monstros e precisa fugir da masmorra u
 
 O jogo se passa em um grid celular onde estão marcadas a entrada e a saída daquela fase. Para alcançar a saída, será necessário encontrar chaves certas que abrem portas que liberam o caminho. O jogador pode se mover nas quatro direções, em células que não contêm obstáculos.
 
-Na caverna, podemos encontrar também monstros que perseguem nossa heroína. Alguns deles rondam os corredores procurando por ela enquanto outros ficam de guarda escondidos até serem encontrados. Assim que entram no raio da tocha de Bravia, eles começam a persegui-la, até serem despistados. Os monstros se movem uma vez para cada movimento feito pelo jogador, e não conseguem passar por portões (mesmo destrancados).
+Na caverna, podemos encontrar também monstros que perseguem nossa heroína. Alguns deles rondam os corredores procurando por ela (Hunters) enquanto outros ficam de guarda escondidos até serem encontrados (Guardians). Assim que entram no raio da tocha de Bravia, eles começam a persegui-la, até serem despistados. Os monstros se movem uma vez para cada movimento feito pelo jogador, e não conseguem passar por portões (mesmo destrancados).
 
 Em fases mais longas, haverá uma fogueira que pode ser acesa por Bravia, que
 funcionará como checkpoint. Essas fogueiras iluminam uma área a seu redor depois de
@@ -95,7 +95,7 @@ Gate (color X) | `GX`
 Bonfire | `Bf`
 Key (color X) | `KX`
 Exit | `Ex`
-Enemy | `MX`
+Enemy (type X) | `MX`
 
 O índice da cor das chaves/portões pode variar de 0 a 3:
 
@@ -105,6 +105,15 @@ O índice da cor das chaves/portões pode variar de 0 a 3:
 1 | Verde
 2 | Vermelho
 3 | Amarelo
+
+O tipo do inimigo pode ser 0 ou 1:
+
+Índice | Tipo
+----- | -----
+0 | Guardian
+1 | Hunter
+
+Os nomes dos arquivos na pasta src/stages devem todos seguir o formato "levelN.csv", onde N é um inteiro. Os números das fases devem começar em 1 e não se deve pular números.
 
 
 ![GameBuilder Component]()
@@ -575,4 +584,11 @@ Método | Objetivo
 
 # Plano de Exceções
 ## Diagrama da hierarquia de exceções
+![Diagrama exceções]()
+
 ## Descrição das classes de exceção
+Classe | Descrição
+-------| --------
+`InvalidMapGen` | Engloba todas as exceções relacionadas à geração do mapa
+`InvalidEntrance` | Indica que a posição inicial de Bravia especificada no arquivo .csv é inválida
+`InvalidSize` | Indica que pelo menos uma das dimensões do mapa especificado no arquivo .csv é inválida
