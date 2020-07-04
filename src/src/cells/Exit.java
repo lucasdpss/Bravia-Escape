@@ -4,13 +4,13 @@ import java.awt.Toolkit;
 import java.io.File;
 
 import bravia.Bravia;
-import main.Window;
+import main.ILevelController;
 
 public class Exit extends Cell {
-	private Window window;
+	private ILevelController levelController;
 	
-	public Exit(int iPos, int jPos, Window window){
-		this.window = window;
+	public Exit(int iPos, int jPos, ILevelController levelController){
+		this.levelController = levelController;
 		this.iPos = iPos;
 		this.jPos = jPos;
 		lit = false;
@@ -21,6 +21,6 @@ public class Exit extends Cell {
 	}
 	
 	public void activate(Bravia bravia) {
-		window.nextWindow();
+		levelController.nextWindow();
 	}
 }

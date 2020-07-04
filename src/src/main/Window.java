@@ -23,7 +23,7 @@ import map.IGameCreator;
 import map.Map;
 
 
-public class Window {
+public class Window implements ILevelController{
 	private JFrame frame;
 	private PanelWindow panel;
 	private Image backgroundImage;

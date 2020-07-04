@@ -13,6 +13,6 @@ public interface ICellProperties {
 	void setWalkableEnemy(boolean walkableEnemy);
 	void setPermanentlyLit(boolean permanentlyLit);
 	void setLit(boolean lit);
-	public Image getImage();
+	Image getImage();
 	void activate(Bravia bravia);
 }

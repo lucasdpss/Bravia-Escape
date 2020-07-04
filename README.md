@@ -82,18 +82,42 @@ A principal dificuldade durante o desenvolvimento foi decidir detalhes sobre o f
 
 
 ## Componente `GameBuilder`
-Componente responsável por, para cada fase, gerar um objeto Map e Bravia a partir de um arquivo .csv descrevendo a fase.
+Componente responsável por, para cada fase, gerar um objeto Map e Bravia a partir de um arquivo .csv descrevendo a fase. Os arquivos .csv devem estar na pasta src/stages, e devem seguir o seguinte formato:
+- **Primeira linha:** `X, Y`, onde X é a altura e Y é a largura do mapa.
+- **Segunda linha:** `I, J`, onde (I, J) são as coordenadas iniciais de Bravia
+- **X linhas seguintes:** Devem ter Y elementos cada, cada um desses elementos correspondendo a uma célula ou inimigo no mapa, de acordo com a tabela:
+
+Tipo de célula | String
+----- | -----
+Floor | `--`
+Wall | `Wa`
+Gate (color X) | `GX`
+Bonfire | `Bf`
+Key (color X) | `KX`
+Exit | `Ex`
+Enemy | `MX`
+
+O índice da cor das chaves/portões pode variar de 0 a 3:
+
+Índice | Cor
+----- | -----
+0 | Azul
+1 | Verde
+2 | Vermelho
+3 | Amarelo
+
 
 ![GameBuilder Component]()
 
-### Ficha Técnica
+**Ficha Técnica**
+
 Campo | Valor
 ----- | -----
 Classe | map.GameBuilder
 Autores | Antonio Gabriel da Silva Fernandes </br> Lucas de Paula Soares
 Interface | IMapGenerator
 
-## Interfaces
+### Interfaces
 Interfaces associadas a esse componente:
 
 ![GameBuilder Interfaces]()
@@ -118,14 +142,15 @@ Componente responsável por criar objetos Cell da classe apropriada dependendo d
 
 ![CellFactory Component]()
 
-### Ficha Técnica
+**Ficha Técnica**
+
 Campo | Valor
 ----- | -----
 Classe | map.CellFactory
 Autores | Antonio Gabriel da Silva Fernandes </br> Lucas de Paula Soares
 Interface | ICellFactory
 
-## Interfaces
+### Interfaces
 Interfaces associadas a esse componente:
 
 ![CellFactory Interfaces]()
@@ -149,14 +174,15 @@ Componente responsável por criar objetos Enemy da classe apropriada dependendo 
 
 ![EnemyFactory Component]()
 
-### Ficha Técnica
+**Ficha Técnica**
+
 Campo | Valor
 ----- | -----
 Classe | map.EnemyFactory
 Autores | Antonio Gabriel da Silva Fernandes </br> Lucas de Paula Soares
 Interface | IEnemyFactory
 
-## Interfaces
+### Interfaces
 Interfaces associadas a esse componente:
 
 ![EnemyFactory Interfaces]()
@@ -180,14 +206,15 @@ Componente responsável por representar o mapa do jogo.
 
 ![Map Component]()
 
-### Ficha Técnica
+**Ficha Técnica**
+
 Campo | Valor
 ----- | -----
 Classe | map.Map
 Autores | Antonio Gabriel da Silva Fernandes </br> Lucas de Paula Soares
 Interfaces | IMapProperties </br> IEnemyController </br> ILight
 
-## Interfaces
+### Interfaces
 Interfaces associadas a esse componente:
 
 ![Map Interfaces]()
@@ -272,14 +299,15 @@ Componente responsável por representar a personagem principal do jogo, Bravia.
 
 ![Bravia Component]()
 
-### Ficha Técnica
+**Ficha Técnica**
+
 Campo | Valor
 ----- | -----
 Classe | bravia.Bravia
 Autores | Antonio Gabriel da Silva Fernandes </br> Lucas de Paula Soares
 Interfaces | IBraviaProperties </br> IController </br> IPocket
 
-## Interfaces
+### Interfaces
 Interfaces associadas a esse componente:
 
 ![Bravia Interfaces]()
@@ -346,23 +374,27 @@ Método | Objetivo
 
 ## Componente `Enemy`
 Componente responsável por representar os inimigos no jogo.
+
+A classe implementa a interface `Cloneable` pois o componente `Checkpoint`, ao gravar o estado atual do jogo, faz uma cópia de todos os objetos Cell do mapa usando o método `clone()`, que só pode ser utilizado em classes que implementam essa interface.
+
 ![Enemy Component]()
 
-### Ficha Técnica
+**Ficha Técnica**
+
 Campo | Valor
 ----- | -----
 Classes | enemy.Enemy </br> enemy.EnemyGuardian </br> enemy.EnemyHunter
 Autores | Antonio Gabriel da Silva Fernandes </br> Lucas de Paula Soares
 Interfaces | IMovement </br> IEnemyProperties </br> Cloneable
 
-## Interfaces
+### Interfaces
 Interfaces associadas a esse componente:
 ![Enemy Interfaces]()
 
 
 Interface agregadora do componente em Java:
 ~~~
-public interface IBravia extends IController, IPocket, IBraviaProperties {
+public interface IEnemy extends IMovement, IEnemyProperties, Cloneable{
 }
 ~~~
 
@@ -407,77 +439,138 @@ Método | Objetivo
 `Image getImage()` | Retorna o objeto Image associado ao Enemy (para a interface gráfica)
 
 # Componente `Window`
-![Window Component](docs/WindowComponent.PNG)
+Componente que representa a janela do jogo. Ele contém todos os outros componentes que são restritos a uma fase, e controla o fluxo do jogo. É responsável por lidar com as entradas do usuário e exibir a interface gráfica.
 
-## Classe
-Classe associada a esse componente:
+![Window Component]()
 
-![Window Class](docs/Classe_Window.PNG)
+**Ficha Técnica**
 
 Campo | Valor
 ----- | -----
 Classe | main.Window
 Autores | Antonio Gabriel da Silva Fernandes </br> Lucas de Paula Soares
-Objetivo | Representar a janela do jogo
-Interface | -
+Interface | ILevelController
 
-
-
-# Componentes `Cell`
-![Cell Component](docs/Cell_Component.PNG)
-
-## Interfaces
+### Interfaces
 Interfaces associadas a esse componente:
 
-![Cell Interfaces](docs/diagrama_interface_celulas.png)
+![Window Interface]()
+
+## Detalhamento das Interfaces
+### Interface `ILevelController`
+Interface que provê acesso ao controle do fluxo das fases.
+~~~
+public interface ILevelController {
+	void nextWindow();
+}
+~~~
+Método | Objetivo
+-------| --------
+`void nextWindow()` | Sinaliza para a Window que deve passar para a próxima fase
+
+# Componente `Checkpoint`
+Componente responsável por armazenar e, quando pedido, devolver as informações relacionadas ao estado do jogo na última vez que um checkpoint é acionado. Sempre que uma nova fase começa ou uma fogueira é ativada, guarda as informações atuais sobre o jogo. Sempre que Bravia morre, o Map restaura esse estado.
+
+Embora a classe `Checkpoint` não implemente de fato uma interface, o diagrama de componente apresenta uma para fins de melhor ilustrar a relação desse componente com outros. Todos os métodos e atributos dentro da classe `Checkpoint` são estáticos.
+
+![Checkpoint Component]()
+
+**Ficha Técnica**
 
 Campo | Valor
 ----- | -----
-Classes | cells.Cell </br> cells.Chest </br> cells.Gate </br> cells.Wall </br> cells.Bonfire </br> cells.Key </br> cells.Exit </br>
+Classe | main.Checkpoint
 Autores | Antonio Gabriel da Silva Fernandes </br> Lucas de Paula Soares
-Objetivo | Representar as células no grid
-Interface | ICellProperties
+Interface | -
 
+### Classe
+Classe associada a esse componente:
+
+![Checkpoint Class]()
+
+### Detalhamento dos Métodos
+Assinaturas dos métodos de `Checkpoint` em Java:
 ~~~
-public interface ICellProperties {
-  boolean isWalkable();
-  boolean isPermanentlyLit();
-  boolean isLit();
-  setWalkable(boolean walkable);
-  void setPermanentlyLit(boolean permanentlyLit);
-  void setLit(boolean lit);
-  String getCellType();
-  void activate();
+public static void setStartPos(int iPos, int jPos);
+public static int getStartIPos();
+public static int getStartJPos();
+public static void setMapCell(Cell[][] cellGrid);
+public static Cell[][] getMapCell();
+public static void setMapEnemy(Enemy[][] enemyGrid);
+public static Enemy[][] getMapEnemy();
+public static void setKeyInventory(IPocket pocket);
+public static boolean[] getKeyInventory();
+~~~
+Método | Objetivo
+-------| --------
+`void setStartPos(int iPos, int jPos)` | Define a posição em que Bravia deve aparecer inicialmente
+`int getStartIPos()` | Retorna a coordenada i da posição de respawn de Bravia
+`int getStartJPos()` | Retorna a coordenada j da posição de respawn de Bravia
+`void setMapCell(Cell[][] cellGrid)` | Define o estado da matriz de células do mapa a ser gravado
+`Cell[][] getMapCell()` | Retorna o estado da matriz de células do mapa gravado
+`void setMapEnemy(Enemy[][] enemyGrid)` | Define o estado da matriz de inimigos do mapa a ser gravado
+`Enemy[][] getMapEnemy()` | Retorna o estado da matriz de inimigos do mapa gravado
+`void setKeyInventory(IPocket pocket)` | Define o estado do inventário de Bravia a ser gravado
+`boolean[] getKeyInventory()` | Retorna o estado do inventário de Bravia gravado
+
+# Componentes `Cell`
+Representam as células no grid, a cama estática do mapa.
+
+A classe implementa a interface `Cloneable` pois o componente `Checkpoint`, ao gravar o estado atual do jogo, faz uma cópia de todos os objetos Cell do mapa usando o método `clone()`, que só pode ser utilizado em classes que implementam essa interface.
+
+![Cell Component]()
+
+**Ficha Técnica**
+
+Campo | Valor
+----- | -----
+Classes | cells.Cell </br> cells.Floor </br> cells.Gate </br> cells.Wall </br> cells.Bonfire </br> cells.Key </br> cells.Exit </br>
+Autores | Antonio Gabriel da Silva Fernandes </br> Lucas de Paula Soares
+Interface | ICellProperties </br> Cloneable
+
+
+### Interfaces
+Interfaces associadas a esse componente:
+
+![Cell Interfaces]()
+
+Interface agregadora do componente em Java:
+~~~
+public interface ICell extends ICellProperties, Cloneable {
 }
 ~~~
 
 ## Detalhamento das Interfaces
 
 ### Interface `ICellProperties`
-Interface que provê as propriedades de uma célula.
+Interface que provê acesso às propriedades de uma célula.
+~~~
+public interface ICellProperties {
+	boolean isWalkableBravia();
+	boolean isWalkableEnemy();
+	boolean isPermanentlyLit();
+	boolean isLit();
+	void setWalkableBravia(boolean walkableBravia);
+	void setWalkableEnemy(boolean walkableEnemy);
+	void setPermanentlyLit(boolean permanentlyLit);
+	void setLit(boolean lit);
+	Image getImage();
+	void activate(Bravia bravia);
+}
+~~~
 
 Método | Objetivo
 -------| --------
-`boolean isWalkable()` | Retorna true caso seja possível andar por cima da célula, false caso contrário
+`boolean isWalkableBravia()` | Retorna true caso seja possível para Bravia andar por cima da célula, false caso contrário
+`boolean isWalkableEnemy()` | Retorna true caso seja possível para um Enemy andar por cima da célula, false caso contrário
 `boolean isPermanentlyLit()` | Retorna true se a célula tem iluminação permanente, false caso contrário
 `boolean isLit()` | Retorna se a célula está ou não iluminada
-`setWalkable(boolean walkable)` | Define que é possível andar sobre a célula, se o parâmetro for true, ou que não é possível caso contrário
+`setWalkableBravia(boolean walkableBravia)` | Define que é possível para Bravia andar sobre a célula, se o parâmetro for true, ou que não é possível caso contrário
+`setWalkableEnemy(boolean walkableEnemy)` | Define que é possível para um Enemy andar sobre a célula, se o parâmetro for true, ou que não é possível caso contrário
 `void setPermanentlyLit(boolean permanentlyLit)` | Define que a célula tem iluminação permanente, se o parâmetro for true, ou que não tem caso contrário
 `void setLit(boolean lit)` | Define o estado da célula como iluminado, se o parâmetro for true, ou como não iluminada caso contrário
-`String getCellType()` | Retorna uma string baseado no seu tipo e seu estado atual
-`void activate()` | Ativa a célula, fazendo com que ela mude seu estado com base no seu tipo (uma fogueira se torna uma fogueira acesa, por exemplo)
-
-### Strings associadas a cada tipo de célula:
-Tipo de célula | String
------ | -----
-Nada | `--`
-Wall | `Wa`
-Gate (color X) | `GX`
-Bonfire | `Bf`
-Key (color X) | `KX`
-Chest | `Ch`
-Exit | `Ex`
-Enemy | `MX`
+`Image getImage()` | Retorna o objeto Image associado à célula (para a interface gráfica)
+`void activate()` | Ativa a célula, desencadeando seus efeitos (uma fogueira acende e ativa o Checkpoint, por exemplo)
 
 
 # Plano de Exceções
