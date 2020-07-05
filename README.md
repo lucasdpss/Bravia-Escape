@@ -68,8 +68,10 @@ A principal dificuldade durante o desenvolvimento foi decidir detalhes sobre o f
 # Destaques de Código
 
 # Destaques de Pattern
+
 ## Pattern Factory
 ### Diagrama do Pattern
+![Diagrama Pattern Factory](assets//docs//pattern_factory.PNG)
 
 ### Código do Pattern
 Em CellFactory.java:
@@ -138,6 +140,7 @@ private void loadGame() throws InvalidMapGen {
 
 ## Pattern Builder
 ### Diagrama do Pattern
+![Diagrama Pattern Builder](assets//docs//pattern_builder.PNG)
 
 ### Código do Pattern
 Em GameBuilder.java:
