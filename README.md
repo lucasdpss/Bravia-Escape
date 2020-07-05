@@ -68,8 +68,166 @@ A principal dificuldade durante o desenvolvimento foi decidir detalhes sobre o f
 # Destaques de Código
 
 # Destaques de Pattern
+## Pattern Factory
+### Diagrama do Pattern
+
+### Código do Pattern
+Em CellFactory.java:
+~~~java
+public Cell getCell(String objectID, Window window, Map mapGenerated, int iPos, int jPos) {
+    char first = objectID.charAt(0);
+    switch (first) {
+    case '-':  //piso
+        return new Floor(iPos,jPos);
+    case 'W':  //Wall
+        return new Wall(iPos,jPos);
+    case 'G':  //Gate
+        return new Gate(iPos,jPos,Color.getColor(objectID.charAt(1) - '0'));
+    case 'B':  //Bonfire
+        return new Bonfire(iPos,jPos, mapGenerated);
+    case 'K':  //Key
+        return new Key(iPos,jPos,Color.getColor(objectID.charAt(1) - '0'));
+    case 'E':  //Exit
+        return new Exit(iPos, jPos, window);
+    default:
+        return new Floor(iPos,jPos);
+    }
+}
+~~~
+
+Em EnemyFactory.java:
+~~~java
+public Enemy getEnemy(String objectID, Map mapGenerated, int iPos, int jPos) {
+    if(objectID.charAt(0) == 'M') {
+        switch (objectID.charAt(1)) {
+        case '0':
+            return new EnemyGuardian(mapGenerated,iPos,jPos);
+        case '1':
+            return new EnemyHunter(mapGenerated,iPos,jPos);
+        default:
+            return null;
+        }
+    }
+    return null;
+}
+~~~
+
+Em GameBuilder.java:
+~~~java
+private void loadGame() throws InvalidMapGen {
+    try {
+        <...>
+        for(int i=0; i < this.mapHeight; i++) {
+            <...>
+            ICellFactory cellFactory = new CellFactory();
+            IEnemyFactory enemyFactory = new EnemyFactory();
+
+            for(int j=0; j < this.mapWidth; j++) {
+                <...>
+                mapText[i][j] = objectID;
+                mapEnemy[i][j] = enemyFactory.getEnemy(objectID, mapGenerated, i, j);
+                mapCell[i][j] = cellFactory.getCell(objectID, window, mapGenerated, i, j);
+            }
+        }
+        <...>
+    } catch (IOException error) {
+        error.printStackTrace();
+    }
+}
+~~~
+
+## Pattern Builder
+### Diagrama do Pattern
+
+### Código do Pattern
+Em GameBuilder.java:
+~~~java
+/** Carrega informações do Map e Bravia que serão criados **/
+private void loadGame() throws InvalidMapGen {
+  try {
+      BufferedReader file = new BufferedReader(new FileReader(this.mapSource));
+      <...>
+      setMapHeight(Integer.parseInt(lineSplit[0]));
+      setMapWidth(Integer.parseInt(lineSplit[1]));
+
+      <...>
+      setIEntrance(Integer.parseInt(lineSplit[0]));
+      setJEntrance(Integer.parseInt(lineSplit[1]));
+
+      /** criar matriz mapa vazia **/
+      mapText = new String[this.mapHeight][this.mapWidth];
+      mapCell = new Cell[this.mapHeight][this.mapWidth];
+      mapEnemy = new Enemy[this.mapHeight][this.mapWidth];
+
+      /** preencher matriz mapa **/
+      for(int i=0; i < this.mapHeight; i++) {
+          < ... >
+          ICellFactory cellFactory = new CellFactory();
+          IEnemyFactory enemyFactory = new EnemyFactory();
+
+          for(int j=0; j < this.mapWidth; j++) {
+              String objectID = lineSplit[j];
+              if(objectID == "Ex") exit = true;
+              mapText[i][j] = objectID;
+              mapEnemy[i][j] = enemyFactory.getEnemy(objectID, mapGenerated, i, j);
+              mapCell[i][j] = cellFactory.getCell(objectID, window, mapGenerated, i, j);
+          }
+      }
+      < ... >
+  } catch (IOException error) {
+      error.printStackTrace();
+  }
+}
+
+/** Constroi o objeto Map e o objeto Bravia **/
+private void buildGame() {
+    mapGenerated.setMapCell(mapCell);
+    mapGenerated.setMapEnemy(mapEnemy);
+    mapGenerated.setMapHeight(mapHeight);
+    mapGenerated.setMapWidth(mapWidth);
+    mapGenerated.setBravia(new Bravia(mapGenerated, IEntrance, JEntrance));
+    braviaGenerated = mapGenerated.getBravia();
+    <...>
+}
+
+/** Retorna o objeto Map **/
+public Map getMap() {
+    return mapGenerated;
+}
+
+/** Retorna o objeto Bravia **/
+public Bravia getBravia() {
+    return braviaGenerated;
+}
+~~~
+
+Em Window.java:
+~~~java
+public Window(String levelPath){
+	<...>
+
+	IGameCreator gameCreator;
+	try {
+			gameCreator = new GameBuilder(this,levelPath);
+			map = gameCreator.getMap();
+			bravia = gameCreator.getBravia();
+			<...>
+	} catch (InvalidMapGen error) {
+			error.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro no " + levelPath);
+			frame.dispose();
+			new Menu();
+	}
+}
+~~~
+
 
 # Conclusões e Trabalhos Futuros
+No geral, foi uma experiência muito interessante construir esse jogo porque nos deparamos com problemas que simplesmente não aparecem em projetos menores. Estávamos constantemente nos preocupando em tornar nosso trabalho no futuro mais fácil, e projetar o código de forma que fosse o mais simples possível adicionar novas funcionalidades e fazer alterações em coisas já existentes, o que vai bastante de acordo com a premissa do curso de orientação a objetos. Pensar no jogo em termos de componentes independentes contribuiu bastante para essa facilitação.
+
+Houve algumas coisas aprendidas ao longo do curso que não conseguimos aplicar como gostaríamos, principalmente por falta de tempo. A principal foi o uso de exceções. Com mais tempo, poderíamos ter criado um plano de exceções mais efetivo para avaliar a validez dos arquivos .csv usados para gerar as fases, definindo se a fase é de fato "passável" ou não. Também poderíamos ter tratado alguns desses erros, como um tamanho inválido de mapa que simplesmente foi escrito errado (embora a matriz em si tenha dimensões válidas), em vez de apenas voltar para o menu principal.
+
+Também gostaríamos de ter implementado de forma mais efetiva o uso de interfaces. As interfaces usadas no nosso trabalho acabaram sendo pouco úteis, servindo apenas como filtros em algumas situações, e um plano de para trabalhos futuros seria refinar esse aspecto.
 
 # Diagramas
 
@@ -136,7 +294,7 @@ Interfaces associadas a esse componente:
 ## Detalhamento das Interfaces
 ### Interface `IGameCreator`
 Interface que provê acesso aos serviços da Factory.
-~~~
+~~~java
 public interface IGameCreator {
 	public Map getMap();
 	public Bravia getBravia();
@@ -170,7 +328,7 @@ Interfaces associadas a esse componente:
 ### Interface `ICellFactory`
 
 Interface que provê acesso ao método da Factory.
-~~~
+~~~java
 public interface ICellFactory {
 	public Cell getCell(String objectID, Window window, Map mapGenerated, int iPos, int jPos);
 }
@@ -202,7 +360,7 @@ Interfaces associadas a esse componente:
 ### Interface `IEnemyFactory`
 
 Interface que provê acesso ao método da Factory.
-~~~
+~~~java
 public interface IEnemyFactory {
 	public Enemy getEnemy(String objectID, Map mapGenerated, int iPos, int jPos);
 }
@@ -231,7 +389,7 @@ Interfaces associadas a esse componente:
 ![Map Interfaces](assets//docs//map_interfaces.PNG)
 
 Interface agregadora do componente em Java:
-~~~
+~~~java
 public interface IMap extends IEnemyController, IMapProperties, ILight {
 }
 ~~~
@@ -240,7 +398,7 @@ public interface IMap extends IEnemyController, IMapProperties, ILight {
 
 ### Interface `IEnemyController`
 Interface responsável por controlar o movimento dos Enemies.
-~~~
+~~~java
 public interface IEnemyController {
   void moveEnemies();
 }
@@ -251,7 +409,7 @@ Método | Objetivo
 
 ### Interface `IMapProperties`
 Interface que provê acesso às propriedades do mapa.
-~~~
+~~~java
 public interface IMapProperties {
 	int getMapHeight();
 	int getMapWidth();
@@ -291,7 +449,7 @@ Método | Objetivo
 
 ### Interface `ILight`
 Interface que provê acesso às propriedades de iluminação do mapa.
-~~~
+~~~java
 public interface ILight {
 	void illuminate(int range, int iSource, int jSource);
 	void illuminatePermanently(int range, int iSource, int jSource);
@@ -324,7 +482,7 @@ Interfaces associadas a esse componente:
 ![Bravia Interfaces](assets//docs//bravia_interfaces.PNG)
 
 Interface agregadora do componente em Java:
-~~~
+~~~java
 public interface IBravia extends IController, IPocket, IBraviaProperties {
 }
 ~~~
@@ -333,7 +491,7 @@ public interface IBravia extends IController, IPocket, IBraviaProperties {
 
 ### Interface `IController`
 Interface responsável por controlar o movimento de Bravia.
-~~~
+~~~java
 public interface IController {
   void move(char direction);
 }
@@ -345,7 +503,7 @@ Método | Objetivo
 
 ### Interface `IPocket`
 Interface que provê acesso ao inventário de Bravia.
-~~~
+~~~java
 public interface IPocket {
 	  void addKey(Color color);
 	  boolean hasKey(Color color);
@@ -361,7 +519,7 @@ Método | Objetivo
 
 ### Interface `IBraviaProperties`
 Interface que provê acesso a propriedades gerais de Bravia.
-~~~
+~~~java
 public interface IBraviaProperties {
 	  int getIPos();
 	  int getJPos();
@@ -404,7 +562,7 @@ Interfaces associadas a esse componente:
 
 
 Interface agregadora do componente em Java:
-~~~
+~~~java
 public interface IEnemy extends IMovement, IEnemyProperties, Cloneable{
 }
 ~~~
@@ -413,7 +571,7 @@ public interface IEnemy extends IMovement, IEnemyProperties, Cloneable{
 
 ### Interface `IMovement`
 Interface responsável por controlar o movimento do Enemy.
-~~~
+~~~java
 public interface IMovement {
 	char getMoveDirection();
 }
@@ -425,7 +583,7 @@ Método | Objetivo
 
 ### Interface `IEnemyProperties`
 Interface que provê acesso a propriedades gerais do Enemy.
-~~~
+~~~java
 public interface IEnemyProperties {
 	boolean isLit();
 	void setLit(boolean lit);
@@ -470,7 +628,7 @@ Interfaces associadas a esse componente:
 ## Detalhamento das Interfaces
 ### Interface `ILevelController`
 Interface que provê acesso ao controle do fluxo das fases.
-~~~
+~~~java
 public interface ILevelController {
 	void nextWindow();
 }
@@ -501,7 +659,7 @@ Classe associada a esse componente:
 
 ### Detalhamento dos Métodos
 Assinaturas dos métodos de `Checkpoint` em Java:
-~~~
+~~~java
 public static void setStartPos(int iPos, int jPos);
 public static int getStartIPos();
 public static int getStartJPos();
@@ -546,7 +704,7 @@ Interfaces associadas a esse componente:
 ![Cell Interfaces](assets//docs//cell_interfaces.PNG)
 
 Interface agregadora do componente em Java:
-~~~
+~~~java
 public interface ICell extends ICellProperties, Cloneable {
 }
 ~~~
@@ -555,7 +713,7 @@ public interface ICell extends ICellProperties, Cloneable {
 
 ### Interface `ICellProperties`
 Interface que provê acesso às propriedades de uma célula.
-~~~
+~~~java
 public interface ICellProperties {
 	boolean isWalkableBravia();
 	boolean isWalkableEnemy();
@@ -594,3 +752,4 @@ Classe | Descrição
 `InvalidMapGen` | Engloba todas as exceções relacionadas à geração do mapa
 `InvalidEntrance` | Indica que a posição inicial de Bravia especificada no arquivo .csv é inválida
 `InvalidSize` | Indica que pelo menos uma das dimensões do mapa especificado no arquivo .csv é inválida
+`InvalidExit` | Indica que o mapa que está sendo lido não tem uma saída válida
