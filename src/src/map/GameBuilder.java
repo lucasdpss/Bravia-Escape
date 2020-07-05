@@ -8,6 +8,7 @@ import bravia.Bravia;
 import cells.Cell;
 import enemy.Enemy;
 import exceptions.InvalidEntrance;
+import exceptions.InvalidExit;
 import exceptions.InvalidMapGen;
 import exceptions.InvalidMapSize;
 import main.Checkpoint;
@@ -48,6 +49,7 @@ public class GameBuilder implements IGameCreator{
 			BufferedReader file = new BufferedReader(new FileReader(this.mapSource));
 			String line;
 			String[] lineSplit;
+			boolean exit = false;
 			
 			/*** ler a primeira linha ***/
 			line = file.readLine();
@@ -91,6 +93,7 @@ public class GameBuilder implements IGameCreator{
 
 				for(int j=0; j < this.mapWidth; j++) {
 					String objectID = lineSplit[j];
+					if(objectID == "Ex") exit = true;
 					mapText[i][j] = objectID;
 					mapEnemy[i][j] = enemyFactory.getEnemy(objectID, mapGenerated, i, j);
 					mapCell[i][j] = cellFactory.getCell(objectID, window, mapGenerated, i, j);
@@ -108,6 +111,10 @@ public class GameBuilder implements IGameCreator{
 			if(!mapCell[IEntrance][JEntrance].isWalkableBravia()) {
 				file.close();
 				throw new InvalidEntrance("Entrada nao andavel");
+			}
+			if(!exit) {
+				file.close();
+				throw new InvalidExit("Nao ha saida");
 			}
 			
 			file.close();

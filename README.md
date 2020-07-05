@@ -586,7 +586,7 @@ Método | Objetivo
 
 # Plano de Exceções
 ## Diagrama da hierarquia de exceções
-![Diagrama exceções]()
+![Diagrama exceções](assets//docs//exceptions_diagram.PNG)
 
 ## Descrição das classes de exceção
 Classe | Descrição
