@@ -66,6 +66,131 @@ A principal dificuldade durante o desenvolvimento foi decidir detalhes sobre o f
 
 
 # Destaques de Código
+Em Bravia.java, podemos observar como o método `activate()`, da classe abstrata `Cell`, torna o código mais elegante e expansível, usando o polimorfismo das células. Para se adicionar um novo efeito a uma célula, basta modificar seu método `activate()`, que é chamado sempre que Bravia tenta andar para cima dessa célula:
+~~~java
+public void move(char direction) {
+  Cell[][] mapCells = map.getMapCell();
+
+  switch (direction) {
+  case 'U':
+      if(iPos - 1 >= 0) {
+          mapCells[iPos-1][jPos].activate(this);
+          if(mapCells[iPos-1][jPos].isWalkableBravia())
+              iPos--;
+      }
+      break;
+  //<...>
+  default:
+      break;
+  }
+}
+~~~
+
+Em Enemy.java, no método minDistanceToBravia, utilizamos uma busca em largura (BFS) para definir a distância entre uma certa célula e a posição atual de Bravia, considerando os obstáculos. Isso é usado no método getBestDirection, que usa uma classe privada que implementa a interface Comparable para definir a melhor direção para o Enemy seguir de forma sucinta:
+~~~java
+/** Retorna a minima distancia da celula Source para Bravia, -1 caso seja impossivel **/
+protected int minDistanceToBravia(int iSource, int jSource) {
+    int iDest = map.getIBravia();
+    int jDest = map.getJBravia();
+    int height = map.getMapHeight();
+    int width = map.getMapWidth();
+
+    boolean visited[][] = new boolean[height][width];
+    //<...>
+    visited[iSource][jSource] = true;
+
+    QElement source = new QElement(iSource,jSource,0);
+    Queue<QElement> q = new LinkedList<QElement>();
+
+    q.add(source);
+    while(!q.isEmpty()) {
+        QElement p = q.poll(); //pega o primeiro e ja o exclui
+
+        if(p.getIPos() == iDest && p.getJPos() == jDest) { //encontrou o destino
+            return p.getDistance();
+        }
+
+        //moving up
+        if(p.getIPos() - 1 >= 0 && visited[p.getIPos()-1][p.getJPos()] == false) {
+            q.add(new QElement(p.getIPos()-1,p.getJPos(),p.getDistance()+1));
+            visited[p.getIPos() - 1][p.getJPos()] = true;
+        }
+        //moving down
+        if(p.getIPos() + 1 < height && visited[p.getIPos()+1][p.getJPos()] == false) {
+            q.add(new QElement(p.getIPos()+1,p.getJPos(),p.getDistance()+1));
+            visited[p.getIPos() + 1][p.getJPos()] = true;
+        }
+        //moving left
+        if(p.getJPos() - 1 >= 0 && visited[p.getIPos()][p.getJPos()-1] == false) {
+            q.add(new QElement(p.getIPos(),p.getJPos()-1,p.getDistance()+1));
+            visited[p.getIPos()][p.getJPos()-1] = true;
+        }
+        //moving right
+        if(p.getJPos() + 1 < width && visited[p.getIPos()][p.getJPos()+1] == false) {
+            q.add(new QElement(p.getIPos(),p.getJPos()+1,p.getDistance()+1));
+            visited[p.getIPos()][p.getJPos()+1] = true;
+        }
+    }
+    return -1;
+}
+~~~
+
+~~~java
+/** Retorna melhor decisao de caminho, retorna 'S' caso nao tenha movimentos possiveis **/
+protected char getBestDirection() {
+    ArrayList<Direction> list = new ArrayList<Direction>(4);
+
+    if(iPos - 1 >= 0 && map.getCell(iPos-1,jPos).isWalkableEnemy() && map.getEnemy(iPos - 1, jPos) == null) {
+        int upDistance = minDistanceToBravia(iPos-1, jPos);
+        if(upDistance >= 0) {
+            Direction up = new Direction(upDistance, 'U');
+            list.add(up);
+        }
+    }
+    if(iPos + 1 < map.getMapHeight() && map.getCell(iPos+1,jPos).isWalkableEnemy() && map.getEnemy(iPos + 1, jPos) == null) {
+        int downDistance = minDistanceToBravia(iPos+1, jPos);
+        if(downDistance >= 0) {
+            Direction down = new Direction(downDistance, 'D');
+            list.add(down);
+        }
+    }
+    if(jPos - 1 >= 0 && map.getCell(iPos,jPos-1).isWalkableEnemy() && map.getEnemy(iPos, jPos - 1) == null) {
+        int leftDistance = minDistanceToBravia(iPos, jPos-1);
+        if(leftDistance >= 0) {
+            Direction left = new Direction(leftDistance, 'L');
+            list.add(left);
+        }
+    }
+    if(jPos + 1 < map.getMapWidth() && map.getCell(iPos, jPos + 1).isWalkableEnemy() && map.getEnemy(iPos, jPos + 1) == null) {
+        int rightDistance = minDistanceToBravia(iPos, jPos+1);
+        if(rightDistance >= 0) {
+            Direction right = new Direction(rightDistance, 'R');
+            list.add(right);
+        }
+    }
+
+    if(list.isEmpty()) {
+        return 'S';
+    }else {
+        Collections.sort(list);
+        return list.get(0).direction;
+    }
+}
+
+private class Direction implements Comparable<Direction>{
+    public int distance;
+    public char direction;
+
+    public Direction(int dist, char dir) {
+        distance = dist;
+        direction = dir;
+    }
+
+    public int compareTo(Direction d) {
+        return this.distance - d.distance;
+    }
+}
+~~~
 
 # Destaques de Pattern
 
@@ -118,20 +243,20 @@ Em GameBuilder.java:
 ~~~java
 private void loadGame() throws InvalidMapGen {
     try {
-        <...>
+        //<...>
         for(int i=0; i < this.mapHeight; i++) {
-            <...>
+            //<...>
             ICellFactory cellFactory = new CellFactory();
             IEnemyFactory enemyFactory = new EnemyFactory();
 
             for(int j=0; j < this.mapWidth; j++) {
-                <...>
+                //<...>
                 mapText[i][j] = objectID;
                 mapEnemy[i][j] = enemyFactory.getEnemy(objectID, mapGenerated, i, j);
                 mapCell[i][j] = cellFactory.getCell(objectID, window, mapGenerated, i, j);
             }
         }
-        <...>
+        //<...>
     } catch (IOException error) {
         error.printStackTrace();
     }
@@ -152,11 +277,11 @@ Em GameBuilder.java:
 private void loadGame() throws InvalidMapGen {
   try {
       BufferedReader file = new BufferedReader(new FileReader(this.mapSource));
-      <...>
+      //<...>
       setMapHeight(Integer.parseInt(lineSplit[0]));
       setMapWidth(Integer.parseInt(lineSplit[1]));
 
-      <...>
+      //<...>
       setIEntrance(Integer.parseInt(lineSplit[0]));
       setJEntrance(Integer.parseInt(lineSplit[1]));
 
@@ -167,7 +292,7 @@ private void loadGame() throws InvalidMapGen {
 
       /** preencher matriz mapa **/
       for(int i=0; i < this.mapHeight; i++) {
-          < ... >
+          //<...>
           ICellFactory cellFactory = new CellFactory();
           IEnemyFactory enemyFactory = new EnemyFactory();
 
@@ -179,7 +304,7 @@ private void loadGame() throws InvalidMapGen {
               mapCell[i][j] = cellFactory.getCell(objectID, window, mapGenerated, i, j);
           }
       }
-      < ... >
+      //<...>
   } catch (IOException error) {
       error.printStackTrace();
   }
@@ -193,7 +318,7 @@ private void buildGame() {
     mapGenerated.setMapWidth(mapWidth);
     mapGenerated.setBravia(new Bravia(mapGenerated, IEntrance, JEntrance));
     braviaGenerated = mapGenerated.getBravia();
-    <...>
+    //<...>
 }
 
 /** Retorna o objeto Map **/
@@ -210,14 +335,14 @@ public Bravia getBravia() {
 Em Window.java:
 ~~~java
 public Window(String levelPath){
-	<...>
+	//<...>
 
 	IGameCreator gameCreator;
 	try {
 			gameCreator = new GameBuilder(this,levelPath);
 			map = gameCreator.getMap();
 			bravia = gameCreator.getBravia();
-			<...>
+			//<...>
 	} catch (InvalidMapGen error) {
 			error.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Erro no " + levelPath);
