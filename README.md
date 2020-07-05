@@ -49,7 +49,7 @@ acesas, e estarão dentro de uma área cercada por paredes e acessível apenas p
 [Link para slides da prévia](https://docs.google.com/presentation/d/1SCRml4NGaG-R9hetl57H_yJrgA6-L83-OzihDUgYVMk/edit?usp=sharing)
 
 ## Slides da Apresentação Final
-[Link para slides da apresentação final]()
+[Link para slides da apresentação final](https://docs.google.com/presentation/d/1Ew7L3DxIFAw1NFk3TMTgNR9Cm3c9jfulnqcjYfbPyw8/edit?usp=sharing)
 
 # Relatório de Evolução
 Ao longo do desenvolvimento do projeto, diversas mudanças foram feitas à medida que percebemos formas melhores de implementar certas mecânicas, ou simplesmente que certas mecânicas não eram estritamente necessárias para o jogo, simplesmente adicionando tempo de desenvolvimento sem necessariamente agregar valor.
