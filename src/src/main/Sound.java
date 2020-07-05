@@ -20,7 +20,7 @@ public class Sound {
 	private Clip clip;
 	private FloatControl gainControl;
 	private BooleanControl muteControl;
-	private final float DEFAULT_VOLUME = 0.8f;
+	private final float DEFAULT_VOLUME = 0.7f;
 	private static boolean mutedGame = false;
 	
 	public Sound(String musicLocation) {

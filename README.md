@@ -74,13 +74,13 @@ A principal dificuldade durante o desenvolvimento foi decidir detalhes sobre o f
 # Diagramas
 
 ## Diagrama Geral do Projeto
-![Diagrama Geral]()
+![Diagrama Geral](assets//docs//diagrama_geral.PNG)
 
 ## Diagrama Geral de Componentes
 
-![Diagrama 1](assets//docs//geral_1.PNG)
+![Diagrama 1](assets//docs//componentes_geral1.PNG)
 
-![Diagrama 2](assets//docs//geral_2.PNG)
+![Diagrama 2](assets//docs//componentes_geral2.PNG)
 
 
 ## Componente `GameBuilder`
@@ -118,7 +118,7 @@ O tipo do inimigo pode ser 0 ou 1:
 Os nomes dos arquivos na pasta src/stages devem todos seguir o formato "levelN.csv", onde N é um inteiro. Os números das fases devem começar em 1 e não se deve pular números.
 
 
-![GameBuilder Component]()
+![GameBuilder Component](assets//docs//game_builder_component.PNG)
 
 **Ficha Técnica**
 
@@ -131,7 +131,7 @@ Interface | IMapGenerator
 ### Interfaces
 Interfaces associadas a esse componente:
 
-![GameBuilder Interfaces]()
+![GameBuilder Interfaces](assets//docs//game_builder_interfaces.PNG)
 
 ## Detalhamento das Interfaces
 ### Interface `IGameCreator`
@@ -151,7 +151,7 @@ Método | Objetivo
 ## Componente `CellFactory`
 Componente responsável por criar objetos Cell da classe apropriada dependendo dos argumentos passados a ele.
 
-![CellFactory Component]()
+![CellFactory Component](assets//docs//cell_factory_component.PNG)
 
 **Ficha Técnica**
 
@@ -164,7 +164,7 @@ Interface | ICellFactory
 ### Interfaces
 Interfaces associadas a esse componente:
 
-![CellFactory Interfaces]()
+![CellFactory Interfaces](assets//docs//cell_factory_interfaces.PNG)
 
 ## Detalhamento das Interfaces
 ### Interface `ICellFactory`
@@ -183,7 +183,7 @@ Método | Objetivo
 ## Componente `EnemyFactory`
 Componente responsável por criar objetos Enemy da classe apropriada dependendo dos argumentos passados a ele.
 
-![EnemyFactory Component]()
+![EnemyFactory Component](assets//docs//enemy_factory_component.PNG)
 
 **Ficha Técnica**
 
@@ -196,7 +196,7 @@ Interface | IEnemyFactory
 ### Interfaces
 Interfaces associadas a esse componente:
 
-![EnemyFactory Interfaces]()
+![EnemyFactory Interfaces](assets//docs//enemy_factory_interfaces.PNG)
 
 ## Detalhamento das Interfaces
 ### Interface `IEnemyFactory`
@@ -215,7 +215,7 @@ Método | Objetivo
 ## Componente `Map`
 Componente responsável por representar o mapa do jogo.
 
-![Map Component]()
+![Map Component](assets//docs//map_component.PNG)
 
 **Ficha Técnica**
 
@@ -228,7 +228,7 @@ Interfaces | IMapProperties </br> IEnemyController </br> ILight
 ### Interfaces
 Interfaces associadas a esse componente:
 
-![Map Interfaces]()
+![Map Interfaces](assets//docs//map_interfaces.PNG)
 
 Interface agregadora do componente em Java:
 ~~~
@@ -308,7 +308,7 @@ Método | Objetivo
 ## Componente `Bravia`
 Componente responsável por representar a personagem principal do jogo, Bravia.
 
-![Bravia Component]()
+![Bravia Component](assets//docs//bravia_component.PNG)
 
 **Ficha Técnica**
 
@@ -321,7 +321,7 @@ Interfaces | IBraviaProperties </br> IController </br> IPocket
 ### Interfaces
 Interfaces associadas a esse componente:
 
-![Bravia Interfaces]()
+![Bravia Interfaces](assets//docs//bravia_interfaces.PNG)
 
 Interface agregadora do componente em Java:
 ~~~
@@ -383,12 +383,12 @@ Método | Objetivo
 
 
 
-## Componente `Enemy`
+## Componente `Enemies`
 Componente responsável por representar os inimigos no jogo.
 
-A classe implementa a interface `Cloneable` pois o componente `Checkpoint`, ao gravar o estado atual do jogo, faz uma cópia de todos os objetos Cell do mapa usando o método `clone()`, que só pode ser utilizado em classes que implementam essa interface.
+A classe Enemy implementa a interface `Cloneable` pois o componente `Checkpoint`, ao gravar o estado atual do jogo, faz uma cópia de todos os objetos Cell do mapa usando o método `clone()`, que só pode ser utilizado em classes que implementam essa interface.
 
-![Enemy Component]()
+![Enemy Component](assets//docs//enemies_component.PNG)
 
 **Ficha Técnica**
 
@@ -400,7 +400,7 @@ Interfaces | IMovement </br> IEnemyProperties </br> Cloneable
 
 ### Interfaces
 Interfaces associadas a esse componente:
-![Enemy Interfaces]()
+![Enemy Interfaces](assets//docs//enemies_interfaces.PNG)
 
 
 Interface agregadora do componente em Java:
@@ -452,7 +452,7 @@ Método | Objetivo
 # Componente `Window`
 Componente que representa a janela do jogo. Ele contém todos os outros componentes que são restritos a uma fase, e controla o fluxo do jogo. É responsável por lidar com as entradas do usuário e exibir a interface gráfica.
 
-![Window Component]()
+![Window Component](assets//docs//window_component.PNG)
 
 **Ficha Técnica**
 
@@ -465,7 +465,7 @@ Interface | ILevelController
 ### Interfaces
 Interfaces associadas a esse componente:
 
-![Window Interface]()
+![Window Interface](assets//docs//window_interfaces.PNG)
 
 ## Detalhamento das Interfaces
 ### Interface `ILevelController`
@@ -484,7 +484,7 @@ Componente responsável por armazenar e, quando pedido, devolver as informaçõe
 
 Embora a classe `Checkpoint` não implemente de fato uma interface, o diagrama de componente apresenta uma para fins de melhor ilustrar a relação desse componente com outros. Todos os métodos e atributos dentro da classe `Checkpoint` são estáticos.
 
-![Checkpoint Component]()
+![Checkpoint Component](assets//docs//checkpoint_component.PNG)
 
 **Ficha Técnica**
 
@@ -497,7 +497,7 @@ Interface | -
 ### Classe
 Classe associada a esse componente:
 
-![Checkpoint Class]()
+![Checkpoint Class](assets//docs//checkpoint_class.PNG)
 
 ### Detalhamento dos Métodos
 Assinaturas dos métodos de `Checkpoint` em Java:
@@ -529,7 +529,7 @@ Representam as células no grid, a cama estática do mapa.
 
 A classe implementa a interface `Cloneable` pois o componente `Checkpoint`, ao gravar o estado atual do jogo, faz uma cópia de todos os objetos Cell do mapa usando o método `clone()`, que só pode ser utilizado em classes que implementam essa interface.
 
-![Cell Component]()
+![Cell Component](assets//docs//cell_component.PNG)
 
 **Ficha Técnica**
 
@@ -543,7 +543,7 @@ Interface | ICellProperties </br> Cloneable
 ### Interfaces
 Interfaces associadas a esse componente:
 
-![Cell Interfaces]()
+![Cell Interfaces](assets//docs//cell_interfaces.PNG)
 
 Interface agregadora do componente em Java:
 ~~~
