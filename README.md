@@ -137,6 +137,9 @@ private void loadGame() throws InvalidMapGen {
     }
 }
 ~~~
+No nosso projeto, o pattern Factory foi utilizado para a instanciação fácil de objetos dos tipos `Cell` e `Enemy`. Criamos, portanto, duas factories, a `CellFactory` e a `EnemyFactory`, com os métodos `getCell()` e `getEnemy()`, respectivamente. Esses métodos, a partir dos parâmetros passados, retornam objetos da classe apropriada. Essas factories são chamadas pela classe `GameBuilder`, no método `loadGame()`, e são utilizadas para montar as matrizes de células e de inimigos que farão parte do mapa a ser construído pela `GameBuilder`.
+
+Dessa forma, a `GameBuilder` atua como cliente de ambas as factories, cujos produtos são ou objetos do tipo `Cell` ou objetos do tipo `Enemy`.
 
 ## Pattern Builder
 ### Diagrama do Pattern
@@ -223,7 +226,11 @@ public Window(String levelPath){
 	}
 }
 ~~~
+No nosso projeto, o pattern Builder foi implementado na construção do jogo. Temos a classe `GameBuilder`, que, a partir do caminho de um arquivo .csv, constrói um objeto `Map` e um objeto `Bravia` de acordo com a especificação do arquivo.
 
+Ao ser instanciado, em seu construtor, o `GameBuilder` chama seu método `loadGame()` e depois seu método `buildGame()`. O primeiro é responsável por processar as informações do arquivo .csv e criar as matrizes que compõem o mapa. O segundo faz a montagem propriamente dita, tanto do mapa quanto da Bravia, para que eles possam ser depois retornados pelos métodos `getMap()` e `getBravia()`, que são chamados pela classe `Window` durante o processo de inicialização da fase.
+
+Assim, a `Window` atua como cliente para o `GameBuilder` e o `Map` e a `Bravia` são os produtos sendo construídos.
 
 # Conclusões e Trabalhos Futuros
 No geral, foi uma experiência muito interessante construir esse jogo porque nos deparamos com problemas que simplesmente não aparecem em projetos menores. Estávamos constantemente nos preocupando em tornar nosso trabalho no futuro mais fácil, e projetar o código de forma que fosse o mais simples possível adicionar novas funcionalidades e fazer alterações em coisas já existentes, o que vai bastante de acordo com a premissa do curso de orientação a objetos. Pensar no jogo em termos de componentes independentes contribuiu bastante para essa facilitação.
