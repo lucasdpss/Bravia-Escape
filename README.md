@@ -42,7 +42,7 @@ acesas, e estarão dentro de uma área cercada por paredes e acessível apenas p
 [![Vídeo da prévia](http://img.youtube.com/vi/I7GSFeWmWMA/0.jpg)](https://youtu.be/I7GSFeWmWMA)
 
 ## Vídeo do Jogo
-[![Vídeo do jogo]()]()
+[![Vídeo do jogo](http://img.youtube.com/vi/ZqNzSi2v9kw/0.jpg)](https://youtu.be/ZqNzSi2v9kw)
 
 # Slides do Projeto
 ## Slides da prévia
@@ -74,11 +74,13 @@ A principal dificuldade durante o desenvolvimento foi decidir detalhes sobre o f
 # Diagramas
 
 ## Diagrama Geral do Projeto
-![Diagrama Geral do Projeto]()
+![Diagrama Geral]()
 
 ## Diagrama Geral de Componentes
-![Diagrama Geral de Componentes]()
 
+![Diagrama 1](assets//docs//geral_1.PNG)
+
+![Diagrama 2](assets//docs//geral_2.PNG)
 
 
 ## Componente `GameBuilder`
