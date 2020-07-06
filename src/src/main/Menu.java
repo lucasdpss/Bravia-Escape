@@ -46,7 +46,7 @@ public class Menu {
 			backgroundImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"menu.png");
 			
 			JButton buttonPlay = new JButton("Jogar");
-			buttonPlay.setBounds(620, 300, 70, 50);
+			buttonPlay.setBounds(620, 300, 100, 50);
 			buttonPlay.setFocusable(false);
 			buttonPlay.addActionListener(new ActionListener() {
 
@@ -60,7 +60,7 @@ public class Menu {
 			});
 
 			JButton buttonExit = new JButton("Sair");
-			buttonExit.setBounds(620, 300 + 70, 70, 50);
+			buttonExit.setBounds(620, 300 + 70, 100, 50);
 			buttonExit.setFocusable(false);
 			buttonExit.addActionListener(new ActionListener() {
 
@@ -103,7 +103,7 @@ public class Menu {
 			setLayout(null);
 			
 			JButton buttonContinue = new JButton("Continuar");
-			buttonContinue.setBounds(620, 540, 110, 50);
+			buttonContinue.setBounds(620, 540, 115, 50);
 			buttonContinue.addActionListener(new ActionListener() {
 
 				@Override

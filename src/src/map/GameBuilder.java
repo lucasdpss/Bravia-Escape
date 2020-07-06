@@ -93,7 +93,7 @@ public class GameBuilder implements IGameCreator{
 
 				for(int j=0; j < this.mapWidth; j++) {
 					String objectID = lineSplit[j];
-					if(objectID == "Ex") exit = true;
+					if(objectID.charAt(0) == 'E') exit = true;
 					mapText[i][j] = objectID;
 					mapEnemy[i][j] = enemyFactory.getEnemy(objectID, mapGenerated, i, j);
 					mapCell[i][j] = cellFactory.getCell(objectID, window, mapGenerated, i, j);
