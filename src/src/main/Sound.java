@@ -65,10 +65,12 @@ public class Sound {
 	
 	public void mute() {
 		muteControl.setValue(true);
+		clip.flush();
 	}
 	
 	public void unmute() {
 		muteControl.setValue(false);
+		clip.flush();
 	}
 	
 	public static void setMutedGame(boolean muted) {

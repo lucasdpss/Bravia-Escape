@@ -22,7 +22,7 @@ public class Menu {
 	public Menu() {
 		backgroundSound = new Sound("assets" + File.separatorChar + "sounds" + File.separatorChar + "MenuMusic.wav");
 		
-		frame = new JFrame("Menu Bravia Escape");
+		frame = new JFrame("Bravia Escape");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1320, 660);
 		frame.setResizable(false);
@@ -31,6 +31,20 @@ public class Menu {
 		instructionsPanel = new InstructionsPanel();
 		menuPanel = new MenuPanel();
 		frame.add(menuPanel);
+
+		frame.setVisible(true);
+		backgroundSound.playContinuously();
+	}
+	
+	public Menu(JFrame frameReceived) {
+		backgroundSound = new Sound("assets" + File.separatorChar + "sounds" + File.separatorChar + "MenuMusic.wav");
+		
+		frame = frameReceived;
+		
+		instructionsPanel = new InstructionsPanel();
+		menuPanel = new MenuPanel();
+		frame.add(menuPanel);
+		menuPanel.requestFocus();
 
 		frame.setVisible(true);
 		backgroundSound.playContinuously();
@@ -54,7 +68,6 @@ public class Menu {
 				public void actionPerformed(ActionEvent e) {
 					frame.remove(menuPanel);
 					frame.add(instructionsPanel);
-					instructionsPanel.add(Sound.getSoundButton(backgroundSound));
 					SwingUtilities.updateComponentTreeUI(frame);
 				}
 			});
@@ -109,11 +122,12 @@ public class Menu {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					backgroundSound.stop();
-					frame.dispose();
-					new Window("stages//level1.csv");
+					frame.remove(instructionsPanel);
+					new Window(frame, "stages//level1.csv");
 				}
 			});
 			add(buttonContinue);
+			add(Sound.getSoundButton(backgroundSound));
 		}
 
 		public void paintComponent(Graphics g) {

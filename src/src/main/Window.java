@@ -35,7 +35,7 @@ public class Window implements ILevelController{
 	private Image inventoryKeysImage;
 	private String levelPath;
 
-	public Window(String levelPath) {
+	public Window(JFrame frameReceived, String levelPath) {
 		this.levelPath = levelPath;
 		backgroundImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"fundo.png");
 		shadowImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"shadow.gif"); 
@@ -43,15 +43,12 @@ public class Window implements ILevelController{
 		inventoryKeysImage = Toolkit.getDefaultToolkit().getImage("assets"+File.separatorChar+"graphics"+File.separatorChar+"keys_pocket.png");
 
 		/*** Janela da aplicacao tera um tamanho fixo ***/
-		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1320, 660);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
+		frame = frameReceived;
 
 		/*** Todos os elementos serao posicionados de forma absoluta ***/
 		panel = new PanelWindow();
 		frame.add(panel);
+		panel.requestFocus();
 		
 		/*** Cria os elementos do jogo ***/
 		IGameCreator gameCreator;
@@ -80,14 +77,14 @@ public class Window implements ILevelController{
 		int numberOfStages = f.list().length;
 		if(currentLevel >= numberOfStages) {
 			backgroundSound.stop();
-			frame.dispose(); // fechar a janela atual
-			new Menu();
+			frame.remove(panel);
+			new Menu(frame);
 			return;
 		}
 		String nextLevel = "stages//level" + String.valueOf(currentLevel + 1) + ".csv";
 		backgroundSound.stop();
-		frame.dispose(); // fechar a janela atual
-		new Window(nextLevel);
+		frame.remove(panel);
+		new Window(frame,nextLevel);
 	}
 
 	/*** Classe da Panel usada em toda a extensao da janela ***/
