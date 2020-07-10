@@ -20,8 +20,12 @@ public class Menu {
 	private InstructionsPanel instructionsPanel;
 
 	public Menu() {
+		/*** Configuracao do som ***/
+		Sound.clearSoundArray();
 		backgroundSound = new Sound("assets" + File.separatorChar + "sounds" + File.separatorChar + "MenuMusic.wav");
+		Sound.addSoundToArray(backgroundSound);
 		
+		/*** Configuracao da janela ***/
 		frame = new JFrame("Bravia Escape");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1320, 660);
@@ -31,13 +35,17 @@ public class Menu {
 		instructionsPanel = new InstructionsPanel();
 		menuPanel = new MenuPanel();
 		frame.add(menuPanel);
+		menuPanel.requestFocus();
 
 		frame.setVisible(true);
 		backgroundSound.playContinuously();
 	}
 	
 	public Menu(JFrame frameReceived) {
+		/*** Configuracao do som ***/
+		Sound.clearSoundArray();
 		backgroundSound = new Sound("assets" + File.separatorChar + "sounds" + File.separatorChar + "MenuMusic.wav");
+		Sound.addSoundToArray(backgroundSound);
 		
 		frame = frameReceived;
 		
@@ -83,7 +91,7 @@ public class Menu {
 				}
 			});
 			
-			add(Sound.getSoundButton(backgroundSound));
+			add(Sound.getSoundButton());
 			add(buttonPlay);
 			add(buttonExit);
 		}
@@ -127,7 +135,7 @@ public class Menu {
 				}
 			});
 			add(buttonContinue);
-			add(Sound.getSoundButton(backgroundSound));
+			add(Sound.getSoundButton());
 		}
 
 		public void paintComponent(Graphics g) {
